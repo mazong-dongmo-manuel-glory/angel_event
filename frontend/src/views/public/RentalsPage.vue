@@ -1,15 +1,14 @@
 <template>
   <div class="rentals-page">
-    <div class="hero-section">
-      <div class="hero-content">
-        <h1>Nos Articles en Location</h1>
-        <p>Sublimez votre événement avec notre sélection d'articles</p>
+    <Header />
+    <div class="container rentals-container">
+      <div class="rentals-header fade-in-up">
+        <h1 class="font-script text-gold">Nos Articles en Location</h1>
+        <p class="subtitle">Sublimez votre événement avec notre sélection d'articles</p>
       </div>
-    </div>
 
-    <div class="container">
       <!-- Filters -->
-      <div class="filters">
+      <div class="filters fade-in-up">
         <button 
           v-for="cat in categories" 
           :key="cat.value" 
@@ -28,7 +27,7 @@
 
       <!-- Items Grid -->
       <div v-else class="items-grid">
-        <div v-for="item in filteredItems" :key="item.id" class="rental-card">
+        <div v-for="item in filteredItems" :key="item.id" class="rental-card fade-in-up">
           <div class="card-image">
             <img :src="item.image_url" :alt="item.title" loading="lazy" />
             <span v-if="item.featured" class="tag featured">Coup de ❤️</span>
@@ -51,15 +50,16 @@
         <p>Aucun article trouvé dans cette catégorie.</p>
       </div>
     </div>
+    <Footer />
   </div>
 </template>
-
-
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import api from '../../services/api'
 import { useRouter } from 'vue-router'
+import Header from '../../components/Header.vue'
+import Footer from '../../components/Footer.vue'
 
 const router = useRouter()
 const items = ref([])
@@ -85,8 +85,11 @@ function formatPrice(price) {
 
 function contactForItem(item) {
   router.push({
-    name: 'Booking',
-    query: { rental_item_id: item.id }
+    name: 'contact',
+    query: { 
+      rental_item_name: item.title,
+      rental_item_id: item.id
+    }
   })
 }
 
@@ -110,51 +113,46 @@ onMounted(() => {
 <style scoped>
 .rentals-page {
   min-height: 100vh;
-  background-color: var(--color-background);
+  background-color: var(--color-ivory);
 }
 
-.hero-section {
-  background-color: var(--color-black);
-  color: white;
-  padding: 6rem 2rem 4rem;
+.rentals-container {
+  padding: calc(80px + var(--spacing-5xl)) 0 var(--spacing-5xl);
+}
+
+.rentals-header {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: var(--spacing-4xl);
 }
 
-.hero-content h1 {
-  font-family: var(--font-heading);
-  font-size: 3.5rem;
-  margin-bottom: 1rem;
-  color: var(--color-gold);
+.rentals-header h1 {
+  font-size: var(--font-size-5xl);
+  margin-bottom: var(--spacing-md);
 }
 
-.hero-content p {
-  font-size: 1.2rem;
-  color: rgba(255, 255, 255, 0.8);
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem 4rem;
+.subtitle {
+  font-size: var(--font-size-xl);
+  color: var(--color-gray);
 }
 
 .filters {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 1rem;
-  margin-bottom: 3rem;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-4xl);
 }
 
 .filters button {
-  padding: 0.8rem 1.5rem;
-  border: 1px solid #ddd;
+  padding: var(--spacing-sm) var(--spacing-xl);
+  border: 1px solid var(--color-border);
   background: white;
-  border-radius: 50px;
+  border-radius: var(--radius-full);
   cursor: pointer;
-  font-family: var(--font-body);
-  transition: all 0.3s ease;
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-medium);
+  transition: all var(--transition-base);
+  color: var(--color-gray);
 }
 
 .filters button.active,
@@ -162,36 +160,43 @@ onMounted(() => {
   background: var(--color-gold);
   color: white;
   border-color: var(--color-gold);
+  transform: translateY(-2px);
 }
 
 .items-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 2rem;
+  gap: var(--spacing-xl);
 }
 
 .rental-card {
   background: white;
-  border-radius: 12px;
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  transition: transform 0.3s ease;
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
 }
 
 .rental-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  box-shadow: var(--shadow-xl);
 }
 
 .card-image {
   position: relative;
   aspect-ratio: 4/3;
+  overflow: hidden;
 }
 
 .card-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.rental-card:hover .card-image img {
+  transform: scale(1.05);
 }
 
 .tag {
@@ -199,7 +204,7 @@ onMounted(() => {
   top: 1rem;
   right: 1rem;
   padding: 0.4rem 0.8rem;
-  border-radius: 50px;
+  border-radius: var(--radius-full);
   font-size: 0.8rem;
   font-weight: bold;
 }
@@ -207,18 +212,18 @@ onMounted(() => {
 .tag.featured {
   background: white;
   color: #e74c3c;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: var(--shadow-sm);
 }
 
 .card-content {
-  padding: 1.5rem;
+  padding: var(--spacing-lg);
 }
 
 .card-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--spacing-xs);
 }
 
 .card-header h3 {
@@ -226,6 +231,7 @@ onMounted(() => {
   font-size: 1.2rem;
   margin: 0;
   color: var(--color-charcoal);
+  font-weight: var(--font-weight-semibold);
 }
 
 .price {
@@ -238,33 +244,34 @@ onMounted(() => {
   color: var(--color-gray);
   font-size: 0.9rem;
   line-height: 1.5;
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--spacing-lg);
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
 .contact-btn {
   width: 100%;
-  padding: 0.8rem;
+  padding: var(--spacing-md);
   background: var(--color-black);
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: background var(--transition-base);
   font-weight: 500;
+  font-family: var(--font-sans);
 }
 
 .contact-btn:hover {
-  background: #333;
+  background: var(--color-charcoal);
 }
 
 .loading-state,
 .empty-state {
   text-align: center;
-  padding: 4rem 0;
+  padding: var(--spacing-4xl) 0;
   color: var(--color-gray);
 }
 
@@ -282,9 +289,25 @@ onMounted(() => {
   to { transform: rotate(360deg); }
 }
 
+.fade-in-up {
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (max-width: 768px) {
-  .hero-content h1 {
+  .rentals-header h1 {
     font-size: 2.5rem;
   }
 }
 </style>
+

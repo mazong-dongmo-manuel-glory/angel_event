@@ -217,8 +217,7 @@
                     <span>Budget total:</span>
                     <strong>{{ formData.budget }} CAD</strong>
                   </div>
-                    <strong>{{ formData.budget }} CAD</strong>
-                  </div>
+
                   
                   <div v-if="selectedRentalItem" class="payment-row">
                     <span>Article ({{ selectedRentalItem.title }}):</span>
@@ -343,6 +342,27 @@ function prevStep() {
     currentStep.value--
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
+}
+
+function formatDate(date) {
+  if (!date) return ''
+  return new Date(date).toLocaleDateString('fr-CA', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  })
+}
+
+function getEventTypeLabel(type) {
+  const types = {
+    proposal: '💍 Demande en mariage',
+    wedding: '💐 Mariage',
+    birthday: '🎂 Anniversaire',
+    baby_shower: '👶 Baby Shower',
+    corporate: '🏢 Événement corporatif',
+    other: '✨ Autre'
+  }
+  return types[type] || type
 }
 
 async function handleSubmit() {

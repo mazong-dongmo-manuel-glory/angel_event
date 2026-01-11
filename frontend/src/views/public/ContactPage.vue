@@ -114,7 +114,8 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
 import Header from '../../components/Header.vue'
 import Footer from '../../components/Footer.vue'
 import Button from '../../components/ui/Button.vue'
@@ -134,6 +135,14 @@ const submitted = ref(false)
 const newsletterEmail = ref('')
 const newsletterLoading = ref(false)
 const newsletterSubmitted = ref(false)
+
+const route = useRoute()
+
+onMounted(() => {
+  if (route.query.rental_item_name) {
+    formData.value.message = `Bonjour,\n\nJe suis intéressé(e) par la location de l'article suivant : "${route.query.rental_item_name}".\n\nPouvez-vous me donner plus d'informations sur sa disponibilité ?\n\nMerci.`
+  }
+})
 
 async function handleSubmit() {
   loading.value = true
