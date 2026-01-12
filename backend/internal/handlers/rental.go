@@ -18,9 +18,14 @@ func GetRentalItems(c *fiber.Ctx) error {
 	var items []models.RentalItem
 	query := database.DB
 
-	// Filter by category
-	if category := c.Query("category"); category != "" {
-		query = query.Where("category = ?", category)
+	// Filter by category_id
+	if categoryID := c.Query("category_id"); categoryID != "" {
+		query = query.Where("category_id = ?", categoryID)
+	}
+
+	// Filter by category slug
+	if categorySlug := c.Query("category"); categorySlug != "" {
+		query = query.Joins("Category").Where("Category.slug = ?", categorySlug)
 	}
 
 	// Featured only
@@ -28,13 +33,36 @@ func GetRentalItems(c *fiber.Ctx) error {
 		query = query.Where("featured = ?", true)
 	}
 
-	if err := query.Order("created_at DESC").Find(&items).Error; err != nil {
+	if err := query.Preload("Category").Order("created_at DESC").Find(&items).Error; err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"error": "Failed to fetch rental items",
 		})
 	}
 
+	// Fill in default images if empty
+	for i := range items {
+		if items[i].ImageURL == "" {
+			items[i].ImageURL = getDefaultRentalImage(string(items[i].CategoryEnum))
+		}
+	}
+
 	return c.JSON(items)
+}
+
+// getDefaultRentalImage returns the default image for a rental category
+func getDefaultRentalImage(category string) string {
+	defaults := map[string]string{
+		"default":     "/storage/location/Arche%20semi%20waves.jpeg",
+		"centerpiece": "/storage/location/Centre%20de%20table%20mariage.jpeg",
+		"backdrop":    "/storage/location/Support%20toile.jpeg",
+		"flower":      "/storage/location/Fleur%20blanche%20champagne.jpeg",
+		"other":       "/storage/location/Chaise%20chiavari.jpeg",
+	}
+
+	if img, ok := defaults[category]; ok {
+		return img
+	}
+	return defaults["default"] // Fallback
 }
 
 // CreateRentalItem creates a new rental item with image upload
@@ -86,15 +114,19 @@ func CreateRentalItem(c *fiber.Ctx) error {
 	// Parse price
 	price, _ := strconv.ParseFloat(c.FormValue("price"), 64)
 
+	// Parse category_id
+	categoryID, _ := strconv.Atoi(c.FormValue("category_id"))
+
 	// Create database record
 	item := models.RentalItem{
-		Title:       c.FormValue("title"),
-		Description: c.FormValue("description"),
-		Category:    models.RentalCategory(c.FormValue("category")),
-		Price:       price,
-		ImageURL:    "/uploads/rentals/" + filename,
-		Featured:    c.FormValue("featured") == "true",
-		Available:   true,
+		Title:        c.FormValue("title"),
+		Description:  c.FormValue("description"),
+		CategoryID:   uint(categoryID),
+		CategoryEnum: models.RentalCategoryOther, // Satisfy legacy constraint
+		Price:        price,
+		ImageURL:     "/uploads/rentals/" + filename,
+		Featured:     c.FormValue("featured") == "true",
+		Available:    true,
 	}
 
 	if err := database.DB.Create(&item).Error; err != nil {
@@ -131,8 +163,9 @@ func UpdateRentalItem(c *fiber.Ctx) error {
 	if desc := c.FormValue("description"); desc != "" {
 		updateData["description"] = desc
 	}
-	if cat := c.FormValue("category"); cat != "" {
-		updateData["category"] = cat
+	if catIDStr := c.FormValue("category_id"); catIDStr != "" {
+		catID, _ := strconv.Atoi(catIDStr)
+		updateData["category_id"] = uint(catID)
 	}
 	if priceStr := c.FormValue("price"); priceStr != "" {
 		price, _ := strconv.ParseFloat(priceStr, 64)

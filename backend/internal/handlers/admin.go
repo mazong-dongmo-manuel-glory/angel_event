@@ -368,6 +368,71 @@ func SendNewsletter(c *fiber.Ctx) error {
 	})
 }
 
+// UpdateNewsletterSubscriber updates a newsletter subscriber (admin)
+func UpdateNewsletterSubscriber(c *fiber.Ctx) error {
+	id, err := strconv.Atoi(c.Params("id"))
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": "Invalid subscriber ID",
+		})
+	}
+
+	var subscriber models.Newsletter
+	if err := database.DB.First(&subscriber, id).Error; err != nil {
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
+			"error": "Subscriber not found",
+		})
+	}
+
+	type UpdateRequest struct {
+		Active *bool  `json:"active"`
+		Name   string `json:"name"`
+	}
+
+	var req UpdateRequest
+	if err := c.BodyParser(&req); err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": "Invalid request body",
+		})
+	}
+
+	// Update fields if provided
+	if req.Active != nil {
+		subscriber.Active = *req.Active
+	}
+	if req.Name != "" {
+		subscriber.Name = req.Name
+	}
+
+	if err := database.DB.Save(&subscriber).Error; err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"error": "Failed to update subscriber",
+		})
+	}
+
+	return c.JSON(subscriber)
+}
+
+// DeleteNewsletterSubscriber deletes a newsletter subscriber (admin)
+func DeleteNewsletterSubscriber(c *fiber.Ctx) error {
+	id, err := strconv.Atoi(c.Params("id"))
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": "Invalid subscriber ID",
+		})
+	}
+
+	if err := database.DB.Delete(&models.Newsletter{}, id).Error; err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"error": "Failed to delete subscriber",
+		})
+	}
+
+	return c.JSON(fiber.Map{
+		"message": "Subscriber deleted successfully",
+	})
+}
+
 // Gallery handlers
 
 // GetGalleryImages returns gallery images
@@ -624,13 +689,13 @@ func GetGalleryCategories(c *fiber.Ctx) error {
 
 	// Get count for each category
 	categories := []models.GalleryCategory{
+		models.CategoryWedding,
+		models.CategoryMarryMe,
+		models.CategoryBirthday,
 		models.CategoryBabyShower,
 		models.CategoryBapteme,
-		models.CategoryBirthday,
-		models.CategoryCongrats,
 		models.CategoryLoveroom,
-		models.CategoryMarryMe,
-		models.CategoryWedding,
+		models.CategoryCongrats,
 	}
 
 	for _, cat := range categories {

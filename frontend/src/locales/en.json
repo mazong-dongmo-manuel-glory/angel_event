@@ -1,0 +1,358 @@
+{
+    "footer": {
+        "desc": "Creating the perfect moment with elegance and passion.",
+        "explore": "EXPLORE",
+        "contact": "CONTACT",
+        "newsletter": "NEWSLETTER",
+        "newsletter_desc": "Stay inspired",
+        "email_placeholder": "Your email",
+        "subscribe": "Subscribe",
+        "rights_reserved": "All rights reserved.",
+        "legal": "Legal Mentions",
+        "privacy": "Privacy",
+        "made_by": "Realized by",
+        "subscribe_success": "Thanks for subscribing!",
+        "subscribe_error": "Newsletter subscription failed"
+    },
+    "nav": {
+        "home": "HOME",
+        "about": "ABOUT",
+        "services": "SERVICES",
+        "gallery": "GALLERY",
+        "rentals": "RENTALS",
+        "testimonials": "TESTIMONIALS",
+        "contact": "CONTACT",
+        "book": "BOOK",
+        "book_now": "BOOK NOW",
+        "tagline": "EVENT PLANNING"
+    },
+    "home": {
+        "hero": {
+            "pretitle": "LUXURY EVENT PLANNING",
+            "title": "Creating Unforgettable Moments",
+            "subtitle": "We transform your dreams into reality with elegance and precision.",
+            "cta": "DISCOVER OUR SERVICES"
+        },
+        "welcome": {
+            "title": "Welcome to Angel Event",
+            "text": "We specialize in creating unique and memorable events, custom-designed to reflect your style and personality.",
+            "signature": "The Angel Event Team"
+        },
+        "services": {
+            "wedding": {
+                "title": "Weddings",
+                "description": "Complete planning for your big day."
+            },
+            "corporate": {
+                "title": "Corporate",
+                "description": "Professional events that leave a mark."
+            },
+            "celebrations": {
+                "title": "Celebrations",
+                "description": "Birthdays, engagements, and more."
+            },
+            "more": "LEARN MORE"
+        },
+        "quote": {
+            "text": "Every detail matters to create perfection.",
+            "author": "Founder"
+        }
+    },
+    "about": {
+        "hero": {
+            "title": "Our Story",
+            "subtitle": "Passionate about the art of celebration"
+        },
+        "story": {
+            "title": "Who are we?",
+            "p1": "Angel Event was born from a passion for the art of hosting and celebrating life's important moments.",
+            "p2": "We believe in the magic of details and the importance of creating lasting memories for our clients.",
+            "p3": "Your satisfaction is our absolute priority, and we strive to exceed your expectations."
+        },
+        "values": {
+            "title": "Our Values",
+            "excellence": {
+                "title": "Excellence",
+                "desc": "We aim for perfection in every detail."
+            },
+            "passion": {
+                "title": "Passion",
+                "desc": "We love what we do and it shows."
+            },
+            "custom": {
+                "title": "Bespoke",
+                "desc": "Every event is unique, just like you."
+            },
+            "trust": {
+                "title": "Trust",
+                "desc": "We are your trusted partner."
+            }
+        },
+        "why": {
+            "title": "Why choose us?",
+            "exp": {
+                "title": "Experience",
+                "desc": "Years of expertise at your service."
+            },
+            "turnkey": {
+                "title": "Turnkey",
+                "desc": "We take care of everything for your peace of mind."
+            },
+            "detail": {
+                "title": "Attention to Detail",
+                "desc": "Nothing is left to chance."
+            },
+            "network": {
+                "title": "Network",
+                "desc": "Access to the industry's best vendors."
+            }
+        },
+        "cta": {
+            "title": "Ready to start?",
+            "subtitle": "Contact us today to plan your event.",
+            "book": "BOOK NOW",
+            "contact": "CONTACT US"
+        }
+    },
+    "services_page": {
+        "hero": {
+            "title": "Our Services",
+            "subtitle": "A complete offer for all your event needs"
+        },
+        "list": {
+            "cta": "BOOK THIS SERVICE",
+            "proposal": {
+                "title": "Marriage Proposal",
+                "desc": "The beginning of your love story deserves a magical setting.",
+                "f1": "Romantic location scouting",
+                "f2": "Luxury floral decoration",
+                "f3": "Professional photographer",
+                "f4": "Musical ambiance",
+                "f5": "On-site coordination",
+                "f6": "Champagne and celebration"
+            },
+            "decor": {
+                "title": "Decoration & Design",
+                "desc": "Enhance your venue with our event design expertise.",
+                "f1": "Floral arches",
+                "f2": "Centerpieces",
+                "f3": "Ambient lighting",
+                "f4": "Drapery and textiles",
+                "f5": "Event furniture",
+                "f6": "Table accessories"
+            },
+            "planning": {
+                "title": "Full Planning",
+                "desc": "Enjoy your event with total peace of mind, we handle everything.",
+                "f1": "Budget management",
+                "f2": "Detailed timeline",
+                "f3": "Vendor selection",
+                "f4": "Day-of coordination",
+                "f5": "Rigorous follow-up",
+                "f6": "Expert advice"
+            }
+        },
+        "process": {
+            "title": "Our Process",
+            "subtitle": "A simple and transparent approach",
+            "s1": {
+                "title": "Consultation",
+                "desc": "We discuss your needs and vision."
+            },
+            "s2": {
+                "title": "Proposal",
+                "desc": "We create a custom plan for your event."
+            },
+            "s3": {
+                "title": "Planning",
+                "desc": "We orchestrate every detail with care."
+            },
+            "s4": {
+                "title": "Realization",
+                "desc": "On the day, we are there to manage everything. You enjoy!"
+            }
+        },
+        "cta": {
+            "title": "Have a project in mind?",
+            "subtitle": "Let's talk and make it real!",
+            "quote": "GET A QUOTE",
+            "contact": "CONTACT"
+        }
+    },
+    "gallery": {
+        "title": "Our Gallery",
+        "subtitle": "Get inspired by our past realizations",
+        "next": "Load more",
+        "empty": "No images for now in this category.",
+        "prev": "Previous",
+        "categories": {
+            "baby_shower": "Baby Shower",
+            "bapteme": "Baptism",
+            "birthday": "Birthday",
+            "congrats": "Congratulations",
+            "loveroom": "Love Room",
+            "marryme": "Marriage Proposal",
+            "wedding": "Wedding"
+        }
+    },
+    "rentals_public": {
+        "title": "Decor Rentals",
+        "subtitle": "Everything you need to enhance your event",
+        "categories": {
+            "all": "View All"
+        },
+        "loading": "Loading items...",
+        "featured": "Popular",
+        "book_btn": "Book this item",
+        "empty": "No rental items found."
+    },
+    "contact": {
+        "title": "Contact Us",
+        "subtitle": "We are here to answer all your questions",
+        "info": {
+            "email": "Email",
+            "phone": "Phone",
+            "whatsapp": "WhatsApp",
+            "chat": "Chat Now"
+        },
+        "form": {
+            "name": "Full Name *",
+            "name_ph": "Your name",
+            "email": "Email *",
+            "email_ph": "your@email.com",
+            "phone": "Phone",
+            "phone_ph": "+1 (555) 123-4567",
+            "message": "Message *",
+            "message_ph": "How can we help you?",
+            "sending": "Sending...",
+            "submit": "Send Message",
+            "success_title": "Message Sent!",
+            "success_msg": "Thank you for contacting us. We will reply as soon as possible.",
+            "reset": "Send another message",
+            "rental_interest": "Hello,\n\nI am interested in renting the following item: \"{item}\".\n\nCould you please provide more information on its availability?\n\nThank you."
+        },
+        "newsletter": {
+            "title": "Stay Informed",
+            "text": "Subscribe to our newsletter to receive our latest creations and exclusive offers",
+            "placeholder": "Your email",
+            "submit": "Subscribe",
+            "success": "✓ Thanks! You are now subscribed to our newsletter."
+        }
+    },
+    "testimonials": {
+        "title": "Testimonials",
+        "subtitle": "What our clients say about us",
+        "prompt": "Have you worked with us?",
+        "cta": "Share your experience",
+        "loading": "Loading testimonials...",
+        "modal": {
+            "title": "Share your testimonial",
+            "name": "Your name *",
+            "type": "Event Type",
+            "rating": "Rating *",
+            "content": "Your testimonial *",
+            "content_ph": "Share your experience with Angel Event...",
+            "success_msg": "Thank you for your testimonial! It will be published after moderation.",
+            "cancel": "Cancel",
+            "submit": "Submit",
+            "close": "Close"
+        },
+        "types": {
+            "proposal": "Marriage Proposal",
+            "wedding": "Wedding",
+            "birthday": "Birthday",
+            "baby_shower": "Baby Shower",
+            "corporate": "Corporate Event",
+            "other": "Other"
+        }
+    },
+    "booking": {
+        "title": "Book Your Event",
+        "subtitle": "Let's create an unforgettable moment together",
+        "steps": {
+            "date": "Date",
+            "event": "Event",
+            "details": "Details",
+            "confirm": "Confirm"
+        },
+        "step1": {
+            "title": "Choose your event date",
+            "subtitle": "Dates in green are available for booking",
+            "continue": "Continue"
+        },
+        "step2": {
+            "title": "Event Details",
+            "type": "Event Type *",
+            "select": "Select...",
+            "guests": "Guest Count",
+            "location": "Event Location",
+            "location_ph": "City or Address",
+            "budget": "Approx. Budget (CAD) *",
+            "deposit": "💰 Required Deposit: {amount} CAD (30% of budget)",
+            "vision": "Describe your vision",
+            "vision_ph": "Tell us about your dream event..."
+        },
+        "step3": {
+            "title": "Your Contact Info",
+            "name": "Full Name *",
+            "email": "Email *",
+            "phone": "Phone",
+            "special": "Special Requests",
+            "special_ph": "Allergies, preferences, constraints..."
+        },
+        "step4": {
+            "title": "Booking Summary",
+            "section_date": "📅 Date & Event",
+            "section_contact": "👤 Contact Info",
+            "section_payment": "💳 Payment",
+            "total": "Total Budget:",
+            "item_prefix": "Item",
+            "note": "🔒 Your booking will be confirmed via email.",
+            "processing": "Processing...",
+            "confirm": "Confirm Booking"
+        },
+        "success": {
+            "title": "Booking Confirmed!",
+            "msg1": "Thank you for your trust. We have received your booking and payment.",
+            "msg2": "A confirmation email has been sent to {email}.",
+            "msg3": "Our team will contact you shortly to finalize the details.",
+            "home": "Back to Home"
+        }
+    },
+    "admin": {
+        "rental": {
+            "title": "Rental Management",
+            "add_item": "Add Item",
+            "search_placeholder": "Search...",
+            "all_categories": "All Categories",
+            "loading": "Loading...",
+            "edit": "Edit",
+            "delete": "Delete",
+            "featured": "Featured",
+            "unavailable": "Unavailable",
+            "modal_title_edit": "Edit Item",
+            "modal_title_new": "New Item",
+            "form": {
+                "image": "Image",
+                "current_image": "Current Image",
+                "change_image": "Change Image",
+                "title": "Title",
+                "price": "Price",
+                "category": "Category",
+                "choose_category": "Choose Category",
+                "description": "Description",
+                "make_featured": "Make Featured",
+                "available": "Available"
+            },
+            "cancel": "Cancel",
+            "saving": "Saving...",
+            "save": "Save",
+            "category_error": "Error loading categories",
+            "load_error": "Error loading items",
+            "image_required": "Image is required",
+            "save_error": "Error while saving",
+            "delete_confirm": "Are you sure you want to delete this item?",
+            "delete_error": "Error while deleting"
+        }
+    }
+}

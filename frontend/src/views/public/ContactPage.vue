@@ -2,72 +2,72 @@
   <div class="contact-page">
     <Header />
     <div class="container container-narrow contact-container">
-      <div class="contact-header fade-in-up">
-        <h1 class="font-script text-gold">Contactez-nous</h1>
-        <p class="subtitle">Nous sommes là pour répondre à toutes vos questions</p>
+      <div class="contact-header">
+        <h1 class="font-script text-gold">{{ t('contact.title') }}</h1>
+        <p class="subtitle">{{ t('contact.subtitle') }}</p>
       </div>
 
       <div class="contact-content">
-        <div class="contact-info fade-in-up">
+        <div class="contact-info">
           <div class="info-card">
             <div class="info-icon">📧</div>
-            <h3>Email</h3>
+            <h3>{{ t('contact.info.email') }}</h3>
             <p><a href="mailto:contact@angelevent.com">contact@angelevent.com</a></p>
           </div>
           <div class="info-card">
             <div class="info-icon">📱</div>
-            <h3>Téléphone</h3>
+            <h3>{{ t('contact.info.phone') }}</h3>
             <p><a href="tel:+15551234567">+1 (555) 123-4567</a></p>
           </div>
           <div class="info-card">
             <div class="info-icon">💬</div>
-            <h3>WhatsApp</h3>
-            <p><a href="https://wa.me/15551234567" target="_blank">Discuter maintenant</a></p>
+            <h3>{{ t('contact.info.whatsapp') }}</h3>
+            <p><a href="https://wa.me/15551234567" target="_blank">{{ t('contact.info.chat') }}</a></p>
           </div>
         </div>
 
-        <div class="contact-form-container fade-in-up">
+        <div class="contact-form-container">
           <form v-if="!submitted" @submit.prevent="handleSubmit" class="contact-form">
             <div class="form-group">
-              <label for="name">Nom complet *</label>
+              <label for="name">{{ t('contact.form.name') }}</label>
               <input
                 id="name"
                 v-model="formData.name"
                 type="text"
                 required
-                placeholder="Votre nom"
+                :placeholder="t('contact.form.name_ph')"
               />
             </div>
 
             <div class="form-group">
-              <label for="email">Email *</label>
+              <label for="email">{{ t('contact.form.email') }}</label>
               <input
                 id="email"
                 v-model="formData.email"
                 type="email"
                 required
-                placeholder="votre@email.com"
+                :placeholder="t('contact.form.email_ph')"
               />
             </div>
 
             <div class="form-group">
-              <label for="phone">Téléphone</label>
+              <label for="phone">{{ t('contact.form.phone') }}</label>
               <input
                 id="phone"
                 v-model="formData.phone"
                 type="tel"
-                placeholder="+1 (555) 123-4567"
+                :placeholder="t('contact.form.phone_ph')"
               />
             </div>
 
             <div class="form-group">
-              <label for="message">Message *</label>
+              <label for="message">{{ t('contact.form.message') }}</label>
               <textarea
                 id="message"
                 v-model="formData.message"
                 rows="6"
                 required
-                placeholder="Comment pouvons-nous vous aider?"
+                :placeholder="t('contact.form.message_ph')"
               ></textarea>
             </div>
 
@@ -76,35 +76,35 @@
             </div>
 
             <Button type="submit" size="lg" :loading="loading" block>
-              {{ loading ? 'Envoi...' : 'Envoyer le message' }}
+              {{ loading ? t('contact.form.sending') : t('contact.form.submit') }}
             </Button>
           </form>
 
           <div v-else class="success-message">
             <div class="success-icon">✓</div>
-            <h3>Message envoyé!</h3>
-            <p>Merci de nous avoir contactés. Nous vous répondrons dans les plus brefs délais.</p>
-            <Button @click="resetForm">Envoyer un autre message</Button>
+            <h3>{{ t('contact.form.success_title') }}</h3>
+            <p>{{ t('contact.form.success_msg') }}</p>
+            <Button @click="resetForm">{{ t('contact.form.reset') }}</Button>
           </div>
         </div>
 
         <!-- Newsletter Signup -->
-        <div class="newsletter-section fade-in-up">
-          <h3>Restez informé</h3>
-          <p>Inscrivez-vous à notre newsletter pour recevoir nos dernières créations et offres exclusives</p>
+        <div class="newsletter-section">
+          <h3>{{ t('contact.newsletter.title') }}</h3>
+          <p>{{ t('contact.newsletter.text') }}</p>
           <form v-if="!newsletterSubmitted" @submit.prevent="handleNewsletterSubmit" class="newsletter-form">
             <input
               v-model="newsletterEmail"
               type="email"
-              placeholder="Votre email"
+              :placeholder="t('contact.newsletter.placeholder')"
               required
             />
             <Button type="submit" :loading="newsletterLoading">
-              S'abonner
+              {{ t('contact.newsletter.submit') }}
             </Button>
           </form>
           <div v-else class="newsletter-success">
-            ✓ Merci! Vous êtes maintenant abonné à notre newsletter.
+            {{ t('contact.newsletter.success') }}
           </div>
         </div>
       </div>
@@ -114,12 +114,15 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import Header from '../../components/Header.vue'
 import Footer from '../../components/Footer.vue'
 import Button from '../../components/ui/Button.vue'
 import api from '../../services/api'
+
+const { t } = useI18n()
 
 const formData = ref({
   name: '',
@@ -138,11 +141,12 @@ const newsletterSubmitted = ref(false)
 
 const route = useRoute()
 
-onMounted(() => {
-  if (route.query.rental_item_name) {
-    formData.value.message = `Bonjour,\n\nJe suis intéressé(e) par la location de l'article suivant : "${route.query.rental_item_name}".\n\nPouvez-vous me donner plus d'informations sur sa disponibilité ?\n\nMerci.`
+// Watch for query params changes (immediate: true handles initial load)
+watch(() => route.query, (newQuery) => {
+  if (newQuery.rental_item_name) {
+    formData.value.message = t('contact.form.rental_interest', { item: newQuery.rental_item_name })
   }
-})
+}, { immediate: true })
 
 async function handleSubmit() {
   loading.value = true
@@ -175,7 +179,7 @@ async function handleNewsletterSubmit() {
   try {
     await api.post('/public/newsletter/subscribe', {
       email: newsletterEmail.value,
-      language: 'fr'
+      language: t.locale.value
     })
     newsletterSubmitted.value = true
     newsletterEmail.value = ''

@@ -57,6 +57,8 @@ const navItems = [
   { path: '/admin/gallery', icon: '🖼️', label: 'Galerie' },
   { path: '/admin/testimonials', icon: '💬', label: 'Témoignages' },
   { path: '/admin/newsletter', icon: '📧', label: 'Newsletter' },
+  { path: '/admin/categories', icon: '🏷️', label: 'Catégories' },
+  { path: '/admin/rentals', icon: '🪑', label: 'Locations' },
   { path: '/admin/content', icon: '✏️', label: 'Contenu' },
 ]
 

@@ -1,0 +1,879 @@
+nohup: ignoring input
+2026/01/11 04:29:17 Database connected successfully
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.033ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type='table' AND name="users"
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.090ms] [34;1m[rows:3][0m SELECT sql FROM sqlite_master WHERE type IN ("table","index") AND tbl_name = "users" AND sql IS NOT NULL order by type = "table" desc
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.089ms] [34;1m[rows:-][0m SELECT * FROM `users` LIMIT 1
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.024ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "index" AND tbl_name = "users" AND name = "idx_users_deleted_at"
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.020ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "index" AND tbl_name = "users" AND name = "idx_users_email"
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.019ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type='table' AND name="clients"
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.111ms] [34;1m[rows:3][0m SELECT sql FROM sqlite_master WHERE type IN ("table","index") AND tbl_name = "clients" AND sql IS NOT NULL order by type = "table" desc
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.022ms] [34;1m[rows:-][0m SELECT * FROM `clients` LIMIT 1
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.023ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "index" AND tbl_name = "clients" AND name = "idx_clients_email"
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.020ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "index" AND tbl_name = "clients" AND name = "idx_clients_deleted_at"
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.017ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type='table' AND name="bookings"
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.059ms] [34;1m[rows:2][0m SELECT sql FROM sqlite_master WHERE type IN ("table","index") AND tbl_name = "bookings" AND sql IS NOT NULL order by type = "table" desc
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.040ms] [34;1m[rows:-][0m SELECT * FROM `bookings` LIMIT 1
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.032ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "table" AND tbl_name = "bookings" AND (sql LIKE "%CONSTRAINT \"fk_clients_bookings\" %" OR sql LIKE "%CONSTRAINT fk_clients_bookings %" OR sql LIKE "%CONSTRAINT `fk_clients_bookings`%" OR sql LIKE "%CONSTRAINT [fk_clients_bookings]%" OR sql LIKE "%CONSTRAINT 	fk_clients_bookings	%")
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.020ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "index" AND tbl_name = "bookings" AND name = "idx_bookings_deleted_at"
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.025ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type='table' AND name="categories"
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.066ms] [34;1m[rows:3][0m SELECT sql FROM sqlite_master WHERE type IN ("table","index") AND tbl_name = "categories" AND sql IS NOT NULL order by type = "table" desc
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.022ms] [34;1m[rows:-][0m SELECT * FROM `categories` LIMIT 1
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.030ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "index" AND tbl_name = "categories" AND name = "idx_categories_deleted_at"
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.022ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "index" AND tbl_name = "categories" AND name = "idx_categories_slug"
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.017ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type='table' AND name="rental_items"
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.068ms] [34;1m[rows:2][0m SELECT sql FROM sqlite_master WHERE type IN ("table","index") AND tbl_name = "rental_items" AND sql IS NOT NULL order by type = "table" desc
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.023ms] [34;1m[rows:-][0m SELECT * FROM `rental_items` LIMIT 1
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.038ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "table" AND tbl_name = "rental_items" AND (sql LIKE "%CONSTRAINT \"fk_rental_items_category\" %" OR sql LIKE "%CONSTRAINT fk_rental_items_category %" OR sql LIKE "%CONSTRAINT `fk_rental_items_category`%" OR sql LIKE "%CONSTRAINT [fk_rental_items_category]%" OR sql LIKE "%CONSTRAINT 	fk_rental_items_category	%")
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.018ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "index" AND tbl_name = "rental_items" AND name = "idx_rental_items_deleted_at"
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.016ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type='table' AND name="booking_rental_items"
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.062ms] [34;1m[rows:1][0m SELECT sql FROM sqlite_master WHERE type IN ("table","index") AND tbl_name = "booking_rental_items" AND sql IS NOT NULL order by type = "table" desc
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.019ms] [34;1m[rows:-][0m SELECT * FROM `booking_rental_items` LIMIT 1
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.027ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "table" AND tbl_name = "booking_rental_items" AND (sql LIKE "%CONSTRAINT \"fk_booking_rental_items_booking\" %" OR sql LIKE "%CONSTRAINT fk_booking_rental_items_booking %" OR sql LIKE "%CONSTRAINT `fk_booking_rental_items_booking`%" OR sql LIKE "%CONSTRAINT [fk_booking_rental_items_booking]%" OR sql LIKE "%CONSTRAINT 	fk_booking_rental_items_booking	%")
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.022ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "table" AND tbl_name = "booking_rental_items" AND (sql LIKE "%CONSTRAINT \"fk_booking_rental_items_rental_item\" %" OR sql LIKE "%CONSTRAINT fk_booking_rental_items_rental_item %" OR sql LIKE "%CONSTRAINT `fk_booking_rental_items_rental_item`%" OR sql LIKE "%CONSTRAINT [fk_booking_rental_items_rental_item]%" OR sql LIKE "%CONSTRAINT 	fk_booking_rental_items_rental_item	%")
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.015ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type='table' AND name="availabilities"
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.070ms] [34;1m[rows:3][0m SELECT sql FROM sqlite_master WHERE type IN ("table","index") AND tbl_name = "availabilities" AND sql IS NOT NULL order by type = "table" desc
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.032ms] [34;1m[rows:-][0m SELECT * FROM `availabilities` LIMIT 1
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.022ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "index" AND tbl_name = "availabilities" AND name = "idx_availabilities_deleted_at"
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.038ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "index" AND tbl_name = "availabilities" AND name = "idx_availabilities_date"
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.017ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type='table' AND name="testimonials"
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.059ms] [34;1m[rows:2][0m SELECT sql FROM sqlite_master WHERE type IN ("table","index") AND tbl_name = "testimonials" AND sql IS NOT NULL order by type = "table" desc
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.022ms] [34;1m[rows:-][0m SELECT * FROM `testimonials` LIMIT 1
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.030ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "table" AND tbl_name = "testimonials" AND (sql LIKE "%CONSTRAINT \"fk_testimonials_client\" %" OR sql LIKE "%CONSTRAINT fk_testimonials_client %" OR sql LIKE "%CONSTRAINT `fk_testimonials_client`%" OR sql LIKE "%CONSTRAINT [fk_testimonials_client]%" OR sql LIKE "%CONSTRAINT 	fk_testimonials_client	%")
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.020ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "index" AND tbl_name = "testimonials" AND name = "idx_testimonials_deleted_at"
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.017ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type='table' AND name="newsletters"
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.092ms] [34;1m[rows:4][0m SELECT sql FROM sqlite_master WHERE type IN ("table","index") AND tbl_name = "newsletters" AND sql IS NOT NULL order by type = "table" desc
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.022ms] [34;1m[rows:-][0m SELECT * FROM `newsletters` LIMIT 1
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.026ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "index" AND tbl_name = "newsletters" AND name = "idx_newsletters_deleted_at"
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.019ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "index" AND tbl_name = "newsletters" AND name = "idx_newsletters_email"
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.018ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "index" AND tbl_name = "newsletters" AND name = "idx_newsletters_unsub_token"
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.017ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type='table' AND name="gallery_images"
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.062ms] [34;1m[rows:2][0m SELECT sql FROM sqlite_master WHERE type IN ("table","index") AND tbl_name = "gallery_images" AND sql IS NOT NULL order by type = "table" desc
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.023ms] [34;1m[rows:-][0m SELECT * FROM `gallery_images` LIMIT 1
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.021ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "index" AND tbl_name = "gallery_images" AND name = "idx_gallery_images_deleted_at"
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.017ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type='table' AND name="site_contents"
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.078ms] [34;1m[rows:3][0m SELECT sql FROM sqlite_master WHERE type IN ("table","index") AND tbl_name = "site_contents" AND sql IS NOT NULL order by type = "table" desc
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.021ms] [34;1m[rows:-][0m SELECT * FROM `site_contents` LIMIT 1
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.043ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "index" AND tbl_name = "site_contents" AND name = "idx_site_contents_deleted_at"
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.018ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "index" AND tbl_name = "site_contents" AND name = "idx_site_contents_key"
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.057ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type='table' AND name="email_logs"
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.085ms] [34;1m[rows:2][0m SELECT sql FROM sqlite_master WHERE type IN ("table","index") AND tbl_name = "email_logs" AND sql IS NOT NULL order by type = "table" desc
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.022ms] [34;1m[rows:-][0m SELECT * FROM `email_logs` LIMIT 1
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:37
+[0m[33m[0.021ms] [34;1m[rows:-][0m SELECT count(*) FROM sqlite_master WHERE type = "index" AND tbl_name = "email_logs" AND name = "idx_email_logs_deleted_at"
+2026/01/11 04:29:17 Database migrated successfully
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:62
+[0m[33m[0.109ms] [34;1m[rows:1][0m SELECT count(*) FROM `users` WHERE `users`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:93
+[0m[33m[0.057ms] [34;1m[rows:1][0m SELECT count(*) FROM `categories` WHERE `categories`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:110
+[0m[33m[0.051ms] [34;1m[rows:1][0m SELECT count(*) FROM `site_contents` WHERE `site_contents`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/database/database.go:149
+[0m[33m[0.050ms] [34;1m[rows:1][0m SELECT count(*) FROM `rental_items` WHERE `rental_items`.`deleted_at` IS NULL
+2026/01/11 04:29:17 Starting storage scan...
+Current working directory: /home/ubuntu/angel_event/backend
+Scanning rentals in relative path: ../storage/location
+Absolute path: /home/ubuntu/angel_event/storage/location
+Found 17 files in rental storage
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:42
+[0m[33m[0.144ms] [34;1m[rows:5][0m SELECT * FROM `categories` WHERE `categories`.`deleted_at` IS NULL
+2026/01/11 04:29:17 Loaded 5 categories for mapping
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:60
+[0m[33m[0.061ms] [34;1m[rows:1][0m SELECT count(*) FROM `rental_items` WHERE image_url = "/storage/location/Arche semi waves.jpeg" AND `rental_items`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:107
+[0m[33m[3.375ms] [34;1m[rows:1][0m INSERT INTO `rental_items` (`created_at`,`updated_at`,`deleted_at`,`title`,`description`,`price`,`category_id`,`category`,`image_url`,`featured`,`available`) VALUES ("2026-01-11 04:29:17.262","2026-01-11 04:29:17.262",NULL,"Arche semi waves","Importé automatiquement depuis le stockage",0,2,"other","/storage/location/Arche semi waves.jpeg",false,true) RETURNING `id`
+2026/01/11 04:29:17 Imported rental item: Arche semi waves
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:60
+[0m[33m[0.070ms] [34;1m[rows:1][0m SELECT count(*) FROM `rental_items` WHERE image_url = "/storage/location/Centre de table mariage-2.jpeg" AND `rental_items`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:107
+[0m[33m[1.479ms] [34;1m[rows:1][0m INSERT INTO `rental_items` (`created_at`,`updated_at`,`deleted_at`,`title`,`description`,`price`,`category_id`,`category`,`image_url`,`featured`,`available`) VALUES ("2026-01-11 04:29:17.265","2026-01-11 04:29:17.265",NULL,"Centre de table mariage 2","Importé automatiquement depuis le stockage",0,1,"other","/storage/location/Centre de table mariage-2.jpeg",false,true) RETURNING `id`
+2026/01/11 04:29:17 Imported rental item: Centre de table mariage 2
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:60
+[0m[33m[0.081ms] [34;1m[rows:1][0m SELECT count(*) FROM `rental_items` WHERE image_url = "/storage/location/Centre de table mariage.jpeg" AND `rental_items`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:107
+[0m[33m[1.374ms] [34;1m[rows:1][0m INSERT INTO `rental_items` (`created_at`,`updated_at`,`deleted_at`,`title`,`description`,`price`,`category_id`,`category`,`image_url`,`featured`,`available`) VALUES ("2026-01-11 04:29:17.267","2026-01-11 04:29:17.267",NULL,"Centre de table mariage","Importé automatiquement depuis le stockage",0,1,"other","/storage/location/Centre de table mariage.jpeg",false,true) RETURNING `id`
+2026/01/11 04:29:17 Imported rental item: Centre de table mariage
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:60
+[0m[33m[0.064ms] [34;1m[rows:1][0m SELECT count(*) FROM `rental_items` WHERE image_url = "/storage/location/Chaise chiavari.jpeg" AND `rental_items`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:107
+[0m[33m[1.339ms] [34;1m[rows:1][0m INSERT INTO `rental_items` (`created_at`,`updated_at`,`deleted_at`,`title`,`description`,`price`,`category_id`,`category`,`image_url`,`featured`,`available`) VALUES ("2026-01-11 04:29:17.268","2026-01-11 04:29:17.268",NULL,"Chaise chiavari","Importé automatiquement depuis le stockage",0,4,"other","/storage/location/Chaise chiavari.jpeg",false,true) RETURNING `id`
+2026/01/11 04:29:17 Imported rental item: Chaise chiavari
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:60
+[0m[33m[0.068ms] [34;1m[rows:1][0m SELECT count(*) FROM `rental_items` WHERE image_url = "/storage/location/Deux demies arches.jpeg" AND `rental_items`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:107
+[0m[33m[1.377ms] [34;1m[rows:1][0m INSERT INTO `rental_items` (`created_at`,`updated_at`,`deleted_at`,`title`,`description`,`price`,`category_id`,`category`,`image_url`,`featured`,`available`) VALUES ("2026-01-11 04:29:17.27","2026-01-11 04:29:17.27",NULL,"Deux demies arches","Importé automatiquement depuis le stockage",0,2,"other","/storage/location/Deux demies arches.jpeg",false,true) RETURNING `id`
+2026/01/11 04:29:17 Imported rental item: Deux demies arches
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:60
+[0m[33m[0.065ms] [34;1m[rows:1][0m SELECT count(*) FROM `rental_items` WHERE image_url = "/storage/location/Fleur blanche champagne.jpeg" AND `rental_items`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:107
+[0m[33m[1.262ms] [34;1m[rows:1][0m INSERT INTO `rental_items` (`created_at`,`updated_at`,`deleted_at`,`title`,`description`,`price`,`category_id`,`category`,`image_url`,`featured`,`available`) VALUES ("2026-01-11 04:29:17.271","2026-01-11 04:29:17.271",NULL,"Fleur blanche champagne","Importé automatiquement depuis le stockage",0,3,"other","/storage/location/Fleur blanche champagne.jpeg",false,true) RETURNING `id`
+2026/01/11 04:29:17 Imported rental item: Fleur blanche champagne
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:60
+[0m[33m[0.065ms] [34;1m[rows:1][0m SELECT count(*) FROM `rental_items` WHERE image_url = "/storage/location/Fleur rose blanche.jpeg" AND `rental_items`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:107
+[0m[33m[1.301ms] [34;1m[rows:1][0m INSERT INTO `rental_items` (`created_at`,`updated_at`,`deleted_at`,`title`,`description`,`price`,`category_id`,`category`,`image_url`,`featured`,`available`) VALUES ("2026-01-11 04:29:17.273","2026-01-11 04:29:17.273",NULL,"Fleur rose blanche","Importé automatiquement depuis le stockage",0,3,"other","/storage/location/Fleur rose blanche.jpeg",false,true) RETURNING `id`
+2026/01/11 04:29:17 Imported rental item: Fleur rose blanche
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:60
+[0m[33m[0.065ms] [34;1m[rows:1][0m SELECT count(*) FROM `rental_items` WHERE image_url = "/storage/location/Fleurs Rose Orange.jpeg" AND `rental_items`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:107
+[0m[33m[1.339ms] [34;1m[rows:1][0m INSERT INTO `rental_items` (`created_at`,`updated_at`,`deleted_at`,`title`,`description`,`price`,`category_id`,`category`,`image_url`,`featured`,`available`) VALUES ("2026-01-11 04:29:17.274","2026-01-11 04:29:17.274",NULL,"Fleurs Rose Orange","Importé automatiquement depuis le stockage",0,3,"other","/storage/location/Fleurs Rose Orange.jpeg",false,true) RETURNING `id`
+2026/01/11 04:29:17 Imported rental item: Fleurs Rose Orange
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:60
+[0m[33m[0.076ms] [34;1m[rows:1][0m SELECT count(*) FROM `rental_items` WHERE image_url = "/storage/location/Mur à champagne.jpeg" AND `rental_items`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:107
+[0m[33m[1.339ms] [34;1m[rows:1][0m INSERT INTO `rental_items` (`created_at`,`updated_at`,`deleted_at`,`title`,`description`,`price`,`category_id`,`category`,`image_url`,`featured`,`available`) VALUES ("2026-01-11 04:29:17.276","2026-01-11 04:29:17.276",NULL,"Mur à champagne","Importé automatiquement depuis le stockage",0,2,"other","/storage/location/Mur à champagne.jpeg",false,true) RETURNING `id`
+2026/01/11 04:29:17 Imported rental item: Mur à champagne
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:60
+[0m[33m[0.066ms] [34;1m[rows:1][0m SELECT count(*) FROM `rental_items` WHERE image_url = "/storage/location/Papillon lumineux.jpeg" AND `rental_items`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:107
+[0m[33m[1.289ms] [34;1m[rows:1][0m INSERT INTO `rental_items` (`created_at`,`updated_at`,`deleted_at`,`title`,`description`,`price`,`category_id`,`category`,`image_url`,`featured`,`available`) VALUES ("2026-01-11 04:29:17.277","2026-01-11 04:29:17.277",NULL,"Papillon lumineux","Importé automatiquement depuis le stockage",0,4,"other","/storage/location/Papillon lumineux.jpeg",false,true) RETURNING `id`
+2026/01/11 04:29:17 Imported rental item: Papillon lumineux
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:60
+[0m[33m[0.067ms] [34;1m[rows:1][0m SELECT count(*) FROM `rental_items` WHERE image_url = "/storage/location/Porte bougie.jpeg" AND `rental_items`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:107
+[0m[33m[1.366ms] [34;1m[rows:1][0m INSERT INTO `rental_items` (`created_at`,`updated_at`,`deleted_at`,`title`,`description`,`price`,`category_id`,`category`,`image_url`,`featured`,`available`) VALUES ("2026-01-11 04:29:17.278","2026-01-11 04:29:17.278",NULL,"Porte bougie","Importé automatiquement depuis le stockage",0,4,"other","/storage/location/Porte bougie.jpeg",false,true) RETURNING `id`
+2026/01/11 04:29:17 Imported rental item: Porte bougie
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:60
+[0m[33m[0.066ms] [34;1m[rows:1][0m SELECT count(*) FROM `rental_items` WHERE image_url = "/storage/location/Stand gateau.jpeg" AND `rental_items`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:107
+[0m[33m[1.312ms] [34;1m[rows:1][0m INSERT INTO `rental_items` (`created_at`,`updated_at`,`deleted_at`,`title`,`description`,`price`,`category_id`,`category`,`image_url`,`featured`,`available`) VALUES ("2026-01-11 04:29:17.28","2026-01-11 04:29:17.28",NULL,"Stand gateau","Importé automatiquement depuis le stockage",0,4,"other","/storage/location/Stand gateau.jpeg",false,true) RETURNING `id`
+2026/01/11 04:29:17 Imported rental item: Stand gateau
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:60
+[0m[33m[0.066ms] [34;1m[rows:1][0m SELECT count(*) FROM `rental_items` WHERE image_url = "/storage/location/Support bougie.jpeg" AND `rental_items`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:107
+[0m[33m[1.391ms] [34;1m[rows:1][0m INSERT INTO `rental_items` (`created_at`,`updated_at`,`deleted_at`,`title`,`description`,`price`,`category_id`,`category`,`image_url`,`featured`,`available`) VALUES ("2026-01-11 04:29:17.282","2026-01-11 04:29:17.282",NULL,"Support bougie","Importé automatiquement depuis le stockage",0,4,"other","/storage/location/Support bougie.jpeg",false,true) RETURNING `id`
+2026/01/11 04:29:17 Imported rental item: Support bougie
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:60
+[0m[33m[0.066ms] [34;1m[rows:1][0m SELECT count(*) FROM `rental_items` WHERE image_url = "/storage/location/Support toile.jpeg" AND `rental_items`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:107
+[0m[33m[1.268ms] [34;1m[rows:1][0m INSERT INTO `rental_items` (`created_at`,`updated_at`,`deleted_at`,`title`,`description`,`price`,`category_id`,`category`,`image_url`,`featured`,`available`) VALUES ("2026-01-11 04:29:17.283","2026-01-11 04:29:17.283",NULL,"Support toile","Importé automatiquement depuis le stockage",0,4,"other","/storage/location/Support toile.jpeg",false,true) RETURNING `id`
+2026/01/11 04:29:17 Imported rental item: Support toile
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:60
+[0m[33m[0.069ms] [34;1m[rows:1][0m SELECT count(*) FROM `rental_items` WHERE image_url = "/storage/location/Support à fleurs.jpeg" AND `rental_items`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:107
+[0m[33m[1.297ms] [34;1m[rows:1][0m INSERT INTO `rental_items` (`created_at`,`updated_at`,`deleted_at`,`title`,`description`,`price`,`category_id`,`category`,`image_url`,`featured`,`available`) VALUES ("2026-01-11 04:29:17.284","2026-01-11 04:29:17.284",NULL,"Support à fleurs","Importé automatiquement depuis le stockage",0,3,"other","/storage/location/Support à fleurs.jpeg",false,true) RETURNING `id`
+2026/01/11 04:29:17 Imported rental item: Support à fleurs
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:60
+[0m[33m[0.073ms] [34;1m[rows:1][0m SELECT count(*) FROM `rental_items` WHERE image_url = "/storage/location/Tapis blanc.jpeg" AND `rental_items`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:107
+[0m[33m[1.664ms] [34;1m[rows:1][0m INSERT INTO `rental_items` (`created_at`,`updated_at`,`deleted_at`,`title`,`description`,`price`,`category_id`,`category`,`image_url`,`featured`,`available`) VALUES ("2026-01-11 04:29:17.286","2026-01-11 04:29:17.286",NULL,"Tapis blanc","Importé automatiquement depuis le stockage",0,4,"other","/storage/location/Tapis blanc.jpeg",false,true) RETURNING `id`
+2026/01/11 04:29:17 Imported rental item: Tapis blanc
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:60
+[0m[33m[0.067ms] [34;1m[rows:1][0m SELECT count(*) FROM `rental_items` WHERE image_url = "/storage/location/Tapis rouge.jpeg" AND `rental_items`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:107
+[0m[33m[1.335ms] [34;1m[rows:1][0m INSERT INTO `rental_items` (`created_at`,`updated_at`,`deleted_at`,`title`,`description`,`price`,`category_id`,`category`,`image_url`,`featured`,`available`) VALUES ("2026-01-11 04:29:17.288","2026-01-11 04:29:17.288",NULL,"Tapis rouge","Importé automatiquement depuis le stockage",0,4,"other","/storage/location/Tapis rouge.jpeg",false,true) RETURNING `id`
+2026/01/11 04:29:17 Imported rental item: Tapis rouge
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.158ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/baby shower/photo_2026-01-10 01.34.18.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.065ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/baby shower/photo_2026-01-10 01.34.20.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.059ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/baby shower/photo_2026-01-10 01.34.23.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.057ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/baby shower/photo_2026-01-10 01.34.25.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.060ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/baby shower/photo_2026-01-10 01.34.28.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.058ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/baby shower/photo_2026-01-10 01.34.31.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.056ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/baby shower/photo_2026-01-10 01.34.36.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.055ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/baby shower/photo_2026-01-10 01.34.39.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.066ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/baby shower/photo_2026-01-10 01.34.42.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.062ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/bapteme/photo_2026-01-10 01.31.37.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.056ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/bapteme/photo_2026-01-10 01.31.40.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.055ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/bapteme/photo_2026-01-10 01.31.42.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.057ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/bapteme/photo_2026-01-10 01.31.43.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.086ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/bapteme/photo_2026-01-10 01.31.45.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.057ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/bapteme/photo_2026-01-10 01.31.48.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.072ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/birthday/photo_2026-01-10 01.17.18.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.057ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/birthday/photo_2026-01-10 01.17.22.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.055ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/birthday/photo_2026-01-10 01.17.25.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.059ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/birthday/photo_2026-01-10 01.17.29.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.055ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/birthday/photo_2026-01-10 01.17.32.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.055ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/birthday/photo_2026-01-10 01.17.35.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.055ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/birthday/photo_2026-01-10 01.17.38.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.060ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/birthday/photo_2026-01-10 01.17.41.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.057ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/birthday/photo_2026-01-10 01.17.43.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.056ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/birthday/photo_2026-01-10 01.18.21.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.069ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/birthday/photo_2026-01-10 01.18.24.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.058ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/birthday/photo_2026-01-10 01.18.26.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.059ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/birthday/photo_2026-01-10 01.18.28.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.057ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/birthday/photo_2026-01-10 01.18.30.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.065ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/birthday/photo_2026-01-10 01.18.33.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.055ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/birthday/photo_2026-01-10 01.18.36.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.059ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/birthday/photo_2026-01-10 01.18.39.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.055ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/birthday/photo_2026-01-10 01.18.41.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.058ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/birthday/photo_2026-01-10 01.18.44.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.056ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/birthday/photo_2026-01-10 01.18.46.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.066ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/birthday/photo_2026-01-10 01.18.49.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.076ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/birthday/photo_2026-01-10 01.18.52.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.070ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/birthday/photo_2026-01-10 01.18.55.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.056ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/birthday/photo_2026-01-10 01.18.57.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.058ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/birthday/photo_2026-01-10 01.19.00.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.059ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/birthday/photo_2026-01-10 01.19.03.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.055ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/birthday/photo_2026-01-10 01.19.06.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.055ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/birthday/photo_2026-01-10 01.19.09.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.070ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/birthday/photo_2026-01-10 01.19.12.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.056ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/birthday/photo_2026-01-10 01.19.15.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.096ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/birthday/photo_2026-01-10 01.19.17.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.066ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/congrats/photo_2026-01-10 01.25.09.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.057ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/congrats/photo_2026-01-10 01.25.12.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.058ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/congrats/photo_2026-01-10 01.25.17.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.062ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/congrats/photo_2026-01-10 01.25.25.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.058ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/congrats/photo_2026-01-10 01.25.27.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.058ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/loveroom/photo_2026-01-10 01.33.08.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.058ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/loveroom/photo_2026-01-10 01.33.11.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.056ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/loveroom/photo_2026-01-10 01.33.13.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.059ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/loveroom/photo_2026-01-10 01.33.15.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.058ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/loveroom/photo_2026-01-10 01.33.18.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.075ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/loveroom/photo_2026-01-10 01.33.21.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.057ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/loveroom/photo_2026-01-10 01.33.24.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.060ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/loveroom/photo_2026-01-10 01.33.27.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.057ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/loveroom/photo_2026-01-10 01.33.30.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.057ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/loveroom/photo_2026-01-10 01.33.32.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.066ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/loveroom/photo_2026-01-10 01.33.34.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.065ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/loveroom/photo_2026-01-10 01.33.37.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.243ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/marryme/photo_2026-01-10 01.21.31.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.681ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/marryme/photo_2026-01-10 01.21.35.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.084ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/marryme/photo_2026-01-10 01.21.38.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.074ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/marryme/photo_2026-01-10 01.21.40.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.060ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/marryme/photo_2026-01-10 01.21.43.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.057ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/marryme/photo_2026-01-10 01.21.46.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.056ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/marryme/photo_2026-01-10 01.21.48.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.055ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/marryme/photo_2026-01-10 01.21.51.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.055ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/marryme/photo_2026-01-10 01.21.53.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.055ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/marryme/photo_2026-01-10 01.21.56.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.057ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/marryme/photo_2026-01-10 01.21.58.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.056ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/marryme/photo_2026-01-10 01.22.00.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.061ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/marryme/photo_2026-01-10 01.22.02.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.068ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/marryme/photo_2026-01-10 01.22.04.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.059ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/marryme/photo_2026-01-10 01.22.07.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.061ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/marryme/photo_2026-01-10 01.22.09.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.058ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/marryme/photo_2026-01-10 01.22.12.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.056ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/marryme/photo_2026-01-10 01.22.14.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.056ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/marryme/photo_2026-01-10 01.22.16.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.055ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/marryme/photo_2026-01-10 01.22.19.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.055ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/marryme/photo_2026-01-10 01.22.21.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.061ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/marryme/photo_2026-01-10 01.22.24.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.070ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/marryme/photo_2026-01-10 01.22.26.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.057ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/marryme/photo_2026-01-10 01.22.29.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.054ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/marryme/photo_2026-01-10 01.22.32.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.055ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/marryme/photo_2026-01-10 01.22.34.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.055ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/marryme/photo_2026-01-10 01.22.37.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.058ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/marryme/photo_2026-01-10 01.22.39.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.059ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/weeding/photo_2026-01-10 01.28.47.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.056ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/weeding/photo_2026-01-10 01.28.51.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.057ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/weeding/photo_2026-01-10 01.28.53.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.055ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/weeding/photo_2026-01-10 01.28.54.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.054ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/weeding/photo_2026-01-10 01.28.56.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.060ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/weeding/photo_2026-01-10 01.28.58.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.057ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/weeding/photo_2026-01-10 01.29.01.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.057ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/weeding/photo_2026-01-10 01.29.03.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.055ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/weeding/photo_2026-01-10 01.29.05.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.054ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/weeding/photo_2026-01-10 01.29.06.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.058ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/weeding/photo_2026-01-10 01.29.09.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.056ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/weeding/photo_2026-01-10 01.29.11.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.054ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/weeding/photo_2026-01-10 01.29.13.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.055ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/weeding/photo_2026-01-10 01.29.15.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.054ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/weeding/photo_2026-01-10 01.29.18.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.060ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/weeding/photo_2026-01-10 01.29.20.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.072ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/weeding/photo_2026-01-10 01.29.57.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.055ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/weeding/photo_2026-01-10 01.29.59.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.075ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/weeding/photo_2026-01-10 01.30.01.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.057ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/weeding/photo_2026-01-10 01.30.04.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.056ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/weeding/photo_2026-01-10 01.30.07.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/internal/services/storage_scanner.go:166
+[0m[33m[0.054ms] [34;1m[rows:1][0m SELECT count(*) FROM `gallery_images` WHERE image_url = "/storage/weeding/photo_2026-01-10 01.30.09.jpeg" AND `gallery_images`.`deleted_at` IS NULL
+2026/01/11 04:29:17 Storage scan completed
+
+2026/01/11 04:29:17 [32m/home/ubuntu/angel_event/backend/cmd/server/main.go:45
+[0m[33m[0.107ms] [34;1m[rows:1][0m SELECT * FROM `users` WHERE email = "admin@angelevent.com" AND `users`.`deleted_at` IS NULL ORDER BY `users`.`id` LIMIT 1
+2026/01/11 04:29:17 🚀 Server starting on port 8080
+
+ ┌───────────────────────────────────────────────────┐ 
+ │                  Angel Event API                  │ 
+ │                   Fiber v2.52.0                   │ 
+ │               http://127.0.0.1:8080               │ 
+ │       (bound on host 0.0.0.0 and port 8080)       │ 
+ │                                                   │ 
+ │ Handlers ............ 77  Processes ........... 1 │ 
+ │ Prefork ....... Disabled  PID ............. 49065 │ 
+ └───────────────────────────────────────────────────┘ 
+
+
+2026/01/11 04:29:27 [32m/home/ubuntu/angel_event/backend/internal/handlers/rental.go:36
+[0m[33m[0.171ms] [34;1m[rows:4][0m SELECT * FROM `categories` WHERE `categories`.`id` IN (4,3,2,1) AND `categories`.`deleted_at` IS NULL
+
+2026/01/11 04:29:27 [32m/home/ubuntu/angel_event/backend/internal/handlers/rental.go:36
+[0m[33m[1.361ms] [34;1m[rows:22][0m SELECT * FROM `rental_items` WHERE `rental_items`.`deleted_at` IS NULL ORDER BY created_at DESC
+04:29:26 | 200 |    1.673929ms | 127.0.0.1 | GET | /api/public/rentals | -
+
+2026/01/11 04:30:59 [32m/home/ubuntu/angel_event/backend/internal/handlers/public.go:88
+[0m[33m[1.861ms] [34;1m[rows:3][0m SELECT * FROM `gallery_images` WHERE category = "baby_shower" AND `gallery_images`.`deleted_at` IS NULL ORDER BY RANDOM() LIMIT 3
+04:30:58 | 200 |    2.726668ms | 127.0.0.1 | GET | /api/public/gallery/random | -
+
+2026/01/11 04:30:59 [32m/home/ubuntu/angel_event/backend/internal/handlers/public.go:88
+[0m[33m[2.805ms] [34;1m[rows:3][0m SELECT * FROM `gallery_images` WHERE category = "bapteme" AND `gallery_images`.`deleted_at` IS NULL ORDER BY RANDOM() LIMIT 3
+04:30:58 | 200 |    3.112151ms | 127.0.0.1 | GET | /api/public/gallery/random | -
+
+2026/01/11 04:30:59 [32m/home/ubuntu/angel_event/backend/internal/handlers/public.go:88
+[0m[33m[3.618ms] [34;1m[rows:3][0m SELECT * FROM `gallery_images` WHERE category = "congrats" AND `gallery_images`.`deleted_at` IS NULL ORDER BY RANDOM() LIMIT 3
+04:30:58 | 200 |    3.760699ms | 127.0.0.1 | GET | /api/public/gallery/random | -
+
+2026/01/11 04:30:59 [32m/home/ubuntu/angel_event/backend/internal/handlers/public.go:88
+[0m[33m[0.509ms] [34;1m[rows:3][0m SELECT * FROM `gallery_images` WHERE category = "marryme" AND `gallery_images`.`deleted_at` IS NULL ORDER BY RANDOM() LIMIT 3
+
+2026/01/11 04:30:59 [32m/home/ubuntu/angel_event/backend/internal/handlers/public.go:88
+[0m[33m[3.954ms] [34;1m[rows:3][0m SELECT * FROM `gallery_images` WHERE category = "loveroom" AND `gallery_images`.`deleted_at` IS NULL ORDER BY RANDOM() LIMIT 3
+04:30:58 | 200 |     682.308µs | 127.0.0.1 | GET | /api/public/gallery/random | -
+
+2026/01/11 04:30:59 [32m/home/ubuntu/angel_event/backend/internal/handlers/public.go:88
+[0m[33m[3.588ms] [34;1m[rows:3][0m SELECT * FROM `gallery_images` WHERE category = "birthday" AND `gallery_images`.`deleted_at` IS NULL ORDER BY RANDOM() LIMIT 3
+04:30:58 | 200 |    4.121865ms | 127.0.0.1 | GET | /api/public/gallery/random | -
+04:30:58 | 200 |    3.907117ms | 127.0.0.1 | GET | /api/public/gallery/random | -
+
+2026/01/11 04:30:59 [32m/home/ubuntu/angel_event/backend/internal/handlers/public.go:88
+[0m[33m[0.409ms] [34;1m[rows:3][0m SELECT * FROM `gallery_images` WHERE category = "wedding" AND `gallery_images`.`deleted_at` IS NULL ORDER BY RANDOM() LIMIT 3
+04:30:58 | 200 |     528.959µs | 127.0.0.1 | GET | /api/public/gallery/random | -
+04:30:58 | 200 |    4.423694ms | 127.0.0.1 | GET | /storage/baby%20shower/photo_2026-01-10%2001.34.31.jpeg | -
+04:30:58 | 200 |    4.302654ms | 127.0.0.1 | GET | /storage/baby%20shower/photo_2026-01-10%2001.34.36.jpeg | -
+04:30:58 | 200 |    4.291651ms | 127.0.0.1 | GET | /storage/baby%20shower/photo_2026-01-10%2001.34.42.jpeg | -
+04:30:58 | 200 |    4.165251ms | 127.0.0.1 | GET | /storage/bapteme/photo_2026-01-10%2001.31.45.jpeg | -
+04:30:58 | 200 |    1.816156ms | 127.0.0.1 | GET | /storage/bapteme/photo_2026-01-10%2001.31.42.jpeg | -
+04:30:58 | 200 |      51.258µs | 127.0.0.1 | GET | /storage/bapteme/photo_2026-01-10%2001.31.37.jpeg | -
+04:30:58 | 200 |      50.069µs | 127.0.0.1 | GET | /storage/birthday/photo_2026-01-10%2001.18.21.jpeg | -
+04:30:58 | 200 |      71.092µs | 127.0.0.1 | GET | /storage/congrats/photo_2026-01-10%2001.25.17.jpeg | -
+04:30:58 | 200 |      89.968µs | 127.0.0.1 | GET | /storage/birthday/photo_2026-01-10%2001.19.12.jpeg | -
+04:30:58 | 200 |      56.232µs | 127.0.0.1 | GET | /storage/birthday/photo_2026-01-10%2001.17.22.jpeg | -
+04:30:58 | 200 |      51.607µs | 127.0.0.1 | GET | /storage/congrats/photo_2026-01-10%2001.25.27.jpeg | -
+04:30:58 | 200 |       46.16µs | 127.0.0.1 | GET | /storage/congrats/photo_2026-01-10%2001.25.09.jpeg | -
+04:30:59 | 200 |      84.063µs | 127.0.0.1 | GET | /storage/loveroom/photo_2026-01-10%2001.33.37.jpeg | -
+04:30:59 | 200 |      89.651µs | 127.0.0.1 | GET | /storage/loveroom/photo_2026-01-10%2001.33.27.jpeg | -
+04:30:59 | 200 |      53.426µs | 127.0.0.1 | GET | /storage/loveroom/photo_2026-01-10%2001.33.13.jpeg | -
+04:30:59 | 200 |      35.758µs | 127.0.0.1 | GET | /storage/marryme/photo_2026-01-10%2001.21.53.jpeg | -
+04:30:59 | 200 |      61.302µs | 127.0.0.1 | GET | /storage/marryme/photo_2026-01-10%2001.22.00.jpeg | -
+04:30:59 | 200 |     109.861µs | 127.0.0.1 | GET | /storage/marryme/photo_2026-01-10%2001.21.51.jpeg | -
+04:30:59 | 200 |      65.102µs | 127.0.0.1 | GET | /storage/weeding/photo_2026-01-10%2001.28.56.jpeg | -
+04:30:59 | 200 |     114.854µs | 127.0.0.1 | GET | /storage/weeding/photo_2026-01-10%2001.29.57.jpeg | -
+04:30:59 | 200 |      69.527µs | 127.0.0.1 | GET | /storage/weeding/photo_2026-01-10%2001.30.09.jpeg | -
+
+2026/01/11 04:31:06 [32m/home/ubuntu/angel_event/backend/internal/handlers/category.go:20
+[0m[33m[0.440ms] [34;1m[rows:5][0m SELECT * FROM `categories` WHERE `categories`.`deleted_at` IS NULL
+04:31:05 | 200 |      640.07µs | 127.0.0.1 | GET | /api/public/categories | -
+
+2026/01/11 04:31:06 [32m/home/ubuntu/angel_event/backend/internal/handlers/rental.go:36
+[0m[33m[0.207ms] [34;1m[rows:4][0m SELECT * FROM `categories` WHERE `categories`.`id` IN (4,3,2,1) AND `categories`.`deleted_at` IS NULL
+
+2026/01/11 04:31:06 [32m/home/ubuntu/angel_event/backend/internal/handlers/rental.go:36
+[0m[33m[1.225ms] [34;1m[rows:22][0m SELECT * FROM `rental_items` WHERE `rental_items`.`deleted_at` IS NULL ORDER BY created_at DESC
+04:31:05 | 200 |    1.899932ms | 127.0.0.1 | GET | /api/public/rentals | -
+04:31:05 | 200 |     162.958µs | 127.0.0.1 | GET | /storage/location/Tapis%20rouge.jpeg | -
+04:31:05 | 200 |      63.608µs | 127.0.0.1 | GET | /storage/location/Tapis%20blanc.jpeg | -
+04:31:05 | 200 |      48.932µs | 127.0.0.1 | GET | /storage/location/Support%20%C3%A0%20fleurs.jpeg | -
+04:31:05 | 200 |      76.299µs | 127.0.0.1 | GET | /storage/location/Support%20toile.jpeg | -
+04:31:05 | 200 |      43.422µs | 127.0.0.1 | GET | /storage/location/Support%20bougie.jpeg | -
+04:31:05 | 200 |      52.297µs | 127.0.0.1 | GET | /storage/location/Stand%20gateau.jpeg | -
+04:31:06 | 200 |      91.127µs | 127.0.0.1 | GET | /storage/location/Papillon%20lumineux.jpeg | -
+04:31:06 | 200 |      133.69µs | 127.0.0.1 | GET | /storage/location/Porte%20bougie.jpeg | -
+04:31:06 | 200 |      61.825µs | 127.0.0.1 | GET | /storage/location/Mur%20%C3%A0%20champagne.jpeg | -
+04:31:06 | 200 |        67.9µs | 127.0.0.1 | GET | /storage/location/Fleurs%20Rose%20Orange.jpeg | -
+04:31:06 | 200 |      78.884µs | 127.0.0.1 | GET | /storage/location/Fleur%20blanche%20champagne.jpeg | -
+04:31:06 | 200 |      54.568µs | 127.0.0.1 | GET | /storage/location/Fleur%20rose%20blanche.jpeg | -
+04:31:06 | 200 |      59.846µs | 127.0.0.1 | GET | /storage/location/Deux%20demies%20arches.jpeg | -
+04:31:06 | 200 |      57.759µs | 127.0.0.1 | GET | /storage/location/Chaise%20chiavari.jpeg | -
+04:31:06 | 200 |      32.257µs | 127.0.0.1 | GET | /storage/location/Centre%20de%20table%20mariage.jpeg | -
+04:31:09 | 200 |      58.044µs | 127.0.0.1 | GET | /storage/location/Centre%20de%20table%20mariage-2.jpeg | -
+04:31:09 | 200 |      42.864µs | 127.0.0.1 | GET | /storage/location/Arche%20semi%20waves.jpeg | -
+04:31:09 | 404 |     118.234µs | 127.0.0.1 | GET | /uploads/rentals/default-rental.png | Cannot GET /uploads/rentals/default-rental.png
+04:36:09 | 404 |      102.88µs | 138.23.104.122 | GET | /login | Cannot GET /login
+04:50:43 | 204 |      61.046µs | 127.0.0.1 | OPTIONS | /api/public/availabilities | -
+
+2026/01/11 04:50:44 [32m/home/ubuntu/angel_event/backend/internal/handlers/public.go:54
+[0m[33m[0.678ms] [34;1m[rows:0][0m SELECT * FROM `availabilities` WHERE (date >= "2026-01-01" AND date <= "2026-01-31") AND `availabilities`.`deleted_at` IS NULL ORDER BY date ASC
+04:50:43 | 200 |    1.035576ms | 127.0.0.1 | GET | /api/public/availabilities | -
+04:50:47 | 204 |       13.97µs | 127.0.0.1 | OPTIONS | /api/public/categories | -
+
+2026/01/11 04:50:47 [32m/home/ubuntu/angel_event/backend/internal/handlers/category.go:20
+[0m[33m[0.451ms] [34;1m[rows:5][0m SELECT * FROM `categories` WHERE `categories`.`deleted_at` IS NULL
+04:50:47 | 200 |     622.637µs | 127.0.0.1 | GET | /api/public/categories | -
+04:50:47 | 204 |      26.596µs | 127.0.0.1 | OPTIONS | /api/public/rentals | -
+
+2026/01/11 04:50:47 [32m/home/ubuntu/angel_event/backend/internal/handlers/rental.go:36
+[0m[33m[0.210ms] [34;1m[rows:4][0m SELECT * FROM `categories` WHERE `categories`.`id` IN (4,3,2,1) AND `categories`.`deleted_at` IS NULL
+
+2026/01/11 04:50:47 [32m/home/ubuntu/angel_event/backend/internal/handlers/rental.go:36
+[0m[33m[1.516ms] [34;1m[rows:22][0m SELECT * FROM `rental_items` WHERE `rental_items`.`deleted_at` IS NULL ORDER BY created_at DESC
+04:50:47 | 200 |    1.927007ms | 127.0.0.1 | GET | /api/public/rentals | -
+04:50:47 | 200 |      81.089µs | 127.0.0.1 | GET | /storage/location/Support%20toile.jpeg | -
+04:50:47 | 200 |     164.253µs | 127.0.0.1 | GET | /storage/location/Support%20%C3%A0%20fleurs.jpeg | -
+04:50:47 | 200 |      85.204µs | 127.0.0.1 | GET | /storage/location/Tapis%20blanc.jpeg | -
+04:50:47 | 200 |      57.842µs | 127.0.0.1 | GET | /storage/location/Tapis%20rouge.jpeg | -
+04:50:47 | 200 |      57.238µs | 127.0.0.1 | GET | /storage/location/Stand%20gateau.jpeg | -
+04:50:47 | 200 |      57.904µs | 127.0.0.1 | GET | /storage/location/Support%20bougie.jpeg | -
+04:50:47 | 200 |      65.264µs | 127.0.0.1 | GET | /storage/location/Porte%20bougie.jpeg | -
+04:50:47 | 200 |      25.647µs | 127.0.0.1 | GET | /storage/location/Papillon%20lumineux.jpeg | -
+04:50:47 | 200 |      53.955µs | 127.0.0.1 | GET | /storage/location/Mur%20%C3%A0%20champagne.jpeg | -
+04:50:47 | 200 |      45.778µs | 127.0.0.1 | GET | /storage/location/Fleurs%20Rose%20Orange.jpeg | -
+04:50:47 | 200 |      77.786µs | 127.0.0.1 | GET | /storage/location/Fleur%20blanche%20champagne.jpeg | -
+04:50:47 | 200 |      55.306µs | 127.0.0.1 | GET | /storage/location/Fleur%20rose%20blanche.jpeg | -
+04:50:47 | 200 |      71.286µs | 127.0.0.1 | GET | /storage/location/Deux%20demies%20arches.jpeg | -
+04:50:47 | 200 |       38.36µs | 127.0.0.1 | GET | /storage/location/Chaise%20chiavari.jpeg | -
+04:50:47 | 200 |      66.242µs | 127.0.0.1 | GET | /storage/location/Centre%20de%20table%20mariage.jpeg | -
+04:50:47 | 200 |      60.504µs | 127.0.0.1 | GET | /storage/location/Centre%20de%20table%20mariage-2.jpeg | -
+04:50:47 | 200 |      55.788µs | 127.0.0.1 | GET | /storage/location/Arche%20semi%20waves.jpeg | -
+04:50:47 | 404 |      89.113µs | 127.0.0.1 | GET | /uploads/rentals/default-rental.png | Cannot GET /uploads/rentals/default-rental.png
+04:51:00 | 204 |      22.192µs | 127.0.0.1 | OPTIONS | /api/public/gallery/random | -
+04:51:00 | 204 |      11.794µs | 127.0.0.1 | OPTIONS | /api/public/gallery/random | -
+04:51:00 | 204 |      14.332µs | 127.0.0.1 | OPTIONS | /api/public/gallery/random | -
+
+2026/01/11 04:51:00 [32m/home/ubuntu/angel_event/backend/internal/handlers/public.go:88
+[0m[33m[0.688ms] [34;1m[rows:3][0m SELECT * FROM `gallery_images` WHERE category = "baby_shower" AND `gallery_images`.`deleted_at` IS NULL ORDER BY RANDOM() LIMIT 3
+04:51:00 | 200 |     913.877µs | 127.0.0.1 | GET | /api/public/gallery/random | -
+
+2026/01/11 04:51:00 [32m/home/ubuntu/angel_event/backend/internal/handlers/public.go:88
+[0m[33m[0.590ms] [34;1m[rows:3][0m SELECT * FROM `gallery_images` WHERE category = "bapteme" AND `gallery_images`.`deleted_at` IS NULL ORDER BY RANDOM() LIMIT 3
+04:51:00 | 200 |     711.105µs | 127.0.0.1 | GET | /api/public/gallery/random | -
+
+2026/01/11 04:51:00 [32m/home/ubuntu/angel_event/backend/internal/handlers/public.go:88
+[0m[33m[0.215ms] [34;1m[rows:3][0m SELECT * FROM `gallery_images` WHERE category = "wedding" AND `gallery_images`.`deleted_at` IS NULL ORDER BY RANDOM() LIMIT 3
+04:51:00 | 200 |     286.087µs | 127.0.0.1 | GET | /api/public/gallery/random | -
+04:51:00 | 204 |      50.745µs | 127.0.0.1 | OPTIONS | /api/public/gallery/random | -
+04:51:00 | 204 |      12.382µs | 127.0.0.1 | OPTIONS | /api/public/gallery/random | -
+04:51:00 | 204 |      14.313µs | 127.0.0.1 | OPTIONS | /api/public/gallery/random | -
+
+2026/01/11 04:51:00 [32m/home/ubuntu/angel_event/backend/internal/handlers/public.go:88
+[0m[33m[0.496ms] [34;1m[rows:3][0m SELECT * FROM `gallery_images` WHERE category = "birthday" AND `gallery_images`.`deleted_at` IS NULL ORDER BY RANDOM() LIMIT 3
+04:51:00 | 200 |      671.57µs | 127.0.0.1 | GET | /api/public/gallery/random | -
+04:51:00 | 204 |      11.878µs | 127.0.0.1 | OPTIONS | /api/public/gallery/random | -
+
+2026/01/11 04:51:00 [32m/home/ubuntu/angel_event/backend/internal/handlers/public.go:88
+[0m[33m[0.390ms] [34;1m[rows:3][0m SELECT * FROM `gallery_images` WHERE category = "loveroom" AND `gallery_images`.`deleted_at` IS NULL ORDER BY RANDOM() LIMIT 3
+04:51:00 | 200 |     500.504µs | 127.0.0.1 | GET | /api/public/gallery/random | -
+
+2026/01/11 04:51:00 [32m/home/ubuntu/angel_event/backend/internal/handlers/public.go:88
+[0m[33m[0.160ms] [34;1m[rows:3][0m SELECT * FROM `gallery_images` WHERE category = "congrats" AND `gallery_images`.`deleted_at` IS NULL ORDER BY RANDOM() LIMIT 3
+04:51:00 | 200 |     209.348µs | 127.0.0.1 | GET | /api/public/gallery/random | -
+
+2026/01/11 04:51:00 [32m/home/ubuntu/angel_event/backend/internal/handlers/public.go:88
+[0m[33m[0.389ms] [34;1m[rows:3][0m SELECT * FROM `gallery_images` WHERE category = "marryme" AND `gallery_images`.`deleted_at` IS NULL ORDER BY RANDOM() LIMIT 3
+04:51:00 | 200 |     556.633µs | 127.0.0.1 | GET | /api/public/gallery/random | -
+04:51:00 | 200 |     272.888µs | 127.0.0.1 | GET | /storage/baby%20shower/photo_2026-01-10%2001.34.20.jpeg | -
+04:51:00 | 200 |      75.413µs | 127.0.0.1 | GET | /storage/weeding/photo_2026-01-10%2001.29.18.jpeg | -
+04:51:00 | 200 |     118.208µs | 127.0.0.1 | GET | /storage/weeding/photo_2026-01-10%2001.29.15.jpeg | -
+04:51:00 | 200 |      79.263µs | 127.0.0.1 | GET | /storage/birthday/photo_2026-01-10%2001.19.06.jpeg | -
+04:51:00 | 200 |       50.22µs | 127.0.0.1 | GET | /storage/loveroom/photo_2026-01-10%2001.33.15.jpeg | -
+04:51:00 | 200 |      76.052µs | 127.0.0.1 | GET | /storage/loveroom/photo_2026-01-10%2001.33.18.jpeg | -
+04:51:00 | 200 |      95.512µs | 127.0.0.1 | GET | /storage/marryme/photo_2026-01-10%2001.22.19.jpeg | -
+05:29:41 | 404 |      96.957µs | 87.236.176.55 | GET | / | Cannot GET /
+05:49:43 | 404 |      67.357µs | 190.145.240.40 | GET | /player_api.php | Cannot GET /player_api.php
+06:26:05 | 404 |      69.448µs | 3.137.73.221 | GET | / | Cannot GET /
+07:21:05 | 404 |      91.205µs | 103.205.253.135 | HEAD | /invoker/EJBInvokerServlet | Cannot HEAD /invoker/EJBInvokerServlet
+07:21:06 | 404 |       21.43µs | 103.205.253.135 | HEAD | /jmx-console/HtmlAdaptor | Cannot HEAD /jmx-console/HtmlAdaptor
+07:21:06 | 404 |      24.867µs | 103.205.253.135 | HEAD | /invoker/JMXInvokerServlet | Cannot HEAD /invoker/JMXInvokerServlet
+07:21:07 | 404 |      17.175µs | 103.205.253.135 | HEAD | /web-console/ServerInfo.jsp | Cannot HEAD /web-console/ServerInfo.jsp
+07:27:41 | 404 |      59.865µs | 121.237.36.27 | GET | / | Cannot GET /
+07:27:48 | 404 |      14.896µs | 121.237.36.28 | GET | / | Cannot GET /
+07:31:17 | 404 |      55.351µs | 183.134.59.133 | GET | / | Cannot GET /
+07:33:25 | 404 |      81.714µs | 121.237.36.27 | GET | / | Cannot GET /
+07:33:45 | 404 |      37.995µs | 183.134.59.133 | GET | / | Cannot GET /
+07:34:19 | 404 |      44.041µs | 183.134.59.133 | GET | /favicon.ico | Cannot GET /favicon.ico
+07:34:46 | 404 |      46.214µs | 183.134.59.133 | GET | / | Cannot GET /
+07:37:15 | 404 |       77.51µs | 121.237.36.31 | GET | /favicon.ico | Cannot GET /favicon.ico
+08:59:01 | 404 |      76.768µs | 130.12.180.74 | GET | /login | Cannot GET /login
+09:04:12 | 404 |      59.976µs | 204.76.203.30 | GET | /json/ | Cannot GET /json/
+09:46:21 | 404 |      65.445µs | 84.239.49.13 | GET | /player_api.php | Cannot GET /player_api.php
+09:51:42 | 404 |      66.898µs | 84.239.49.13 | GET | /player_api.php | Cannot GET /player_api.php
+10:21:18 | 404 |      65.757µs | 204.76.203.30 | GET | /json/ | Cannot GET /json/
+10:42:30 | 404 |      62.553µs | 193.142.146.230 | GET | /login | Cannot GET /login
+10:58:18 | 404 |      44.045µs | 143.244.51.186 | GET | /player_api.php | Cannot GET /player_api.php
+11:02:35 | 404 |      20.076µs | 204.76.203.30 | GET | /json/ | Cannot GET /json/
+12:33:04 | 404 |      47.406µs | 172.69.109.84 | GET | /player_api.php | Cannot GET /player_api.php
+12:40:25 | 404 |      16.964µs | 112.46.214.115 | GET | / | Cannot GET /
+13:23:40 | 404 |      65.037µs | 172.71.141.185 | GET | /player_api.php | Cannot GET /player_api.php
+13:45:29 | 404 |       23.76µs | 84.239.49.32 | GET | /player_api.php | Cannot GET /player_api.php
+13:51:04 | 404 |      29.533µs | 172.69.118.116 | GET | /server/load.php | Cannot GET /server/load.php
+14:28:59 | 404 |       31.53µs | 172.71.198.145 | GET | /server/load.php | Cannot GET /server/load.php
+14:49:16 | 404 |      28.938µs | 79.145.45.26 | GET | /player_api.php | Cannot GET /player_api.php
+14:54:01 | 404 |      28.101µs | 204.76.203.18 | GET | / | Cannot GET /
+15:04:22 | 404 |       35.63µs | 212.30.36.20 | GET | /player_api.php | Cannot GET /player_api.php
+15:07:51 | 404 |      17.159µs | 204.76.203.18 | GET | /bins/ | Cannot GET /bins/
+15:19:23 | 404 |       28.51µs | 204.76.203.18 | GET | /bin/ | Cannot GET /bin/
+15:22:13 | 404 |      18.842µs | 217.138.207.25 | GET | /player_api.php | Cannot GET /player_api.php
+15:31:00 | 404 |      44.327µs | 138.252.100.214 | GET | / | Cannot GET /
+15:35:17 | 404 |      33.488µs | 204.76.203.18 | GET | /backup/ | Cannot GET /backup/
+15:37:08 | 404 |      14.365µs | 212.30.36.42 | GET | /player_api.php | Cannot GET /player_api.php
+15:50:52 | 404 |      26.482µs | 44.203.171.113 | GET | / | Cannot GET /
+16:28:54 | 404 |      70.895µs | 104.22.7.19 | GET | /player_api.php | Cannot GET /player_api.php

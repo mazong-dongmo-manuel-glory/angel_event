@@ -5,8 +5,8 @@
     <div class="booking-container">
       <div class="container container-narrow">
         <div class="booking-header fade-in-up">
-          <h1 class="font-script text-gold">Réserver votre événement</h1>
-          <p class="subtitle">Créons ensemble un moment inoubliable</p>
+          <h1 class="font-script text-gold">{{ t('booking.title') }}</h1>
+          <p class="subtitle">{{ t('booking.subtitle') }}</p>
         </div>
 
         <div v-if="!bookingComplete" class="booking-wizard">
@@ -30,8 +30,8 @@
           <div v-show="currentStep === 0" class="step-content fade-in">
             <CalendarPicker
               v-model="formData.event_date"
-              title="Choisissez la date de votre événement"
-              subtitle="Les dates en vert sont disponibles pour réservation"
+              :title="t('booking.step1.title')"
+              :subtitle="t('booking.step1.subtitle')"
               @date-selected="handleDateSelected"
             />
             
@@ -41,7 +41,7 @@
                 :disabled="!formData.event_date"
                 @click="nextStep"
               >
-                Continuer
+                {{ t('booking.step1.continue') }}
               </Button>
             </div>
           </div>
@@ -49,23 +49,23 @@
           <!-- Step 2: Event Details -->
           <div v-show="currentStep === 1" class="step-content fade-in">
             <div class="form-card">
-              <h3>Détails de l'événement</h3>
+              <h3>{{ t('booking.step2.title') }}</h3>
               
               <div class="form-row">
                 <div class="form-group">
-                  <label for="event-type">Type d'événement *</label>
+                  <label for="event-type">{{ t('booking.step2.type') }}</label>
                   <select id="event-type" v-model="formData.event_type" required>
-                    <option value="">Sélectionnez...</option>
-                    <option value="proposal">💍 Demande en mariage</option>
-                    <option value="wedding">💐 Mariage</option>
-                    <option value="birthday">🎂 Anniversaire</option>
-                    <option value="baby_shower">👶 Baby Shower</option>
-                    <option value="corporate">🏢 Événement corporatif</option>
-                    <option value="other">✨ Autre</option>
+                    <option value="">{{ t('booking.step2.select') }}</option>
+                    <option value="proposal">💍 {{ t('testimonials.types.proposal') }}</option>
+                    <option value="wedding">💐 {{ t('testimonials.types.wedding') }}</option>
+                    <option value="birthday">🎂 {{ t('testimonials.types.birthday') }}</option>
+                    <option value="baby_shower">👶 {{ t('testimonials.types.baby_shower') }}</option>
+                    <option value="corporate">🏢 {{ t('testimonials.types.corporate') }}</option>
+                    <option value="other">✨ {{ t('testimonials.types.other') }}</option>
                   </select>
                 </div>
                 <div class="form-group">
-                  <label for="guests">Nombre d'invités</label>
+                  <label for="guests">{{ t('booking.step2.guests') }}</label>
                   <input
                     id="guests"
                     v-model.number="formData.guest_count"
@@ -77,17 +77,17 @@
               </div>
 
               <div class="form-group">
-                <label for="location">Lieu de l'événement</label>
+                <label for="location">{{ t('booking.step2.location') }}</label>
                 <input
                   id="location"
                   v-model="formData.event_location"
                   type="text"
-                  placeholder="Ville ou adresse"
+                  :placeholder="t('booking.step2.location_ph')"
                 />
               </div>
 
               <div class="form-group">
-                <label for="budget">Budget approximatif (CAD) *</label>
+                <label for="budget">{{ t('booking.step2.budget') }}</label>
                 <input
                   id="budget"
                   v-model.number="formData.budget"
@@ -98,31 +98,31 @@
                   placeholder="Ex: 5000"
                 />
                 <small v-if="depositAmount > 0" class="budget-info">
-                  💰 Dépôt requis: <strong>{{ depositAmount }} CAD</strong> (30% du budget)
+                  {{ t('booking.step2.deposit', { amount: depositAmount }) }}
                 </small>
               </div>
 
               <div class="form-group">
-                <label for="message">Décrivez votre vision</label>
+                <label for="message">{{ t('booking.step2.vision') }}</label>
                 <textarea
                   id="message"
                   v-model="formData.message"
                   rows="4"
-                  placeholder="Parlez-nous de votre événement de rêve..."
+                  :placeholder="t('booking.step2.vision_ph')"
                 ></textarea>
               </div>
             </div>
 
             <div class="step-actions">
               <Button variant="ghost" @click="prevStep">
-                Retour
+                {{ t('gallery.prev') || 'Retour' }}
               </Button>
               <Button
                 size="lg"
                 :disabled="!formData.event_type || !formData.budget"
                 @click="nextStep"
               >
-                Continuer
+                {{ t('booking.step1.continue') }}
               </Button>
             </div>
           </div>
@@ -130,11 +130,11 @@
           <!-- Step 3: Personal Information -->
           <div v-show="currentStep === 2" class="step-content fade-in">
             <div class="form-card">
-              <h3>Vos coordonnées</h3>
+              <h3>{{ t('booking.step3.title') }}</h3>
               
               <div class="form-row">
                 <div class="form-group">
-                  <label for="name">Nom complet *</label>
+                  <label for="name">{{ t('booking.step3.name') }}</label>
                   <input
                     id="name"
                     v-model="formData.name"
@@ -144,7 +144,7 @@
                   />
                 </div>
                 <div class="form-group">
-                  <label for="email">Email *</label>
+                  <label for="email">{{ t('booking.step3.email') }}</label>
                   <input
                     id="email"
                     v-model="formData.email"
@@ -156,7 +156,7 @@
               </div>
 
               <div class="form-group">
-                <label for="phone">Téléphone</label>
+                <label for="phone">{{ t('booking.step3.phone') }}</label>
                 <input
                   id="phone"
                   v-model="formData.phone"
@@ -166,26 +166,26 @@
               </div>
 
               <div class="form-group">
-                <label for="special-requests">Demandes spéciales</label>
+                <label for="special-requests">{{ t('booking.step3.special') }}</label>
                 <textarea
                   id="special-requests"
                   v-model="formData.special_requests"
                   rows="3"
-                  placeholder="Allergies, préférences, contraintes..."
+                  :placeholder="t('booking.step3.special_ph')"
                 ></textarea>
               </div>
             </div>
 
             <div class="step-actions">
               <Button variant="ghost" @click="prevStep">
-                Retour
+                {{ t('gallery.prev') || 'Retour' }}
               </Button>
               <Button
                 size="lg"
                 :disabled="!formData.name || !formData.email"
                 @click="nextStep"
               >
-                Continuer
+                {{ t('booking.step1.continue') }}
               </Button>
             </div>
           </div>
@@ -193,39 +193,39 @@
           <!-- Step 4: Confirmation & Payment -->
           <div v-show="currentStep === 3" class="step-content fade-in">
             <div class="booking-summary">
-              <h3>Récapitulatif de votre réservation</h3>
+              <h3>{{ t('booking.step4.title') }}</h3>
               
               <div class="summary-section">
-                <h4>📅 Date et événement</h4>
-                <p><strong>Date:</strong> {{ formatDate(formData.event_date) }}</p>
-                <p><strong>Type:</strong> {{ getEventTypeLabel(formData.event_type) }}</p>
-                <p v-if="formData.event_location"><strong>Lieu:</strong> {{ formData.event_location }}</p>
-                <p v-if="formData.guest_count"><strong>Invités:</strong> {{ formData.guest_count }} personnes</p>
+                <h4>{{ t('booking.step4.section_date') }}</h4>
+                <p><strong>{{ t('booking.steps.date') }}:</strong> {{ formatDate(formData.event_date) }}</p>
+                <p><strong>{{ t('booking.steps.event') }}:</strong> {{ getEventTypeLabel(formData.event_type) }}</p>
+                <p v-if="formData.event_location"><strong>{{ t('booking.step2.location') }}:</strong> {{ formData.event_location }}</p>
+                <p v-if="formData.guest_count"><strong>{{ t('booking.step2.guests') }}:</strong> {{ formData.guest_count }}</p>
               </div>
 
               <div class="summary-section">
-                <h4>👤 Vos coordonnées</h4>
-                <p><strong>Nom:</strong> {{ formData.name }}</p>
-                <p><strong>Email:</strong> {{ formData.email }}</p>
-                <p v-if="formData.phone"><strong>Téléphone:</strong> {{ formData.phone }}</p>
+                <h4>{{ t('booking.step4.section_contact') }}</h4>
+                <p><strong>{{ t('booking.step3.name') }}:</strong> {{ formData.name }}</p>
+                <p><strong>{{ t('booking.step3.email') }}:</strong> {{ formData.email }}</p>
+                <p v-if="formData.phone"><strong>{{ t('booking.step3.phone') }}:</strong> {{ formData.phone }}</p>
               </div>
 
               <div class="summary-section payment-section">
-                <h4>💳 Paiement</h4>
+                <h4>{{ t('booking.step4.section_payment') }}</h4>
                 <div class="payment-details">
                   <div class="payment-row">
-                    <span>Budget total:</span>
+                    <span>{{ t('booking.step4.total') }}</span>
                     <strong>{{ formData.budget }} CAD</strong>
                   </div>
 
                   
                   <div v-if="selectedRentalItem" class="payment-row">
-                    <span>Article ({{ selectedRentalItem.title }}):</span>
+                    <span>{{ t('booking.step4.item_prefix') }} ({{ selectedRentalItem.title }}):</span>
                     <strong>{{ formatPrice(selectedRentalItem.price) }}</strong>
                   </div>
                 </div>
                 <p class="payment-note">
-                  🔒 Votre réservation sera confirmée par email.
+                  {{ t('booking.step4.note') }}
                 </p>
               </div>
             </div>
@@ -236,14 +236,14 @@
 
             <div class="step-actions">
               <Button variant="ghost" @click="prevStep">
-                Retour
+                {{ t('gallery.prev') || 'Retour' }}
               </Button>
               <Button
                 size="lg"
                 :loading="loading"
                 @click="handleSubmit"
               >
-                {{ loading ? 'Traitement...' : 'Confirmer la réservation' }}
+                {{ loading ? t('booking.step4.processing') : t('booking.step4.confirm') }}
               </Button>
             </div>
           </div>
@@ -252,11 +252,11 @@
         <!-- Success Message -->
         <div v-else class="booking-success fade-in">
           <div class="success-icon">✓</div>
-          <h2>Réservation confirmée!</h2>
-          <p>Merci pour votre confiance. Nous avons bien reçu votre réservation et votre paiement.</p>
-          <p>Un email de confirmation vous a été envoyé à <strong>{{ formData.email }}</strong>.</p>
-          <p>Notre équipe vous contactera sous peu pour finaliser les détails de votre événement.</p>
-          <Button size="lg" @click="$router.push('/')">Retour à l'accueil</Button>
+          <h2>{{ t('booking.success.title') }}</h2>
+          <p>{{ t('booking.success.msg1') }}</p>
+          <p>{{ t('booking.success.msg2', { email: formData.email }) }}</p>
+          <p>{{ t('booking.success.msg3') }}</p>
+          <Button size="lg" @click="$router.push('/')">{{ t('booking.success.home') }}</Button>
         </div>
       </div>
     </div>
@@ -268,24 +268,26 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import Header from '../../components/Header.vue'
 import Footer from '../../components/Footer.vue'
 import Button from '../../components/ui/Button.vue'
 import CalendarPicker from '../../components/CalendarPicker.vue'
 import api from '../../services/api'
 
+const { t } = useI18n()
 const currentStep = ref(0)
 const loading = ref(false)
 const error = ref(null)
 const bookingComplete = ref(false)
 const selectedRentalItem = ref(null)
 
-const steps = [
-  { id: 1, label: 'Date' },
-  { id: 2, label: 'Événement' },
-  { id: 3, label: 'Coordonnées' },
-  { id: 4, label: 'Confirmation' }
-]
+const steps = computed(() => [
+  { id: 1, label: t('booking.steps.date') },
+  { id: 2, label: t('booking.steps.event') },
+  { id: 3, label: t('booking.steps.details') },
+  { id: 4, label: t('booking.steps.confirm') }
+])
 
 const formData = ref({
   name: '',
@@ -321,7 +323,7 @@ onMounted(async () => {
 })
 
 function formatPrice(price) {
-  return new Intl.NumberFormat('fr-CA', { style: 'currency', currency: 'CAD' }).format(price)
+  return new Intl.NumberFormat(t.locale || 'fr-CA', { style: 'currency', currency: 'CAD' }).format(price)
 }
 
 function handleDateSelected(data) {
@@ -331,7 +333,7 @@ function handleDateSelected(data) {
 }
 
 function nextStep() {
-  if (currentStep.value < steps.length - 1) {
+  if (currentStep.value < steps.value.length - 1) {
     currentStep.value++
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
@@ -346,7 +348,7 @@ function prevStep() {
 
 function formatDate(date) {
   if (!date) return ''
-  return new Date(date).toLocaleDateString('fr-CA', {
+  return new Date(date).toLocaleDateString(t.locale || 'fr-CA', {
     year: 'numeric',
     month: 'long',
     day: 'numeric'
@@ -355,12 +357,12 @@ function formatDate(date) {
 
 function getEventTypeLabel(type) {
   const types = {
-    proposal: '💍 Demande en mariage',
-    wedding: '💐 Mariage',
-    birthday: '🎂 Anniversaire',
-    baby_shower: '👶 Baby Shower',
-    corporate: '🏢 Événement corporatif',
-    other: '✨ Autre'
+    proposal: t('testimonials.types.proposal'),
+    wedding: t('testimonials.types.wedding'),
+    birthday: t('testimonials.types.birthday'),
+    baby_shower: t('testimonials.types.baby_shower'),
+    corporate: t('testimonials.types.corporate'),
+    other: t('testimonials.types.other')
   }
   return types[type] || type
 }
@@ -371,7 +373,7 @@ async function handleSubmit() {
 
   try {
     // Create booking
-    const payload = { ...formData.value }
+    const payload = { ...formData.value, language: t.locale.value }
     if (selectedRentalItem.value) {
       payload.rental_item_ids = [selectedRentalItem.value.id]
     }

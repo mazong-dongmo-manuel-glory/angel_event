@@ -13,6 +13,7 @@ import (
 	"github.com/mazong/angel_event/internal/handlers"
 	"github.com/mazong/angel_event/internal/middleware"
 	"github.com/mazong/angel_event/internal/models"
+	"github.com/mazong/angel_event/internal/services"
 )
 
 func main() {
@@ -36,15 +37,22 @@ func main() {
 		log.Fatal("Failed to seed default data:", err)
 	}
 
+	// Scan storage for new images
+	services.ScanStorage()
+
 	// Hash default admin password if needed
+	// detailed synchronization of admin password
 	var user models.User
-	if err := database.DB.Where("email = ?", os.Getenv("ADMIN_EMAIL")).First(&user).Error; err == nil {
-		// Check if password needs hashing (simple check)
-		if len(user.Password) < 60 { // bcrypt hashes are 60 chars
-			hashedPassword, _ := handlers.HashPassword(user.Password)
+	adminEmail := os.Getenv("ADMIN_EMAIL")
+	adminPass := os.Getenv("ADMIN_PASSWORD")
+
+	if adminEmail != "" && adminPass != "" {
+		if err := database.DB.Where("email = ?", adminEmail).First(&user).Error; err == nil {
+			// Update password to ensure it matches .env
+			hashedPassword, _ := handlers.HashPassword(adminPass)
 			user.Password = hashedPassword
 			database.DB.Save(&user)
-			log.Println("Admin password hashed successfully")
+			log.Println("Admin password synced with environment variable")
 		}
 	}
 
@@ -57,8 +65,17 @@ func main() {
 	// Middleware
 	app.Use(recover.New())
 	app.Use(logger.New())
+
+	// CORS configuration
+	allowOrigins := os.Getenv("FRONTEND_URL")
+	if allowOrigins == "" {
+		allowOrigins = "http://localhost:5173,http://127.0.0.1:5173"
+	} else {
+		allowOrigins += ",http://localhost:5173,http://127.0.0.1:5173"
+	}
+
 	app.Use(cors.New(cors.Config{
-		AllowOrigins:     os.Getenv("FRONTEND_URL"),
+		AllowOrigins:     allowOrigins,
 		AllowHeaders:     "Origin, Content-Type, Accept, Authorization",
 		AllowMethods:     "GET, POST, PUT, DELETE, OPTIONS",
 		AllowCredentials: true,
@@ -92,6 +109,7 @@ func main() {
 	public.Get("/gallery", handlers.GetGalleryImages)
 	public.Get("/gallery/random", handlers.GetRandomGalleryImages)
 	public.Get("/rentals", handlers.GetRentalItems)
+	public.Get("/categories", handlers.GetCategories)
 
 	// Auth routes
 	auth := api.Group("/auth")
@@ -126,6 +144,8 @@ func main() {
 
 	// Newsletter
 	admin.Get("/newsletter/subscribers", handlers.GetNewsletterSubscribers)
+	admin.Put("/newsletter/subscribers/:id", handlers.UpdateNewsletterSubscriber)
+	admin.Delete("/newsletter/subscribers/:id", handlers.DeleteNewsletterSubscriber)
 	admin.Post("/newsletter/send", handlers.SendNewsletter)
 
 	// Gallery
@@ -144,9 +164,15 @@ func main() {
 	admin.Put("/rentals/:id", handlers.UpdateRentalItem)
 	admin.Delete("/rentals/:id", handlers.DeleteRentalItem)
 
+	// Categories
+	admin.Get("/categories", handlers.GetCategories)
+	admin.Post("/categories", handlers.CreateCategory)
+	admin.Put("/categories/:id", handlers.UpdateCategory)
+	admin.Delete("/categories/:id", handlers.DeleteCategory)
+
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = "8080"
+		port = "8081"
 	}
 
 	log.Printf("🚀 Server starting on port %s", port)

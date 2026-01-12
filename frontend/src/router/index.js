@@ -22,6 +22,7 @@ import GalleryManager from '../views/admin/GalleryManager.vue'
 import TestimonialManager from '../views/admin/TestimonialManager.vue'
 import NewsletterManager from '../views/admin/NewsletterManager.vue'
 import RentalManager from '../views/admin/RentalManager.vue'
+import CategoryManager from '../views/admin/CategoryManager.vue'
 
 const routes = [
     // Public Routes
@@ -115,6 +116,12 @@ const routes = [
                 name: 'admin-gallery',
                 component: GalleryManager,
                 meta: { title: 'Galerie - Admin' }
+            },
+            {
+                path: 'categories',
+                name: 'admin-categories',
+                component: CategoryManager,
+                meta: { title: 'Catégories - Admin' }
             },
             {
                 path: 'rentals',

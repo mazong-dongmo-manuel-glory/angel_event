@@ -1,9 +1,9 @@
 <template>
   <div class="rental-manager">
     <div class="manager-header">
-      <h1>Gestion des Locations</h1>
+      <h1>{{ t('admin.rental.title') }}</h1>
       <button class="add-btn" @click="openAddModal">
-        ➕ Ajouter un article
+        ➕ {{ t('admin.rental.add_item') }}
       </button>
     </div>
 
@@ -13,14 +13,14 @@
         <input 
           v-model="searchQuery" 
           type="text" 
-          placeholder="Rechercher par titre..."
+          :placeholder="t('admin.rental.search_placeholder')"
           class="search-input"
         />
       </div>
-      <select v-model="filterCategory" class="category-filter">
-        <option value="">Toutes les catégories</option>
-        <option v-for="cat in categories" :key="cat.value" :value="cat.value">
-          {{ cat.label }}
+      <select v-model="filterCategoryId" class="category-filter">
+        <option value="">{{ t('admin.rental.all_categories') }}</option>
+        <option v-for="cat in categories" :key="cat.id" :value="cat.id">
+          {{ cat.name }}
         </option>
       </select>
     </div>
@@ -28,7 +28,7 @@
     <!-- Items Grid -->
     <div v-if="loading" class="loading-state">
       <div class="spinner"></div>
-      <p>Chargement des articles...</p>
+      <p>{{ t('admin.rental.loading') }}</p>
     </div>
 
     <div v-else class="items-grid">
@@ -36,8 +36,8 @@
         <div class="item-preview">
           <img :src="item.image_url" :alt="item.title" />
           <div class="item-overlay">
-            <button class="edit-btn" @click="editItem(item)">✏️ Éditer</button>
-            <button class="delete-btn" @click="confirmDelete(item)">🗑️ Supprimer</button>
+            <button class="edit-btn" @click="editItem(item)">✏️ {{ t('admin.rental.edit') }}</button>
+            <button class="delete-btn" @click="confirmDelete(item)">🗑️ {{ t('admin.rental.delete') }}</button>
           </div>
         </div>
         <div class="item-info">
@@ -45,11 +45,11 @@
             <h4>{{ item.title }}</h4>
             <span class="price">{{ formatPrice(item.price) }}</span>
           </div>
-          <p class="category-badge">{{ getCategoryLabel(item.category) }}</p>
+          <p class="category-badge">{{ getCategoryLabel(item.category_id) }}</p>
           <p v-if="item.description" class="description">{{ item.description }}</p>
           <div class="meta">
-            <span v-if="item.featured" class="badge featured">⭐ Vedette</span>
-            <span v-if="!item.available" class="badge unavailable">❌ Indisponible</span>
+            <span v-if="item.featured" class="badge featured">⭐ {{ t('admin.rental.featured') }}</span>
+            <span v-if="!item.available" class="badge unavailable">❌ {{ t('admin.rental.unavailable') }}</span>
           </div>
         </div>
       </div>
@@ -61,64 +61,64 @@
         <div v-if="showModal" class="modal-overlay" @click="closeModal">
           <div class="modal-content" @click.stop>
             <div class="modal-header">
-              <h2>{{ editingItem ? 'Éditer l\'article' : 'Nouvel article' }}</h2>
+              <h2>{{ editingItem ? t('admin.rental.modal_title_edit') : t('admin.rental.modal_title_new') }}</h2>
               <button class="close-btn" @click="closeModal">×</button>
             </div>
             <div class="modal-body">
               <form @submit.prevent="saveItem" class="item-form">
                 <div class="form-group" v-if="!editingItem || changeImage">
-                  <label>Image *</label>
+                  <label>{{ t('admin.rental.form.image') }} *</label>
                   <input type="file" ref="fileInput" @change="handleFileChange" accept="image/*" class="form-input" :required="!editingItem" />
                 </div>
                 <div class="form-group" v-if="editingItem && !changeImage">
-                  <label>Image actuelle</label>
+                  <label>{{ t('admin.rental.form.current_image') }}</label>
                   <div class="current-image">
                     <img :src="editingItem.image_url" height="100" />
-                    <button type="button" class="btn-text" @click="changeImage = true">Changer l'image</button>
+                    <button type="button" class="btn-text" @click="changeImage = true">{{ t('admin.rental.form.change_image') }}</button>
                   </div>
                 </div>
 
                 <div class="form-row">
                   <div class="form-group">
-                    <label>Titre *</label>
+                    <label>{{ t('admin.rental.form.title') }} *</label>
                     <input v-model="form.title" type="text" class="form-input" required />
                   </div>
                   <div class="form-group">
-                    <label>Prix ($) *</label>
+                    <label>{{ t('admin.rental.form.price') }} *</label>
                     <input v-model="form.price" type="number" step="0.01" class="form-input" required />
                   </div>
                 </div>
 
                 <div class="form-group">
-                  <label>Catégorie *</label>
-                  <select v-model="form.category" class="form-select" required>
-                    <option value="" disabled>Choisir une catégorie</option>
-                    <option v-for="cat in categories" :key="cat.value" :value="cat.value">
-                      {{ cat.label }}
+                  <label>{{ t('admin.rental.form.category') }} *</label>
+                  <select v-model="form.category_id" class="form-select" required>
+                    <option value="" disabled>{{ t('admin.rental.form.choose_category') }}</option>
+                    <option v-for="cat in categories" :key="cat.id" :value="cat.id">
+                      {{ cat.name }}
                     </option>
                   </select>
                 </div>
 
                 <div class="form-group">
-                  <label>Description</label>
+                  <label>{{ t('admin.rental.form.description') }}</label>
                   <textarea v-model="form.description" class="form-textarea" rows="3"></textarea>
                 </div>
 
                 <div class="form-checkboxes">
                   <label class="checkbox-label">
                     <input v-model="form.featured" type="checkbox" />
-                    <span>Mettre en vedette</span>
+                    <span>{{ t('admin.rental.form.make_featured') }}</span>
                   </label>
                   <label class="checkbox-label">
                     <input v-model="form.available" type="checkbox" />
-                    <span>Disponible</span>
+                    <span>{{ t('admin.rental.form.available') }}</span>
                   </label>
                 </div>
 
                 <div class="modal-footer">
-                  <button type="button" class="btn-secondary" @click="closeModal">Annuler</button>
+                  <button type="button" class="btn-secondary" @click="closeModal">{{ t('admin.rental.cancel') }}</button>
                   <button type="submit" class="btn-primary" :disabled="saving">
-                    {{ saving ? 'Enregistrement...' : 'Enregistrer' }}
+                    {{ saving ? t('admin.rental.saving') : t('admin.rental.save') }}
                   </button>
                 </div>
               </form>
@@ -132,13 +132,16 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
+import { useI18n } from 'vue-i18n'
 import api from '../../services/api'
+
+const { t } = useI18n()
 
 const items = ref([])
 const loading = ref(true)
 const saving = ref(false)
 const searchQuery = ref('')
-const filterCategory = ref('')
+const filterCategoryId = ref('')
 const showModal = ref(false)
 const editingItem = ref(null)
 const changeImage = ref(false)
@@ -147,23 +150,27 @@ const selectedFile = ref(null)
 const form = ref({
   title: '',
   price: '',
-  category: '',
+  category_id: '',
   description: '',
   featured: false,
   available: true
 })
 
-const categories = [
-  { label: 'Centre de table', value: 'centerpiece' },
-  { label: 'Backdrop / Panneau', value: 'backdrop' },
-  { label: 'Fleur', value: 'flower' },
-  { label: 'Autre article', value: 'other' }
-]
+const categories = ref([])
+
+async function fetchCategories() {
+  try {
+    const res = await api.get('/admin/categories')
+    categories.value = res.data.filter(c => c.type === 'rental')
+  } catch (err) {
+    console.error(t('admin.rental.category_error'), err)
+  }
+}
 
 const filteredItems = computed(() => {
   let result = items.value
-  if (filterCategory.value) {
-    result = result.filter(i => i.category === filterCategory.value)
+  if (filterCategoryId.value) {
+    result = result.filter(i => i.category_id === filterCategoryId.value)
   }
   if (searchQuery.value) {
     const q = searchQuery.value.toLowerCase()
@@ -176,9 +183,9 @@ function formatPrice(price) {
   return new Intl.NumberFormat('fr-CA', { style: 'currency', currency: 'CAD' }).format(price)
 }
 
-function getCategoryLabel(val) {
-  const cat = categories.find(c => c.value === val)
-  return cat ? cat.label : val
+function getCategoryLabel(catId) {
+  const cat = categories.value.find(c => c.id === catId)
+  return cat ? cat.name : 'Inconnu'
 }
 
 async function fetchItems() {
@@ -188,7 +195,7 @@ async function fetchItems() {
     items.value = res.data
   } catch (err) {
     console.error(err)
-    alert('Erreur chargement articles')
+    alert(t('admin.rental.load_error'))
   } finally {
     loading.value = false
   }
@@ -217,7 +224,7 @@ function resetForm() {
   form.value = {
     title: '',
     price: '',
-    category: '',
+    category_id: '',
     description: '',
     featured: false,
     available: true
@@ -232,7 +239,7 @@ function handleFileChange(e) {
 
 async function saveItem() {
   if (!editingItem.value && !selectedFile.value) {
-    alert('Image requise')
+    alert(t('admin.rental.image_required'))
     return
   }
 
@@ -240,7 +247,7 @@ async function saveItem() {
   const formData = new FormData()
   formData.append('title', form.value.title)
   formData.append('price', form.value.price)
-  formData.append('category', form.value.category)
+  formData.append('category_id', form.value.category_id)
   formData.append('description', form.value.description)
   formData.append('featured', form.value.featured)
   formData.append('available', form.value.available)
@@ -265,24 +272,27 @@ async function saveItem() {
     closeModal()
   } catch (err) {
     console.error(err)
-    alert('Erreur sauvegarde')
+    alert(t('admin.rental.save_error'))
   } finally {
     saving.value = false
   }
 }
 
 async function confirmDelete(item) {
-  if (!confirm('Voulez-vous vraiment supprimer cet article ?')) return
+  if (!confirm(t('admin.rental.delete_confirm'))) return
   try {
     await api.delete(`/admin/rentals/${item.id}`)
     items.value = items.value.filter(i => i.id !== item.id)
   } catch (err) {
     console.error(err)
-    alert('Erreur suppression')
+    alert(t('admin.rental.delete_error'))
   }
 }
 
-onMounted(fetchItems)
+onMounted(() => {
+  fetchCategories()
+  fetchItems()
+})
 </script>
 
 <style scoped>

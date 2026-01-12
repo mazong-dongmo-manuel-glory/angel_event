@@ -91,5 +91,30 @@ func GetRandomGalleryImages(c *fiber.Ctx) error {
 		})
 	}
 
+	// Fill in default images if empty
+	for i := range images {
+		if images[i].ImageURL == "" {
+			images[i].ImageURL = getDefaultGalleryImage(string(images[i].Category))
+		}
+	}
+
 	return c.JSON(images)
+}
+
+// getDefaultGalleryImage returns the default image for a gallery category
+func getDefaultGalleryImage(category string) string {
+	defaults := map[string]string{
+		"wedding":     "/storage/weeding/photo_2026-01-10%2001.28.47.jpeg",
+		"marryme":     "/storage/marryme/photo_2026-01-10%2001.21.31.jpeg",
+		"birthday":    "/storage/birthday/photo_2026-01-10%2001.17.18.jpeg",
+		"baby_shower": "/storage/baby%20shower/photo_2026-01-10%2001.34.18.jpeg",
+		"bapteme":     "/storage/bapteme/photo_2026-01-10%2001.31.37.jpeg",
+		"loveroom":    "/storage/loveroom/photo_2026-01-10%2001.33.08.jpeg",
+		"congrats":    "/storage/congrats/photo_2026-01-10%2001.25.09.jpeg",
+	}
+
+	if img, ok := defaults[category]; ok {
+		return img
+	}
+	return defaults["wedding"] // Fallback
 }

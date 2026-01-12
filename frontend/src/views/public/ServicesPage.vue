@@ -4,8 +4,8 @@
     <!-- Hero Section -->
     <section class="services-hero">
       <div class="container text-center">
-        <h1 class="font-script text-gold fade-in-up">Nos Services</h1>
-        <p class="hero-subtitle fade-in-up">Des émotions mises en scène avec passion et excellence</p>
+        <h1 class="font-script text-gold fade-in-up">{{ t('services_page.hero.title') }}</h1>
+        <p class="hero-subtitle fade-in-up">{{ t('services_page.hero.subtitle') }}</p>
       </div>
     </section>
 
@@ -25,7 +25,7 @@
                 <span class="check-icon">✓</span> {{ feature }}
               </li>
             </ul>
-            <Button @click="$router.push('/reserver')">Réserver ce service</Button>
+            <Button @click="$router.push('/reserver')">{{ t('services_page.list.cta') }}</Button>
           </div>
         </div>
       </div>
@@ -34,8 +34,8 @@
     <!-- Process Section -->
     <section class="process-section">
       <div class="container">
-        <h2 class="section-title text-center fade-in-up">Notre Processus</h2>
-        <p class="section-subtitle text-center fade-in-up">Comment nous créons votre événement parfait</p>
+        <h2 class="section-title text-center fade-in-up">{{ t('services_page.process.title') }}</h2>
+        <p class="section-subtitle text-center fade-in-up">{{ t('services_page.process.subtitle') }}</p>
         
         <div class="process-steps">
           <div v-for="(step, index) in processSteps" :key="step.id" class="process-step fade-in-up">
@@ -50,11 +50,11 @@
     <!-- CTA Section -->
     <section class="cta-section">
       <div class="container text-center">
-        <h2 class="font-script fade-in-up">Prêt à commencer?</h2>
-        <p class="fade-in-up">Contactez-nous pour une consultation gratuite</p>
+        <h2 class="font-script fade-in-up">{{ t('services_page.cta.title') }}</h2>
+        <p class="fade-in-up">{{ t('services_page.cta.subtitle') }}</p>
         <div class="cta-buttons fade-in-up">
-          <Button size="lg" @click="$router.push('/reserver')">Demander une soumission</Button>
-          <Button size="lg" variant="white" @click="$router.push('/contact')">Nous contacter</Button>
+          <Button size="lg" @click="$router.push('/reserver')">{{ t('services_page.cta.quote') }}</Button>
+          <Button size="lg" variant="white" @click="$router.push('/contact')">{{ t('services_page.cta.contact') }}</Button>
         </div>
       </div>
     </section>
@@ -64,79 +64,82 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import Header from '../../components/Header.vue'
 import Footer from '../../components/Footer.vue'
 import Button from '../../components/ui/Button.vue'
 
-const services = ref([
+const { t } = useI18n()
+
+const services = computed(() => [
   {
     id: 1,
     icon: '💍',
-    title: 'Demandes en mariage',
-    description: 'Créez le moment le plus mémorable de votre vie avec une mise en scène romantique et inoubliable.',
+    title: t('services_page.list.proposal.title'),
+    description: t('services_page.list.proposal.desc'),
     image: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=800',
     features: [
-      'Décors "Marry Me" personnalisés',
-      'Mise en scène romantique sur mesure',
-      'Bougies, fleurs et arches élégantes',
-      'Lettres lumineuses et néons',
-      'Coordination complète le jour J',
-      'Photographie professionnelle disponible'
+      t('services_page.list.proposal.f1'),
+      t('services_page.list.proposal.f2'),
+      t('services_page.list.proposal.f3'),
+      t('services_page.list.proposal.f4'),
+      t('services_page.list.proposal.f5'),
+      t('services_page.list.proposal.f6')
     ]
   },
   {
     id: 2,
     icon: '🎨',
-    title: 'Décoration événementielle',
-    description: 'Transformez vos événements avec des décors élégants, raffinés et entièrement personnalisés selon vos goûts.',
+    title: t('services_page.list.decor.title'),
+    description: t('services_page.list.decor.desc'),
     image: 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=800',
     features: [
-      'Anniversaires mémorables',
-      'Baby showers élégants',
-      'Événements corporatifs',
-      'Fêtes privées haut de gamme',
-      'Thèmes personnalisés',
-      'Installation et démontage inclus'
+      t('services_page.list.decor.f1'),
+      t('services_page.list.decor.f2'),
+      t('services_page.list.decor.f3'),
+      t('services_page.list.decor.f4'),
+      t('services_page.list.decor.f5'),
+      t('services_page.list.decor.f6')
     ]
   },
   {
     id: 3,
     icon: '📋',
-    title: 'Planification complète',
-    description: 'Laissez-nous gérer chaque détail de votre événement pour une expérience sans stress et parfaitement orchestrée.',
+    title: t('services_page.list.planning.title'),
+    description: t('services_page.list.planning.desc'),
     image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800',
     features: [
-      'Accompagnement personnalisé',
-      'Gestion du budget',
-      'Coordination des fournisseurs',
-      'Timeline détaillée',
-      'Gestion le jour J',
-      'Support 24/7 avant l\'événement'
+      t('services_page.list.planning.f1'),
+      t('services_page.list.planning.f2'),
+      t('services_page.list.planning.f3'),
+      t('services_page.list.planning.f4'),
+      t('services_page.list.planning.f5'),
+      t('services_page.list.planning.f6')
     ]
   }
 ])
 
-const processSteps = ref([
+const processSteps = computed(() => [
   {
     id: 1,
-    title: 'Consultation',
-    description: 'Rencontre initiale pour comprendre votre vision et vos besoins'
+    title: t('services_page.process.s1.title'),
+    description: t('services_page.process.s1.desc')
   },
   {
     id: 2,
-    title: 'Planification',
-    description: 'Création d\'un plan détaillé et personnalisé pour votre événement'
+    title: t('services_page.process.s2.title'),
+    description: t('services_page.process.s2.desc')
   },
   {
     id: 3,
-    title: 'Préparation',
-    description: 'Coordination de tous les détails et préparation minutieuse'
+    title: t('services_page.process.s3.title'),
+    description: t('services_page.process.s3.desc')
   },
   {
     id: 4,
-    title: 'Réalisation',
-    description: 'Mise en place et gestion complète le jour de l\'événement'
+    title: t('services_page.process.s4.title'),
+    description: t('services_page.process.s4.desc')
   }
 ])
 

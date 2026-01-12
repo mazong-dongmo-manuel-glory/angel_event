@@ -1,0 +1,358 @@
+{
+    "footer": {
+        "desc": "Créer l'instant parfait avec élégance et passion.",
+        "explore": "EXPLORER",
+        "contact": "CONTACT",
+        "newsletter": "NEWSLETTER",
+        "newsletter_desc": "Restez inspiré",
+        "email_placeholder": "Votre email",
+        "subscribe": "S'inscrire",
+        "rights_reserved": "Tous droits réservés.",
+        "legal": "Mentions légales",
+        "privacy": "Confidentialité",
+        "made_by": "Réalisé par",
+        "subscribe_success": "Merci de vous être abonné!",
+        "subscribe_error": "Échec de l'inscription à la newsletter"
+    },
+    "nav": {
+        "home": "ACCUEIL",
+        "about": "À PROPOS",
+        "services": "SERVICES",
+        "gallery": "GALERIE",
+        "rentals": "LOCATION",
+        "testimonials": "TÉMOIGNAGES",
+        "contact": "CONTACT",
+        "book": "RÉSERVER",
+        "book_now": "RÉSERVER MAINTENANT",
+        "tagline": "PLANIFICATION D'ÉVÉNEMENTS"
+    },
+    "home": {
+        "hero": {
+            "pretitle": "PLANIFICATION D'ÉVÉNEMENTS DE LUXE",
+            "title": "Créer des Moments Inoubliables",
+            "subtitle": "Nous transformons vos rêves en réalité avec élégance et précision.",
+            "cta": "DÉCOUVRIR NOS SERVICES"
+        },
+        "welcome": {
+            "title": "Bienvenue chez Angel Event",
+            "text": "Nous sommes spécialisés dans la création d'événements uniques et mémorables, conçus sur mesure pour refléter votre style et votre personnalité.",
+            "signature": "L'équipe Angel Event"
+        },
+        "services": {
+            "wedding": {
+                "title": "Mariages",
+                "description": "Planification complète pour votre grand jour."
+            },
+            "corporate": {
+                "title": "Corporatif",
+                "description": "Événements professionnels qui marquent les esprits."
+            },
+            "celebrations": {
+                "title": "Célébrations",
+                "description": "Anniversaires, fiançailles et plus encore."
+            },
+            "more": "EN SAVOIR PLUS"
+        },
+        "quote": {
+            "text": "Chaque détail compte pour créer la perfection.",
+            "author": "Fondatrice"
+        }
+    },
+    "about": {
+        "hero": {
+            "title": "Notre Histoire",
+            "subtitle": "Passionnés par l'art de la célébration"
+        },
+        "story": {
+            "title": "Qui sommes-nous?",
+            "p1": "Angel Event est né d'une passion pour l'art de recevoir et de célébrer les moments importants de la vie.",
+            "p2": "Nous croyons en la magie des détails et en l'importance de créer des souvenirs durables pour nos clients.",
+            "p3": "Votre satisfaction est notre priorité absolue, et nous mettons tout en œuvre pour dépasser vos attentes."
+        },
+        "values": {
+            "title": "Nos Valeurs",
+            "excellence": {
+                "title": "Excellence",
+                "desc": "Nous visons la perfection dans chaque détail."
+            },
+            "passion": {
+                "title": "Passion",
+                "desc": "Nous aimons ce que nous faisons et cela se voit."
+            },
+            "custom": {
+                "title": "Sur Mesure",
+                "desc": "Chaque événement est unique, tout comme vous."
+            },
+            "trust": {
+                "title": "Confiance",
+                "desc": "Nous sommes votre partenaire de confiance."
+            }
+        },
+        "why": {
+            "title": "Pourquoi nous choisir?",
+            "exp": {
+                "title": "Expérience",
+                "desc": "Des années de savoir-faire à votre service."
+            },
+            "turnkey": {
+                "title": "Clé en main",
+                "desc": "On s'occupe de tout, pour votre tranquillité d'esprit."
+            },
+            "detail": {
+                "title": "Souci du détail",
+                "desc": "Rien n'est laissé au hasard."
+            },
+            "network": {
+                "title": "Réseau",
+                "desc": "Accès aux meilleurs prestataires de l'industrie."
+            }
+        },
+        "cta": {
+            "title": "Prêt à commencer?",
+            "subtitle": "Contactez-nous dès aujourd'hui pour planifier votre événement.",
+            "book": "RÉSERVER",
+            "contact": "CONTACTEZ-NOUS"
+        }
+    },
+    "services_page": {
+        "hero": {
+            "title": "Nos Services",
+            "subtitle": "Une offre complète pour tous vos besoins événementiels"
+        },
+        "list": {
+            "cta": "RÉSERVER CE SERVICE",
+            "proposal": {
+                "title": "Demande en Mariage",
+                "desc": "Le début de votre histoire d'amour mérite un décor féérique.",
+                "f1": "Recherche de lieu romantique",
+                "f2": "Décoration florale de luxe",
+                "f3": "Photographe professionnel",
+                "f4": "Ambiance musicale",
+                "f5": "Coordination sur place",
+                "f6": "Champagne et célébration"
+            },
+            "decor": {
+                "title": "Décoration & Design",
+                "desc": "Sublimez votre lieu avec notre expertise en design événementiel.",
+                "f1": "Arches florales",
+                "f2": "Centres de table",
+                "f3": "Éclairage d'ambiance",
+                "f4": "Draperie et textiles",
+                "f5": "Mobilier événementiel",
+                "f6": "Accessoires de table"
+            },
+            "planning": {
+                "title": "Planification Complète",
+                "desc": "Profitez de votre événement en toute sérénité, nous gérons tout.",
+                "f1": "Gestion de budget",
+                "f2": "Échéancier détaillé",
+                "f3": "Sélection de prestataires",
+                "f4": "Coordination jour J",
+                "f5": "Suivi rigoureux",
+                "f6": "Conseils d'experts"
+            }
+        },
+        "process": {
+            "title": "Notre Processus",
+            "subtitle": "Une approche simple et transparente",
+            "s1": {
+                "title": "Consultation",
+                "desc": "On discute de vos besoins et de votre vision."
+            },
+            "s2": {
+                "title": "Proposition",
+                "desc": "On crée un plan sur mesure pour votre événement."
+            },
+            "s3": {
+                "title": "Planification",
+                "desc": "On orchestre chaque détail avec soin."
+            },
+            "s4": {
+                "title": "Réalisation",
+                "desc": "Le jour J, nous sommes là pour tout gérer. Vous profitez!"
+            }
+        },
+        "cta": {
+            "title": "Un projet en tête?",
+            "subtitle": "Parlons-en et rendons-le réel!",
+            "quote": "OBTENIR UN DEVIS",
+            "contact": "CONTACT"
+        }
+    },
+    "gallery": {
+        "title": "Notre Galerie",
+        "subtitle": "Inspirez-vous de nos réalisations passées",
+        "next": "Voir plus",
+        "empty": "Aucune image pour le moment dans cette catégorie.",
+        "prev": "Précédent",
+        "categories": {
+            "baby_shower": "Baby Shower",
+            "bapteme": "Baptême",
+            "birthday": "Anniversaire",
+            "congrats": "Félicitations",
+            "loveroom": "Love Room",
+            "marryme": "Demande en Mariage",
+            "wedding": "Mariage"
+        }
+    },
+    "rentals_public": {
+        "title": "Location de Décor",
+        "subtitle": "Tout le matériel nécessaire pour sublimer votre événement",
+        "categories": {
+            "all": "Tout voir"
+        },
+        "loading": "Chargement des articles...",
+        "featured": "Populaire",
+        "book_btn": "Réserver cet article",
+        "empty": "Aucun article de location trouvé."
+    },
+    "contact": {
+        "title": "Contactez-nous",
+        "subtitle": "Nous sommes là pour répondre à toutes vos questions",
+        "info": {
+            "email": "Email",
+            "phone": "Téléphone",
+            "whatsapp": "WhatsApp",
+            "chat": "Discuter maintenant"
+        },
+        "form": {
+            "name": "Nom complet *",
+            "name_ph": "Votre nom",
+            "email": "Email *",
+            "email_ph": "votre@email.com",
+            "phone": "Téléphone",
+            "phone_ph": "+1 (555) 123-4567",
+            "message": "Message *",
+            "message_ph": "Comment pouvons-nous vous aider?",
+            "sending": "Envoi en cours...",
+            "submit": "Envoyer le message",
+            "success_title": "Message envoyé!",
+            "success_msg": "Merci de nous avoir contactés. Nous vous répondrons dans les plus brefs délais.",
+            "reset": "Envoyer un autre message",
+            "rental_interest": "Bonjour,\n\nJe suis intéressé(e) par la location de l'article suivant : \"{item}\".\n\nPouvez-vous me donner plus d'informations sur sa disponibilité ?\n\nMerci."
+        },
+        "newsletter": {
+            "title": "Restez informé",
+            "text": "Inscrivez-vous à notre newsletter pour recevoir nos dernières créations et offres exclusives",
+            "placeholder": "Votre email",
+            "submit": "S'abonner",
+            "success": "✓ Merci! Vous êtes maintenant abonné à notre newsletter."
+        }
+    },
+    "testimonials": {
+        "title": "Témoignages",
+        "subtitle": "Ce que nos clients disent de nous",
+        "prompt": "Vous avez travaillé avec nous?",
+        "cta": "Partager votre expérience",
+        "loading": "Chargement des témoignages...",
+        "modal": {
+            "title": "Partager votre témoignage",
+            "name": "Votre nom *",
+            "type": "Type d'événement",
+            "rating": "Note *",
+            "content": "Votre témoignage *",
+            "content_ph": "Partagez votre expérience avec Angel Event...",
+            "success_msg": "Merci pour votre témoignage! Il sera publié après modération.",
+            "cancel": "Annuler",
+            "submit": "Envoyer",
+            "close": "Fermer"
+        },
+        "types": {
+            "proposal": "Demande en mariage",
+            "wedding": "Mariage",
+            "birthday": "Anniversaire",
+            "baby_shower": "Baby Shower",
+            "corporate": "Événement corporatif",
+            "other": "Autre"
+        }
+    },
+    "booking": {
+        "title": "Réserver votre événement",
+        "subtitle": "Créons ensemble un moment inoubliable",
+        "steps": {
+            "date": "Date",
+            "event": "Événement",
+            "details": "Détails",
+            "confirm": "Confirmation"
+        },
+        "step1": {
+            "title": "Choisissez la date de votre événement",
+            "subtitle": "Les dates en vert sont disponibles pour réservation",
+            "continue": "Continuer"
+        },
+        "step2": {
+            "title": "Détails de l'événement",
+            "type": "Type d'événement *",
+            "select": "Sélectionnez...",
+            "guests": "Nombre d'invités",
+            "location": "Lieu de l'événement",
+            "location_ph": "Ville ou adresse",
+            "budget": "Budget approximatif (CAD) *",
+            "deposit": "💰 Dépôt requis: {amount} CAD (30% du budget)",
+            "vision": "Décrivez votre vision",
+            "vision_ph": "Parlez-nous de votre événement de rêve..."
+        },
+        "step3": {
+            "title": "Vos coordonnées",
+            "name": "Nom complet *",
+            "email": "Email *",
+            "phone": "Téléphone",
+            "special": "Demandes spéciales",
+            "special_ph": "Allergies, préférences, contraintes..."
+        },
+        "step4": {
+            "title": "Récapitulatif de votre réservation",
+            "section_date": "📅 Date et événement",
+            "section_contact": "👤 Vos coordonnées",
+            "section_payment": "💳 Paiement",
+            "total": "Budget total:",
+            "item_prefix": "Article",
+            "note": "🔒 Votre réservation sera confirmée par email.",
+            "processing": "Traitement...",
+            "confirm": "Confirmer la réservation"
+        },
+        "success": {
+            "title": "Réservation confirmée!",
+            "msg1": "Merci pour votre confiance. Nous avons bien reçu votre réservation et votre paiement.",
+            "msg2": "Un email de confirmation vous a été envoyé à {email}.",
+            "msg3": "Notre équipe vous contactera sous peu pour finaliser les détails de votre événement.",
+            "home": "Retour à l'accueil"
+        }
+    },
+    "admin": {
+        "rental": {
+            "title": "Gestion des Locations",
+            "add_item": "Ajouter un article",
+            "search_placeholder": "Rechercher...",
+            "all_categories": "Toutes les catégories",
+            "loading": "Chargement...",
+            "edit": "Modifier",
+            "delete": "Supprimer",
+            "featured": "En vedette",
+            "unavailable": "Indisponible",
+            "modal_title_edit": "Modifier l'article",
+            "modal_title_new": "Nouvel article",
+            "form": {
+                "image": "Image",
+                "current_image": "Image actuelle",
+                "change_image": "Changer l'image",
+                "title": "Titre",
+                "price": "Prix",
+                "category": "Catégorie",
+                "choose_category": "Choisir une catégorie",
+                "description": "Description",
+                "make_featured": "Mettre en vedette",
+                "available": "Disponible"
+            },
+            "cancel": "Annuler",
+            "saving": "Sauvegarde...",
+            "save": "Sauvegarder",
+            "category_error": "Erreur de chargement des catégories",
+            "load_error": "Erreur de chargement des articles",
+            "image_required": "L'image est requise",
+            "save_error": "Erreur lors de la sauvegarde",
+            "delete_confirm": "Êtes-vous sûr de vouloir supprimer cet article?",
+            "delete_error": "Erreur lors de la suppression"
+        }
+    }
+}

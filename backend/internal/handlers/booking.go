@@ -25,6 +25,7 @@ type CreateBookingRequest struct {
 	Budget          float64 `json:"budget"`
 	Message         string  `json:"message"`
 	SpecialRequests string  `json:"special_requests"`
+	Language        string  `json:"language"`
 	RentalItemIDs   []uint  `json:"rental_item_ids"`
 }
 
@@ -108,12 +109,26 @@ func CreateBooking(c *fiber.Ctx) error {
 		})
 	}
 
-	// Send confirmation email
+	// Send confirmation email to client
 	go emailService.SendBookingConfirmation(
 		client.Email,
 		client.Name,
 		string(booking.EventType),
 		eventDate.Format("2 January 2006"),
+		req.Language,
+	)
+
+	// Send notification email to admin
+	go emailService.SendAdminBookingNotification(
+		client.Name,
+		client.Email,
+		client.Phone,
+		string(booking.EventType),
+		eventDate.Format("2 January 2006"),
+		req.EventLocation,
+		req.GuestCount,
+		req.Budget,
+		req.Message,
 	)
 
 	// Log email

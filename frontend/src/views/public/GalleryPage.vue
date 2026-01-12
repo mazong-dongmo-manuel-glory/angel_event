@@ -3,8 +3,8 @@
     <Header />
     <div class="container gallery-container">
       <div class="gallery-header fade-in-up">
-        <h1 class="font-script text-gold">Notre Galerie</h1>
-        <p class="subtitle">Découvrez nos plus belles créations</p>
+        <h1 class="font-script text-gold">{{ t('gallery.title') }}</h1>
+        <p class="subtitle">{{ t('gallery.subtitle') }}</p>
       </div>
 
       <!-- Category Sections -->
@@ -22,7 +22,7 @@
               @click="loadNextImages(category.value)"
               :disabled="loadingCategories[category.value]"
             >
-              <span v-if="!loadingCategories[category.value]">Suivant →</span>
+              <span v-if="!loadingCategories[category.value]">{{ t('gallery.next') }}</span>
               <span v-else class="spinner-small"></span>
             </button>
           </div>
@@ -40,13 +40,13 @@
               class="gallery-item fade-in-up"
               @click="openLightbox(category.value, index)"
             >
-              <img :src="image.image_url" :alt="category.label" />
+              <img :src="getImageWithFallback(image.image_url, 'gallery', category.value)" :alt="category.label" />
             </div>
           </div>
 
           <!-- Empty State -->
           <div v-else class="empty-state">
-            <p>Aucune image disponible pour cette catégorie.</p>
+            <p>{{ t('gallery.empty') }}</p>
           </div>
         </div>
       </div>
@@ -59,7 +59,7 @@
             <button class="lightbox-prev" @click.stop="prevImage">‹</button>
             <button class="lightbox-next" @click.stop="nextImage">›</button>
             <div class="lightbox-content" @click.stop>
-              <img :src="currentImage.image_url" :alt="currentCategory" />
+              <img :src="getImageWithFallback(currentImage.image_url, 'gallery', currentCategory)" :alt="currentCategory" />
             </div>
           </div>
         </Transition>
@@ -71,9 +71,13 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
+import { useI18n } from 'vue-i18n'
 import Header from '../../components/Header.vue'
 import Footer from '../../components/Footer.vue'
 import api from '../../services/api'
+import { getImageWithFallback } from '../../config/defaultImages'
+
+const { t } = useI18n()
 
 const categoryImages = ref({})
 const loadingCategories = ref({})
@@ -82,15 +86,15 @@ const currentCategory = ref('')
 const currentImageIndex = ref(0)
 const excludedIds = ref({}) // Track excluded IDs per category
 
-const categories = [
-  { label: 'Baby Shower', value: 'baby_shower' },
-  { label: 'Baptême', value: 'bapteme' },
-  { label: 'Anniversaire', value: 'birthday' },
-  { label: 'Félicitations', value: 'congrats' },
-  { label: 'Love Room', value: 'loveroom' },
-  { label: 'Demande en Mariage', value: 'marryme' },
-  { label: 'Mariage', value: 'wedding' }
-]
+const categories = computed(() => [
+  { label: t('gallery.categories.wedding'), value: 'wedding' },
+  { label: t('gallery.categories.marryme'), value: 'marryme' },
+  { label: t('gallery.categories.birthday'), value: 'birthday' },
+  { label: t('gallery.categories.baby_shower'), value: 'baby_shower' },
+  { label: t('gallery.categories.bapteme'), value: 'bapteme' },
+  { label: t('gallery.categories.loveroom'), value: 'loveroom' },
+  { label: t('gallery.categories.congrats'), value: 'congrats' }
+])
 
 const currentImage = computed(() => {
   const images = categoryImages.value[currentCategory.value] || []
@@ -162,7 +166,7 @@ function prevImage() {
 
 onMounted(() => {
   // Load initial images for all categories
-  categories.forEach(cat => {
+  categories.value.forEach(cat => {
     loadCategoryImages(cat.value, false)
   })
   

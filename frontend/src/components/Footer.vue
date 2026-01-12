@@ -8,24 +8,33 @@
             <img src="/logo.jpeg" alt="Angel Event Logo" class="footer-logo-img" />
             <h3 class="footer-logo">ANGEL EVENT</h3>
           </div>
+
           <p class="footer-desc">
-            Créer l'instant parfait avec élégance et passion.
+            {{ $t('footer.desc') }}
           </p>
+          <div class="social-links">
+            <a href="https://www.instagram.com/angel_eventt/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <Instagram class="icon" />
+            </a>
+            <a href="https://www.tiktok.com/@angel_eventt" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+              <TikTok class="icon" />
+            </a>
+          </div>
 
         </div>
 
         <!-- Navigation -->
         <div class="footer-section nav-section">
-          <h4>EXPLORER</h4>
-          <RouterLink to="/services">SERVICES</RouterLink>
-          <RouterLink to="/galerie">GALERIE</RouterLink>
-          <RouterLink to="/temoignages">TÉMOIGNAGES</RouterLink>
-          <RouterLink to="/a-propos">À PROPOS</RouterLink>
+          <h4>{{ $t('footer.explore') }}</h4>
+          <RouterLink to="/services">{{ $t('nav.services') }}</RouterLink>
+          <RouterLink to="/galerie">{{ $t('nav.gallery') }}</RouterLink>
+          <RouterLink to="/temoignages">{{ $t('nav.testimonials') }}</RouterLink>
+          <RouterLink to="/a-propos">{{ $t('nav.about') }}</RouterLink>
         </div>
 
         <!-- Contact -->
         <div class="footer-section contact-section">
-          <h4>CONTACT</h4>
+          <h4>{{ $t('footer.contact') }}</h4>
           <div class="contact-item">
             <Mail class="icon-xs" />
             <span>contact@angelevent.com</span>
@@ -42,11 +51,11 @@
 
         <!-- Newsletter -->
         <div class="footer-section newsletter-section">
-          <h4>NEWSLETTER</h4>
-          <p>Restez inspiré</p>
+          <h4>{{ $t('footer.newsletter') }}</h4>
+          <p>{{ $t('footer.newsletter_desc') }}</p>
           <form @submit.prevent="handleNewsletter" class="newsletter-form">
-            <input v-model="email" type="email" placeholder="Votre email" required />
-            <button type="submit" aria-label="S'inscrire" class="newsletter-btn">
+            <input v-model="email" type="email" :placeholder="$t('footer.email_placeholder')" required />
+            <button type="submit" :aria-label="$t('footer.subscribe')" class="newsletter-btn">
               <ArrowRight class="icon-sm" />
             </button>
           </form>
@@ -54,10 +63,15 @@
       </div>
 
       <div class="footer-bottom">
-        <p>&copy; {{ new Date().getFullYear() }} Angel Event. Tous droits réservés.</p>
+        <div class="copyright">
+          <p>&copy; {{ new Date().getFullYear() }} Angel Event. {{ $t('footer.rights_reserved') }}</p>
+          <p class="mazong-credit">
+            {{ $t('footer.made_by') }} <span class="mazong-highlight">Mazong</span>
+          </p>
+        </div>
         <div class="legal-links">
-          <a href="#">Mentions légales</a>
-          <a href="#">Confidentialité</a>
+          <a href="#">{{ $t('footer.legal') }}</a>
+          <a href="#">{{ $t('footer.privacy') }}</a>
         </div>
       </div>
     </div>
@@ -67,18 +81,26 @@
 <script setup>
 import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
-import { Instagram, Facebook, Twitter, Mail, Phone, MapPin, ArrowRight } from 'lucide-vue-next'
+import { useI18n } from 'vue-i18n'
+import { Instagram, Mail, Phone, MapPin, ArrowRight } from 'lucide-vue-next'
+import TikTok from './icons/TikTok.vue'
 import api from '../services/api'
+import i18n from '../i18n'
 
+const { t } = useI18n()
 const email = ref('')
 
 async function handleNewsletter() {
   try {
-    await api.post('/public/newsletter/subscribe', { email: email.value, language: 'fr' })
+    await api.post('/public/newsletter/subscribe', { 
+      email: email.value, 
+      language: i18n.global.locale.value 
+    })
     email.value = ''
-    alert('Merci de vous être abonné!')
+    alert(t('footer.subscribe_success'))
   } catch (error) {
     console.error('Newsletter subscription failed:', error)
+    alert(t('footer.subscribe_error'))
   }
 }
 </script>
@@ -253,5 +275,22 @@ async function handleNewsletter() {
   .legal-links a {
     margin: 0 var(--spacing-md);
   }
+}
+
+.copyright {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.mazong-credit {
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+.mazong-highlight {
+  color: var(--color-gold);
+  font-weight: 600;
+  letter-spacing: 0.05em;
 }
 </style>

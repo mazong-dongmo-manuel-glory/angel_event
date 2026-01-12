@@ -44,6 +44,7 @@ func Migrate() error {
 		&models.GalleryImage{},
 		&models.SiteContent{},
 		&models.EmailLog{},
+		&models.Category{},
 		&models.RentalItem{},
 	)
 	if err != nil {
@@ -85,6 +86,23 @@ func SeedDefaultData() error {
 		}
 
 		log.Printf("Default admin user created: %s", adminEmail)
+	}
+
+	// Seed default categories
+	var catCount int64
+	DB.Model(&models.Category{}).Count(&catCount)
+	if catCount == 0 {
+		categories := []models.Category{
+			{Name: "Centre de table", Slug: "centerpiece", Type: "rental"},
+			{Name: "Backdrop / Panneau", Slug: "backdrop", Type: "rental"},
+			{Name: "Fleur", Slug: "flower", Type: "rental"},
+			{Name: "Autre article", Slug: "other", Type: "rental"},
+			{Name: "Animation", Slug: "animation", Type: "rental", Description: "Articles d'animation"},
+		}
+		if err := DB.Create(&categories).Error; err != nil {
+			return fmt.Errorf("failed to seed default categories: %w", err)
+		}
+		log.Println("Default categories seeded")
 	}
 
 	// Seed default site content
@@ -131,12 +149,20 @@ func SeedDefaultData() error {
 	DB.Model(&models.RentalItem{}).Count(&rentalCount)
 
 	if rentalCount == 0 {
+		// Get categories first
+		var cats []models.Category
+		DB.Find(&cats)
+		catMap := make(map[string]uint)
+		for _, c := range cats {
+			catMap[c.Slug] = c.ID
+		}
+
 		defaultRentals := []models.RentalItem{
 			{
 				Title:       "Arche Ronde Dorée",
 				Description: "Une magnifique arche ronde dorée pour sublimer votre décor de cérémonie ou photobooth.",
 				Price:       50.00,
-				Category:    models.RentalCategoryBackdrop,
+				CategoryID:  catMap["backdrop"],
 				ImageURL:    "/uploads/rentals/default-rental.png",
 				Featured:    true,
 				Available:   true,
@@ -145,7 +171,7 @@ func SeedDefaultData() error {
 				Title:       "Centre de Table Floral",
 				Description: "Composition florale élégante dans des tons blanc et crème, idéale pour les mariages.",
 				Price:       25.00,
-				Category:    models.RentalCategoryCenterpiece,
+				CategoryID:  catMap["centerpiece"],
 				ImageURL:    "/uploads/rentals/default-rental.png",
 				Featured:    true,
 				Available:   true,
@@ -154,7 +180,7 @@ func SeedDefaultData() error {
 				Title:       "Mur de Fleurs Blanc",
 				Description: "Mur de fleurs artificielles haute qualité, dimensions 2m x 2m. Impact visuel garanti.",
 				Price:       120.00,
-				Category:    models.RentalCategoryBackdrop,
+				CategoryID:  catMap["backdrop"],
 				ImageURL:    "/uploads/rentals/default-rental.png",
 				Featured:    false,
 				Available:   true,
@@ -163,7 +189,7 @@ func SeedDefaultData() error {
 				Title:       "Vase Haut Cylindrique",
 				Description: "Vase en verre transparent, hauteur 60cm. Parfait pour les compositions modernes.",
 				Price:       15.00,
-				Category:    models.RentalCategoryOther,
+				CategoryID:  catMap["other"],
 				ImageURL:    "/uploads/rentals/default-rental.png",
 				Featured:    false,
 				Available:   true,
@@ -172,7 +198,7 @@ func SeedDefaultData() error {
 				Title:       "Bouquet de Pivoines",
 				Description: "Bouquet de pivoines artificielles réalistes.",
 				Price:       10.00,
-				Category:    models.RentalCategoryFlower,
+				CategoryID:  catMap["flower"],
 				ImageURL:    "/uploads/rentals/default-rental.png",
 				Featured:    false,
 				Available:   true,

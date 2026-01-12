@@ -294,28 +294,40 @@ async function fetchSubscribers() {
 
 async function toggleActive(subscriber) {
   try {
-    // Note: Backend doesn't have update endpoint, so we'll show alert
-    alert('La modification du statut n\'est pas encore implémentée dans le backend')
+    const updatedActive = !subscriber.active
+    await api.put(`/admin/newsletter/subscribers/${subscriber.id}`, {
+      active: updatedActive
+    })
+    
+    // Update local data
+    subscriber.active = updatedActive
   } catch (error) {
     console.error('Failed to toggle active status:', error)
-    alert('Erreur lors de la modification')
+    alert('Erreur lors de la modification du statut')
   }
 }
+
 
 function confirmDelete(subscriber) {
   deletingSubscriber.value = subscriber
 }
 
 async function deleteSubscriber() {
+  if (!deletingSubscriber.value) return
+  
   try {
-    // Note: Backend doesn't have delete endpoint
-    alert('La suppression d\'abonnés n\'est pas encore implémentée dans le backend')
+    await api.delete(`/admin/newsletter/subscribers/${deletingSubscriber.value.id}`)
+    
+    // Remove from local list
+    subscribers.value = subscribers.value.filter(s => s.id !== deletingSubscriber.value.id)
     deletingSubscriber.value = null
   } catch (error) {
     console.error('Failed to delete subscriber:', error)
     alert('Erreur lors de la suppression')
+    deletingSubscriber.value = null
   }
 }
+
 
 function getRecipientCount() {
   let count = subscribers.value.filter(s => s.active)

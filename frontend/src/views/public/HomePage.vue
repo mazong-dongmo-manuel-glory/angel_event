@@ -11,14 +11,14 @@
       </div>
       
       <div class="hero-content text-center" v-motion-fade-visible>
-        <span class="hero-pretitle">EST. 2024</span>
-        <h1 class="hero-title">CRÉATEUR D'ÉVÉNEMENTS</h1>
+        <span class="hero-pretitle">{{ t('home.hero.pretitle') }}</span>
+        <h1 class="hero-title">{{ t('home.hero.title') }}</h1>
         <div class="hero-divider"></div>
         <p class="hero-subtitle">
-          "En travaillant ensemble et en réunissant nos richesses, nous pouvons accomplir de grandes choses."
+          {{ t('home.hero.subtitle') }}
         </p>
         <Button variant="white" size="lg" @click="$router.push('/services')">
-          DÉCOUVRIR L'EXPÉRIENCE
+          {{ t('home.hero.cta') }}
         </Button>
       </div>
     </section>
@@ -26,12 +26,11 @@
     <!-- Welcome Section (Clean White) -->
     <section class="section-clean">
       <div class="container container-narrow text-center">
-        <h2 class="section-title">BIENVENUE CHEZ ANGEL EVENT</h2>
+        <h2 class="section-title">{{ t('home.welcome.title') }}</h2>
         <p class="section-text">
-          Nous sommes une agence de planification d'événements haut de gamme, spécialisée dans la création de moments inoubliables. 
-          Notre approche minimaliste et sophistiquée met en valeur l'essence de chaque célébration.
+          {{ t('home.welcome.text') }}
         </p>
-        <div class="signature">Angel Event Team</div>
+        <div class="signature">{{ t('home.welcome.signature') }}</div>
       </div>
     </section>
 
@@ -46,7 +45,7 @@
             </div>
             <h3>{{ service.title }}</h3>
             <p>{{ service.description }}</p>
-            <a @click="$router.push('/services')" class="link-luxury">EN SAVOIR PLUS</a>
+            <a @click="$router.push('/services')" class="link-luxury">{{ t('home.services.more') }}</a>
           </div>
         </div>
       </div>
@@ -57,20 +56,20 @@
       <div class="quote-content">
         <Quote class="quote-icon" />
         <blockquote>
-          L'élégance n'est pas de se faire remarquer, mais de se faire souvenir.
+          {{ t('home.quote.text') }}
         </blockquote>
-        <cite>Giorgio Armani</cite>
+        <cite>{{ t('home.quote.author') }}</cite>
       </div>
     </section>
 
     <!-- Gallery Strip -->
     <section class="gallery-strip">
-      <div class="gallery-item" v-for="(img, idx) in galleryImages" :key="idx">
-        <img :src="img" alt="Gallery" />
+      <a href="https://www.instagram.com/angel_eventt/" target="_blank" rel="noopener noreferrer" class="gallery-item" v-for="(img, idx) in galleryImages" :key="idx">
+        <img :src="img" alt="Instagram Publication" />
         <div class="gallery-overlay">
           <Instagram class="icon-white" />
         </div>
-      </div>
+      </a>
     </section>
 
     <Footer />
@@ -78,30 +77,33 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { Crown, Heart, PartyPopper, Quote, Instagram } from 'lucide-vue-next'
 import Header from '../../components/Header.vue'
 import Footer from '../../components/Footer.vue'
 import Button from '../../components/ui/Button.vue'
 
-const services = ref([
+const { t } = useI18n()
+
+const services = computed(() => [
   {
     id: 1,
     icon: Heart,
-    title: 'MARIAGES',
-    description: 'Une coordination parfaite pour le plus beau jour de votre vie.'
+    title: t('home.services.wedding.title'),
+    description: t('home.services.wedding.description')
   },
   {
     id: 2,
     icon: Crown,
-    title: 'CORPORATIF',
-    description: 'Des événements professionnels qui marquent les esprits.'
+    title: t('home.services.corporate.title'),
+    description: t('home.services.corporate.description')
   },
   {
     id: 3,
     icon: PartyPopper,
-    title: 'CÉLÉBRATIONS',
-    description: 'Anniversaires, fiançailles et moments précieux.'
+    title: t('home.services.celebrations.title'),
+    description: t('home.services.celebrations.description')
   }
 ])
 

@@ -4,8 +4,8 @@
     <!-- Hero Section -->
     <section class="about-hero">
       <div class="container text-center">
-        <h1 class="font-script text-gold fade-in-up">À Propos d'Angel Event</h1>
-        <p class="hero-subtitle fade-in-up">L'art de sublimer vos moments précieux</p>
+        <h1 class="font-script text-gold fade-in-up">{{ t('about.hero.title') }}</h1>
+        <p class="hero-subtitle fade-in-up">{{ t('about.hero.subtitle') }}</p>
       </div>
     </section>
 
@@ -14,20 +14,10 @@
       <div class="container">
         <div class="story-content">
           <div class="story-text fade-in-up">
-            <h2>Notre Histoire</h2>
-            <p>
-              Angel Event est née d'une passion profonde pour la création d'expériences inoubliables.
-              Chaque événement est une opportunité unique de transformer des rêves en réalité, de créer
-              des souvenirs qui dureront toute une vie.
-            </p>
-            <p>
-              Spécialisés dans les demandes en mariage, les mariages et les événements haut de gamme,
-              nous mettons notre expertise et notre créativité au service de vos moments les plus précieux.
-            </p>
-            <p>
-              Notre approche personnalisée garantit que chaque détail reflète votre vision unique et
-              dépasse vos attentes.
-            </p>
+            <h2>{{ t('about.story.title') }}</h2>
+            <p>{{ t('about.story.p1') }}</p>
+            <p>{{ t('about.story.p2') }}</p>
+            <p>{{ t('about.story.p3') }}</p>
           </div>
           <div class="story-image fade-in-up">
             <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=800" alt="Angel Event" />
@@ -39,7 +29,7 @@
     <!-- Values Section -->
     <section class="values-section">
       <div class="container">
-        <h2 class="section-title text-center fade-in-up">Nos Valeurs</h2>
+        <h2 class="section-title text-center fade-in-up">{{ t('about.values.title') }}</h2>
         <div class="values-grid">
           <div v-for="value in values" :key="value.id" class="value-card fade-in-up">
             <div class="value-icon">{{ value.icon }}</div>
@@ -53,7 +43,7 @@
     <!-- Why Choose Us -->
     <section class="why-section">
       <div class="container">
-        <h2 class="section-title text-center fade-in-up">Pourquoi Nous Choisir</h2>
+        <h2 class="section-title text-center fade-in-up">{{ t('about.why.title') }}</h2>
         <div class="why-grid">
           <div v-for="reason in reasons" :key="reason.id" class="why-item fade-in-up">
             <div class="why-number">{{ reason.id }}</div>
@@ -67,11 +57,11 @@
     <!-- CTA Section -->
     <section class="cta-section">
       <div class="container text-center">
-        <h2 class="font-script fade-in-up">Créons Ensemble Votre Moment Parfait</h2>
-        <p class="fade-in-up">Contactez-nous pour une consultation gratuite</p>
+        <h2 class="font-script fade-in-up">{{ t('about.cta.title') }}</h2>
+        <p class="fade-in-up">{{ t('about.cta.subtitle') }}</p>
         <div class="cta-buttons fade-in-up">
-          <Button size="lg" @click="$router.push('/reserver')">Réserver maintenant</Button>
-          <Button size="lg" variant="white" @click="$router.push('/contact')">Nous contacter</Button>
+          <Button size="lg" @click="$router.push('/reserver')">{{ t('about.cta.book') }}</Button>
+          <Button size="lg" variant="white" @click="$router.push('/contact')">{{ t('about.cta.contact') }}</Button>
         </div>
       </div>
     </section>
@@ -81,58 +71,61 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import Header from '../../components/Header.vue'
 import Footer from '../../components/Footer.vue'
 import Button from '../../components/ui/Button.vue'
 
-const values = ref([
+const { t } = useI18n()
+
+const values = computed(() => [
   {
     id: 1,
     icon: '✨',
-    title: 'Excellence',
-    description: 'Nous visons la perfection dans chaque détail, sans compromis sur la qualité.'
+    title: t('about.values.excellence.title'),
+    description: t('about.values.excellence.desc')
   },
   {
     id: 2,
     icon: '💝',
-    title: 'Passion',
-    description: 'Notre amour pour notre métier se reflète dans chaque événement que nous créons.'
+    title: t('about.values.passion.title'),
+    description: t('about.values.passion.desc')
   },
   {
     id: 3,
     icon: '🎯',
-    title: 'Personnalisation',
-    description: 'Chaque événement est unique et conçu sur mesure selon vos désirs.'
+    title: t('about.values.custom.title'),
+    description: t('about.values.custom.desc')
   },
   {
     id: 4,
     icon: '🤝',
-    title: 'Confiance',
-    description: 'Nous bâtissons des relations durables basées sur la transparence et l\'intégrité.'
+    title: t('about.values.trust.title'),
+    description: t('about.values.trust.desc')
   }
 ])
 
-const reasons = ref([
+const reasons = computed(() => [
   {
     id: 1,
-    title: 'Expertise Reconnue',
-    description: 'Des années d\'expérience dans la création d\'événements haut de gamme et mémorables.'
+    title: t('about.why.exp.title'),
+    description: t('about.why.exp.desc')
   },
   {
     id: 2,
-    title: 'Service Clé en Main',
-    description: 'De la conception à la réalisation, nous gérons tous les aspects de votre événement.'
+    title: t('about.why.turnkey.title'),
+    description: t('about.why.turnkey.desc')
   },
   {
     id: 3,
-    title: 'Attention aux Détails',
-    description: 'Chaque élément est soigneusement pensé et exécuté avec précision.'
+    title: t('about.why.detail.title'),
+    description: t('about.why.detail.desc')
   },
   {
     id: 4,
-    title: 'Réseau de Partenaires',
-    description: 'Accès à un réseau exclusif de fournisseurs et lieux prestigieux.'
+    title: t('about.why.network.title'),
+    description: t('about.why.network.desc')
   }
 ])
 </script>

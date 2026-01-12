@@ -3,20 +3,20 @@
     <Header />
     <div class="container testimonials-container">
       <div class="testimonials-header fade-in-up">
-        <h1 class="font-script text-gold">Témoignages</h1>
-        <p class="subtitle">Ce que nos clients disent de nous</p>
+        <h1 class="font-script text-gold">{{ t('testimonials.title') }}</h1>
+        <p class="subtitle">{{ t('testimonials.subtitle') }}</p>
       </div>
 
       <!-- Submit Testimonial CTA -->
       <div class="submit-cta fade-in-up">
-        <p>Vous avez travaillé avec nous?</p>
-        <Button @click="showSubmitForm = true">Partager votre expérience</Button>
+        <p>{{ t('testimonials.prompt') }}</p>
+        <Button @click="showSubmitForm = true">{{ t('testimonials.cta') }}</Button>
       </div>
 
       <!-- Loading State -->
       <div v-if="loading" class="loading-state">
         <div class="spinner"></div>
-        <p>Chargement des témoignages...</p>
+        <p>{{ t('testimonials.loading') }}</p>
       </div>
 
       <!-- Testimonials Grid -->
@@ -37,12 +37,12 @@
       <!-- Submit Form Modal -->
       <Modal v-model="showSubmitForm">
         <template #header>
-          <h2>Partager votre témoignage</h2>
+          <h2>{{ t('testimonials.modal.title') }}</h2>
         </template>
 
         <form v-if="!submitted" @submit.prevent="handleSubmit" class="testimonial-form">
           <div class="form-group">
-            <label for="name">Votre nom *</label>
+            <label for="name">{{ t('testimonials.modal.name') }}</label>
             <input
               id="name"
               v-model="formData.name"
@@ -53,19 +53,19 @@
           </div>
 
           <div class="form-group">
-            <label for="event-type">Type d'événement</label>
+            <label for="event-type">{{ t('testimonials.modal.type') }}</label>
             <select id="event-type" v-model="formData.event_type">
-              <option value="">Sélectionnez...</option>
-              <option value="proposal">Demande en mariage</option>
-              <option value="wedding">Mariage</option>
-              <option value="birthday">Anniversaire</option>
-              <option value="baby_shower">Baby Shower</option>
-              <option value="other">Autre</option>
+              <option value="">{{ t('booking.step2.select') }}</option>
+              <option value="proposal">{{ t('testimonials.types.proposal') }}</option>
+              <option value="wedding">{{ t('testimonials.types.wedding') }}</option>
+              <option value="birthday">{{ t('testimonials.types.birthday') }}</option>
+              <option value="baby_shower">{{ t('testimonials.types.baby_shower') }}</option>
+              <option value="other">{{ t('testimonials.types.other') }}</option>
             </select>
           </div>
 
           <div class="form-group">
-            <label>Note *</label>
+            <label>{{ t('testimonials.modal.rating') }}</label>
             <div class="rating-input">
               <span
                 v-for="n in 5"
@@ -80,13 +80,13 @@
           </div>
 
           <div class="form-group">
-            <label for="content">Votre témoignage *</label>
+            <label for="content">{{ t('testimonials.modal.content') }}</label>
             <textarea
               id="content"
               v-model="formData.content"
               rows="5"
               required
-              placeholder="Partagez votre expérience avec Angel Event..."
+              :placeholder="t('testimonials.modal.content_ph')"
             ></textarea>
           </div>
 
@@ -97,18 +97,18 @@
 
         <div v-else class="success-message">
           <div class="success-icon">✓</div>
-          <p>Merci pour votre témoignage! Il sera publié après modération.</p>
+          <p>{{ t('testimonials.modal.success_msg') }}</p>
         </div>
 
         <template #footer>
           <Button v-if="!submitted" variant="ghost" @click="showSubmitForm = false">
-            Annuler
+            {{ t('testimonials.modal.cancel') }}
           </Button>
           <Button v-if="!submitted" type="submit" :loading="submitting" @click="handleSubmit">
-            Envoyer
+            {{ t('testimonials.modal.submit') }}
           </Button>
           <Button v-else @click="showSubmitForm = false; submitted = false">
-            Fermer
+            {{ t('testimonials.modal.close') }}
           </Button>
         </template>
       </Modal>
@@ -119,12 +119,15 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useI18n } from 'vue-i18n'
 import Header from '../../components/Header.vue'
 import Footer from '../../components/Footer.vue'
 import Button from '../../components/ui/Button.vue'
 import Card from '../../components/ui/Card.vue'
 import Modal from '../../components/ui/Modal.vue'
 import api from '../../services/api'
+
+const { t } = useI18n()
 
 const testimonials = ref([])
 const loading = ref(true)
@@ -140,17 +143,16 @@ const formData = ref({
   content: ''
 })
 
-const eventTypeLabels = {
-  proposal: 'Demande en mariage',
-  wedding: 'Mariage',
-  birthday: 'Anniversaire',
-  baby_shower: 'Baby Shower',
-  corporate: 'Événement corporatif',
-  other: 'Autre'
-}
-
 function formatEventType(type) {
-  return eventTypeLabels[type] || type
+  const types = {
+    proposal: t('testimonials.types.proposal'),
+    wedding: t('testimonials.types.wedding'),
+    birthday: t('testimonials.types.birthday'),
+    baby_shower: t('testimonials.types.baby_shower'),
+    corporate: t('testimonials.types.corporate'),
+    other: t('testimonials.types.other')
+  }
+  return types[type] || type
 }
 
 async function fetchTestimonials() {

@@ -4,17 +4,26 @@
     <div class="top-bar">
       <div class="container top-bar-content">
         <nav class="top-nav">
-          <RouterLink to="/a-propos">À PROPOS</RouterLink>
-          <RouterLink to="/services">SERVICES</RouterLink>
-          <RouterLink to="/galerie">GALERIE</RouterLink>
-          <RouterLink to="/location">LOCATION</RouterLink>
-          <RouterLink to="/contact">CONTACT</RouterLink>
+          <RouterLink to="/a-propos">{{ t('nav.about') }}</RouterLink>
+          <RouterLink to="/services">{{ t('nav.services') }}</RouterLink>
+          <RouterLink to="/galerie">{{ t('nav.gallery') }}</RouterLink>
+          <RouterLink to="/location">{{ t('nav.rentals') }}</RouterLink>
+          <RouterLink to="/contact">{{ t('nav.contact') }}</RouterLink>
         </nav>
 
+
         <div class="top-socials">
-          <a href="#" aria-label="Facebook"><Facebook class="icon-sm" /></a>
-          <a href="#" aria-label="Instagram"><Instagram class="icon-sm" /></a>
-          <a href="#" aria-label="Pinterest"><Linkedin class="icon-sm" /></a> <!-- Using Linkedin as placeholder/generic -->
+          <button @click="toggleLanguage" class="lang-btn" aria-label="Toggle Language">
+            <Globe class="icon-sm" />
+            <span>{{ locale === 'fr' ? 'EN' : 'FR' }}</span>
+          </button>
+          <div class="divider"></div>
+          <a href="https://www.instagram.com/angel_eventt/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <Instagram class="icon-sm" />
+          </a>
+          <a href="https://www.tiktok.com/@angel_eventt" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+            <TikTok class="icon-sm" />
+          </a>
         </div>
       </div>
     </div>
@@ -28,13 +37,13 @@
           </div>
           <div class="brand-text">
             <span class="brand-name">ANGEL EVENT</span>
-            <span class="brand-tagline">PLANIFICATION D'ÉVÉNEMENTS</span>
+            <span class="brand-tagline">{{ t('nav.tagline') }}</span>
           </div>
         </RouterLink>
         
         <div class="header-actions">
            <Button @click="goToBooking" variant="outline" size="sm">
-             RÉSERVER MAINTENANT
+             {{ t('nav.book_now') }}
            </Button>
         </div>
         
@@ -48,15 +57,15 @@
     <!-- Mobile Menu Overlay -->
     <div class="mobile-menu" :class="{ open: mobileMenuOpen }">
       <nav class="mobile-nav">
-        <RouterLink to="/" @click="mobileMenuOpen = false">ACCUEIL</RouterLink>
-        <RouterLink to="/a-propos" @click="mobileMenuOpen = false">À PROPOS</RouterLink>
-        <RouterLink to="/services" @click="mobileMenuOpen = false">SERVICES</RouterLink>
-        <RouterLink to="/galerie" @click="mobileMenuOpen = false">GALERIE</RouterLink>
-        <RouterLink to="/temoignages" @click="mobileMenuOpen = false">TÉMOIGNAGES</RouterLink>
-        <RouterLink to="/contact" @click="mobileMenuOpen = false">CONTACT</RouterLink>
+        <RouterLink to="/" @click="mobileMenuOpen = false">{{ t('nav.home') }}</RouterLink>
+        <RouterLink to="/a-propos" @click="mobileMenuOpen = false">{{ t('nav.about') }}</RouterLink>
+        <RouterLink to="/services" @click="mobileMenuOpen = false">{{ t('nav.services') }}</RouterLink>
+        <RouterLink to="/galerie" @click="mobileMenuOpen = false">{{ t('nav.gallery') }}</RouterLink>
+        <RouterLink to="/temoignages" @click="mobileMenuOpen = false">{{ t('nav.testimonials') }}</RouterLink>
+        <RouterLink to="/contact" @click="mobileMenuOpen = false">{{ t('nav.contact') }}</RouterLink>
         <div class="mobile-actions">
            <Button @click="goToBooking" class="w-full">
-             RÉSERVER
+             {{ t('nav.book') }}
            </Button>
         </div>
       </nav>
@@ -67,12 +76,19 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
-import { Search, Facebook, Instagram, Linkedin, Menu, X } from 'lucide-vue-next'
+import { useI18n } from 'vue-i18n'
+import { Search, Instagram, Menu, X, Globe } from 'lucide-vue-next'
+import TikTok from './icons/TikTok.vue'
 import Button from './ui/Button.vue'
 
 const router = useRouter()
+const { t, locale } = useI18n()
 const isScrolled = ref(false)
 const mobileMenuOpen = ref(false)
+
+function toggleLanguage() {
+  locale.value = locale.value === 'fr' ? 'en' : 'fr'
+}
 
 function handleScroll() {
   isScrolled.value = window.scrollY > 50
@@ -156,6 +172,30 @@ onUnmounted(() => {
 
 .top-socials a:hover {
   color: var(--color-gold);
+}
+
+.lang-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  color: var(--color-text);
+  font-weight: 500;
+  font-size: 0.7rem;
+  padding: 0;
+  transition: color 0.3s;
+}
+
+.lang-btn:hover {
+  color: var(--color-gold);
+}
+
+.divider {
+  width: 1px;
+  background-color: var(--color-gray-light);
+  height: 14px;
 }
 
 .icon-sm {

@@ -122,13 +122,13 @@ type Newsletter struct {
 type GalleryCategory string
 
 const (
+	CategoryWedding    GalleryCategory = "wedding"
+	CategoryMarryMe    GalleryCategory = "marryme"
+	CategoryBirthday   GalleryCategory = "birthday"
 	CategoryBabyShower GalleryCategory = "baby_shower"
 	CategoryBapteme    GalleryCategory = "bapteme"
-	CategoryBirthday   GalleryCategory = "birthday"
-	CategoryCongrats   GalleryCategory = "congrats"
 	CategoryLoveroom   GalleryCategory = "loveroom"
-	CategoryMarryMe    GalleryCategory = "marryme"
-	CategoryWedding    GalleryCategory = "wedding"
+	CategoryCongrats   GalleryCategory = "congrats"
 )
 
 // GalleryImage represents images in the gallery
@@ -174,6 +174,18 @@ type EmailLog struct {
 	ClientID  *uint          `json:"client_id,omitempty"`
 }
 
+// Category represents a rental or gallery category
+type Category struct {
+	ID          uint           `gorm:"primarykey" json:"id"`
+	CreatedAt   time.Time      `json:"created_at"`
+	UpdatedAt   time.Time      `json:"updated_at"`
+	DeletedAt   gorm.DeletedAt `gorm:"index" json:"-"`
+	Name        string         `gorm:"not null" json:"name"`
+	Slug        string         `gorm:"uniqueIndex;not null" json:"slug"`
+	Description string         `json:"description"`
+	Type        string         `gorm:"default:'rental'" json:"type"` // 'rental', 'gallery'
+}
+
 // RentalCategory represents rental item categories
 type RentalCategory string
 
@@ -193,8 +205,11 @@ type RentalItem struct {
 	Title       string         `gorm:"not null" json:"title"`
 	Description string         `gorm:"type:text" json:"description"`
 	Price       float64        `gorm:"not null" json:"price"`
-	Category    RentalCategory `gorm:"not null" json:"category"`
-	ImageURL    string         `gorm:"not null" json:"image_url"`
-	Featured    bool           `gorm:"default:false" json:"featured"`
-	Available   bool           `gorm:"default:true" json:"available"`
+	CategoryID  uint           `json:"category_id"`
+	Category    Category       `json:"category"`
+	// Deprecated: Use CategoryID instead
+	CategoryEnum RentalCategory `gorm:"column:category" json:"category_enum"`
+	ImageURL     string         `gorm:"not null" json:"image_url"`
+	Featured     bool           `gorm:"default:false" json:"featured"`
+	Available    bool           `gorm:"default:true" json:"available"`
 }

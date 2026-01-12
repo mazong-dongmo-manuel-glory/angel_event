@@ -3,34 +3,34 @@
     <Header />
     <div class="container rentals-container">
       <div class="rentals-header fade-in-up">
-        <h1 class="font-script text-gold">Nos Articles en Location</h1>
-        <p class="subtitle">Sublimez votre événement avec notre sélection d'articles</p>
+        <h1 class="font-script text-gold">{{ t('rentals_public.title') }}</h1>
+        <p class="subtitle">{{ t('rentals_public.subtitle') }}</p>
       </div>
 
       <!-- Filters -->
       <div class="filters fade-in-up">
         <button 
           v-for="cat in categories" 
-          :key="cat.value" 
-          @click="activeCategory = cat.value"
-          :class="{ active: activeCategory === cat.value }"
+          :key="cat.slug" 
+          @click="activeCategorySlug = cat.slug"
+          :class="{ active: activeCategorySlug === cat.slug }"
         >
-          {{ cat.label }}
+          {{ cat.slug === 'all' ? t('rentals_public.categories.all') : cat.name }}
         </button>
       </div>
 
       <!-- Loading State -->
       <div v-if="loading" class="loading-state">
         <div class="spinner"></div>
-        <p>Chargement des articles...</p>
+        <p>{{ t('rentals_public.loading') }}</p>
       </div>
 
       <!-- Items Grid -->
       <div v-else class="items-grid">
         <div v-for="item in filteredItems" :key="item.id" class="rental-card fade-in-up">
           <div class="card-image">
-            <img :src="item.image_url" :alt="item.title" loading="lazy" />
-            <span v-if="item.featured" class="tag featured">Coup de ❤️</span>
+            <img :src="getImageWithFallback(item.image_url, 'rental', item.category_enum)" :alt="item.title" loading="lazy" />
+            <span v-if="item.featured" class="tag featured">{{ t('rentals_public.featured') }}</span>
           </div>
           <div class="card-content">
             <div class="card-header">
@@ -39,7 +39,7 @@
             </div>
             <p v-if="item.description" class="description">{{ item.description }}</p>
             <button class="contact-btn" @click="contactForItem(item)">
-              Réserver cet article
+              {{ t('rentals_public.book_btn') }}
             </button>
           </div>
         </div>
@@ -47,7 +47,7 @@
 
       <!-- Empty State -->
       <div v-if="!loading && filteredItems.length === 0" class="empty-state">
-        <p>Aucun article trouvé dans cette catégorie.</p>
+        <p>{{ t('rentals_public.empty') }}</p>
       </div>
     </div>
     <Footer />
@@ -56,27 +56,40 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
+import { useI18n } from 'vue-i18n'
 import api from '../../services/api'
 import { useRouter } from 'vue-router'
 import Header from '../../components/Header.vue'
 import Footer from '../../components/Footer.vue'
+import { getImageWithFallback } from '../../config/defaultImages'
 
 const router = useRouter()
+const { t } = useI18n()
 const items = ref([])
 const loading = ref(true)
-const activeCategory = ref('all')
+const activeCategorySlug = ref('all')
+const categories = ref([])
 
-const categories = [
-  { label: 'Tout voir', value: 'all' },
-  { label: 'Centres de table', value: 'centerpiece' },
-  { label: 'Backdrops / Panneaux', value: 'backdrop' },
-  { label: 'Fleurs', value: 'flower' },
-  { label: 'Autres articles', value: 'other' }
-]
+async function fetchCategories() {
+  try {
+    const res = await api.get('/public/categories')
+    const cats = res.data.filter(c => c.type === 'rental')
+    categories.value = [
+      { name: 'Tout voir', slug: 'all' },
+      ...cats
+    ]
+  } catch (err) {
+    console.error('Erreur categories', err)
+  }
+}
 
 const filteredItems = computed(() => {
-  if (activeCategory.value === 'all') return items.value
-  return items.value.filter(item => item.category === activeCategory.value)
+  if (activeCategorySlug.value === 'all') return items.value
+  // Find category ID from slug
+  const cat = categories.value.find(c => c.slug === activeCategorySlug.value)
+  if (!cat) return items.value
+  
+  return items.value.filter(item => item.category_id === cat.id)
 })
 
 function formatPrice(price) {
@@ -106,6 +119,7 @@ async function fetchItems() {
 }
 
 onMounted(() => {
+  fetchCategories()
   fetchItems()
 })
 </script>
