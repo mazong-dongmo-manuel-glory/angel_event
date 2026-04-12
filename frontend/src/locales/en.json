@@ -1,4 +1,7 @@
 {
+    "common": {
+        "generic_error": "Something went wrong. Please try again."
+    },
     "footer": {
         "desc": "Creating the perfect moment with elegance and passion.",
         "explore": "EXPLORE",
@@ -209,7 +212,12 @@
         "title": "Decor Rentals",
         "subtitle": "Everything you need to enhance your event",
         "categories": {
-            "all": "View All"
+            "all": "View All",
+            "centerpiece": "Centerpieces",
+            "backdrop": "Arches & Backdrops",
+            "flower": "Flowers",
+            "other": "Other Items",
+            "animation": "Entertainment"
         },
         "loading": "Loading items...",
         "featured": "Popular",

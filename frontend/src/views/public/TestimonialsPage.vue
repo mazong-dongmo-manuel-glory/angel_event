@@ -181,7 +181,7 @@ async function handleSubmit() {
       content: ''
     }
   } catch (err) {
-    error.value = err.response?.data?.error || 'Une erreur est survenue'
+    error.value = err.response?.data?.error || t('common.generic_error')
   } finally {
     submitting.value = false
   }

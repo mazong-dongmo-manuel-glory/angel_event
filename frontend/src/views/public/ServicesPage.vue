@@ -62,27 +62,27 @@ const serviceDefinitions = [
   {
     id: 'wedding',
     icon: '💍',
-    imageFallback: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=800'
+    imageFallback: '/storage/wedding/photo_2026-01-10%2001.29.11.jpeg'
   },
   {
     id: 'proposal',
     icon: '💌',
-    imageFallback: 'https://images.unsplash.com/photo-1520854221256-17451cc331bf?w=800'
+    imageFallback: '/storage/marryme/photo_2026-01-10%2001.22.12.jpeg'
   },
   {
     id: 'baptism',
     icon: '🕊️',
-    imageFallback: 'https://images.unsplash.com/photo-1513151233558-d860c5398176?w=800'
+    imageFallback: '/storage/bapteme/photo_2026-01-10%2001.31.48.jpeg'
   },
   {
     id: 'birthday',
     icon: '🎂',
-    imageFallback: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800'
+    imageFallback: '/storage/birthday/photo_2026-01-10%2001.19.03.jpeg'
   },
   {
     id: 'baby_shower',
     icon: '🧸',
-    imageFallback: 'https://images.unsplash.com/photo-1542042161784-26ab9e041e89?w=800'
+    imageFallback: '/storage/baby_shower/photo_2026-01-10%2001.34.36.jpeg'
   }
 ]
 

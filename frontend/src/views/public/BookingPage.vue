@@ -473,7 +473,7 @@ async function handleSubmit() {
     rentalCartStore.clearCart()
     bookingComplete.value = true
   } catch (err) {
-    error.value = err.response?.data?.error || 'Une erreur est survenue. Veuillez réessayer.'
+    error.value = err.response?.data?.error || t('common.generic_error')
   } finally {
     loading.value = false
   }

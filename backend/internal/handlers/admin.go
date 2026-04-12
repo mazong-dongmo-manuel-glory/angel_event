@@ -462,6 +462,11 @@ func GetGalleryImages(c *fiber.Ctx) error {
 		})
 	}
 
+	for i := range images {
+		images[i].ImageURL = normalizeAssetURL(images[i].ImageURL)
+		images[i].ThumbnailURL = normalizeAssetURL(images[i].ThumbnailURL)
+	}
+
 	return c.JSON(images)
 }
 
@@ -741,6 +746,8 @@ func GetSiteContent(c *fiber.Ctx) error {
 			"error": "Failed to fetch content",
 		})
 	}
+
+	normalizeSiteContentAssets(content)
 
 	return c.JSON(content)
 }

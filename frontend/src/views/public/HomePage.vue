@@ -86,7 +86,7 @@ import { useSiteContent } from '../../composables/useSiteContent'
 const { t } = useI18n()
 const { getContent, getImage } = useSiteContent('home')
 
-const heroImage = computed(() => getImage('home_hero_image', 'https://images.unsplash.com/photo-1519741497674-611481863552?w=1920'))
+const heroImage = computed(() => getImage('home_hero_image', '/storage/wedding/photo_2026-01-10%2001.28.47.jpeg'))
 
 const services = computed(() => [
   {
@@ -110,10 +110,10 @@ const services = computed(() => [
 ])
 
 const galleryImages = computed(() => [
-  getImage('home_gallery_image_1', 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=600'),
-  getImage('home_gallery_image_2', 'https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=600'),
-  getImage('home_gallery_image_3', 'https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600'),
-  getImage('home_gallery_image_4', 'https://images.unsplash.com/photo-1519741497674-611481863552?w=600')
+  getImage('home_gallery_image_1', '/storage/wedding/photo_2026-01-10%2001.29.11.jpeg'),
+  getImage('home_gallery_image_2', '/storage/marryme/photo_2026-01-10%2001.21.31.jpeg'),
+  getImage('home_gallery_image_3', '/storage/birthday/photo_2026-01-10%2001.17.18.jpeg'),
+  getImage('home_gallery_image_4', '/storage/baby_shower/photo_2026-01-10%2001.34.18.jpeg')
 ])
 </script>
 

@@ -1,4 +1,7 @@
 {
+    "common": {
+        "generic_error": "Une erreur est survenue. Veuillez réessayer."
+    },
     "footer": {
         "desc": "Créer l'instant parfait avec élégance et passion.",
         "explore": "EXPLORER",
@@ -209,7 +212,12 @@
         "title": "Location de Décor",
         "subtitle": "Tout le matériel nécessaire pour sublimer votre événement",
         "categories": {
-            "all": "Tout voir"
+            "all": "Tout voir",
+            "centerpiece": "Centres de table",
+            "backdrop": "Arches et panneaux",
+            "flower": "Fleurs",
+            "other": "Autres articles",
+            "animation": "Animation"
         },
         "loading": "Chargement des articles...",
         "featured": "Populaire",

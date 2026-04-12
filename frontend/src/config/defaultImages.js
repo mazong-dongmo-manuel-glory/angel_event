@@ -20,6 +20,38 @@ export const DEFAULT_IMAGES = {
     }
 }
 
+export function normalizeImageUrl(imageUrl) {
+    if (!imageUrl || imageUrl.trim() === '') {
+        return ''
+    }
+
+    if (
+        imageUrl.startsWith('http://') ||
+        imageUrl.startsWith('https://') ||
+        imageUrl.startsWith('data:')
+    ) {
+        return imageUrl
+    }
+
+    const [pathPart, queryPart] = imageUrl.split('?')
+    const normalizedPath = pathPart
+        .split('/')
+        .map((segment, index) => {
+            if (segment === '') {
+                return index === 0 ? '' : segment
+            }
+
+            try {
+                return encodeURIComponent(decodeURIComponent(segment))
+            } catch {
+                return encodeURIComponent(segment)
+            }
+        })
+        .join('/')
+
+    return queryPart ? `${normalizedPath}?${queryPart}` : normalizedPath
+}
+
 // Helper function to get default image
 export function getDefaultImage(type, category) {
     if (type === 'gallery') {
@@ -33,7 +65,7 @@ export function getDefaultImage(type, category) {
 // Helper function to get image URL with fallback
 export function getImageWithFallback(imageUrl, type, category) {
     if (imageUrl && imageUrl.trim() !== '') {
-        return imageUrl
+        return normalizeImageUrl(imageUrl)
     }
-    return getDefaultImage(type, category)
+    return normalizeImageUrl(getDefaultImage(type, category))
 }

@@ -4,7 +4,9 @@ import (
 	"errors"
 	"fmt"
 	"log"
+	"net/url"
 	"os"
+	"strings"
 
 	"github.com/mazong/angel_event/internal/models"
 	"golang.org/x/crypto/bcrypt"
@@ -16,7 +18,7 @@ import (
 var DB *gorm.DB
 
 const (
-	defaultAdminEmail    = "admin@angelevent.com"
+	defaultAdminEmail    = "admin@angelevent.ca"
 	defaultAdminPassword = "ChangeThisPassword123!"
 )
 
@@ -199,10 +201,57 @@ func SyncAdminUserCredentials() error {
 	adminPassword, passwordSet := os.LookupEnv("ADMIN_PASSWORD")
 
 	if emailSet && passwordSet && adminEmail != "" && adminPassword != "" {
+		if err := syncAdminEmail(adminEmail); err != nil {
+			return err
+		}
 		return syncAdminPassword(adminEmail, adminPassword, false)
 	}
 
+	if err := syncAdminEmail(defaultAdminEmail); err != nil {
+		return err
+	}
 	return syncAdminPassword(defaultAdminEmail, defaultAdminPassword, true)
+}
+
+func syncAdminEmail(targetEmail string) error {
+	if targetEmail == "" {
+		return nil
+	}
+
+	var existing models.User
+	if err := DB.Where("email = ?", targetEmail).First(&existing).Error; err == nil {
+		return nil
+	} else if !errors.Is(err, gorm.ErrRecordNotFound) {
+		return fmt.Errorf("failed to check admin email: %w", err)
+	}
+
+	legacyEmails := []string{
+		"admi@angelevent.ca",
+		"admin@angelevent.com",
+	}
+
+	for _, legacyEmail := range legacyEmails {
+		if legacyEmail == targetEmail {
+			continue
+		}
+
+		var user models.User
+		if err := DB.Where("email = ?", legacyEmail).First(&user).Error; err != nil {
+			if errors.Is(err, gorm.ErrRecordNotFound) {
+				continue
+			}
+			return fmt.Errorf("failed to find legacy admin user: %w", err)
+		}
+
+		if err := DB.Model(&user).Update("email", targetEmail).Error; err != nil {
+			return fmt.Errorf("failed to update admin email: %w", err)
+		}
+
+		log.Printf("Admin email synced from %s to %s", legacyEmail, targetEmail)
+		return nil
+	}
+
+	return nil
 }
 
 func syncAdminPassword(email, rawPassword string, onlyIfPlaintextMatch bool) error {
@@ -276,6 +325,10 @@ func migrateSiteContentSchema() error {
 		return fmt.Errorf("failed to normalize site content types: %w", err)
 	}
 
+	if err := normalizeLegacyAssetData(); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -323,7 +376,7 @@ func defaultSiteContentEntries() []models.SiteContent {
 		newSiteContent("global", "site_logo_url", "/logo.jpeg", "image"),
 		newSiteContent("global", "site_brand_name", "ANGEL EVENT", "text"),
 		newSiteContent("global", "site_brand_tagline", "PLANIFICATION D'ÉVÉNEMENTS", "text"),
-		newSiteContent("global", "site_contact_email", "contact@angelevent.com", "text"),
+		newSiteContent("global", "site_contact_email", "admin@angelevent.ca", "text"),
 		newSiteContent("global", "site_contact_phone", "+1 (819) 244-4702", "text"),
 		newSiteContent("global", "site_contact_location", "Trois-Rivieres, QC", "text"),
 		newSiteContent("global", "site_instagram_url", "https://www.instagram.com/angel_eventt/", "text"),
@@ -334,7 +387,7 @@ func defaultSiteContentEntries() []models.SiteContent {
 		newSiteContent("home", "home_hero_title", "Créer des Moments Inoubliables", "text"),
 		newSiteContent("home", "home_hero_subtitle", "Nous transformons vos rêves en réalité avec élégance et précision.", "text"),
 		newSiteContent("home", "home_hero_cta_label", "DÉCOUVRIR NOS SERVICES", "text"),
-		newSiteContent("home", "home_hero_image", "https://images.unsplash.com/photo-1519741497674-611481863552?w=1920", "image"),
+		newSiteContent("home", "home_hero_image", "/storage/wedding/photo_2026-01-10%2001.28.47.jpeg", "image"),
 		newSiteContent("home", "home_welcome_title", "Bienvenue chez Angel Event", "text"),
 		newSiteContent("home", "home_welcome_text", "Décoratrice et planificatrice d'événements passionnée, je crée des univers sur mesure où chaque détail est pensé pour sublimer vos moments précieux. Angel Event transforme vos visions en réalité avec élégance et professionnalisme.", "text"),
 		newSiteContent("home", "home_welcome_signature", "L'équipe Angel Event", "text"),
@@ -347,10 +400,10 @@ func defaultSiteContentEntries() []models.SiteContent {
 		newSiteContent("home", "home_services_more", "EN SAVOIR PLUS", "text"),
 		newSiteContent("home", "home_quote_text", "La décoration est l'art de donner une âme à un espace.", "text"),
 		newSiteContent("home", "home_quote_author", "Décoratrice & Planificatrice", "text"),
-		newSiteContent("home", "home_gallery_image_1", "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=600", "image"),
-		newSiteContent("home", "home_gallery_image_2", "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=600", "image"),
-		newSiteContent("home", "home_gallery_image_3", "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600", "image"),
-		newSiteContent("home", "home_gallery_image_4", "https://images.unsplash.com/photo-1519741497674-611481863552?w=600", "image"),
+		newSiteContent("home", "home_gallery_image_1", "/storage/wedding/photo_2026-01-10%2001.29.11.jpeg", "image"),
+		newSiteContent("home", "home_gallery_image_2", "/storage/marryme/photo_2026-01-10%2001.21.31.jpeg", "image"),
+		newSiteContent("home", "home_gallery_image_3", "/storage/birthday/photo_2026-01-10%2001.17.18.jpeg", "image"),
+		newSiteContent("home", "home_gallery_image_4", "/storage/baby_shower/photo_2026-01-10%2001.34.18.jpeg", "image"),
 
 		newSiteContent("about", "about_hero_title", "Notre Histoire", "text"),
 		newSiteContent("about", "about_hero_subtitle", "Passionnée par l'art de créer des moments d'exception", "text"),
@@ -358,7 +411,7 @@ func defaultSiteContentEntries() []models.SiteContent {
 		newSiteContent("about", "about_story_p1", "Angel Event est né d'une passion profonde pour la décoration et l'organisation d'événements. En tant que décoratrice et planificatrice, mon objectif est de sublimer chaque occasion importante de votre vie.", "text"),
 		newSiteContent("about", "about_story_p2", "Nous nous spécialisons dans la création d'expériences sur mesure, alliant esthétique raffinée et logistique impeccable pour que vous puissiez profiter pleinement de votre célébration.", "text"),
 		newSiteContent("about", "about_story_p3", "De la conception visuelle à la coordination finale, nous mettons notre expertise au service de vos rêves avec rigueur, créativité et élégance.", "text"),
-		newSiteContent("about", "about_story_image", "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=800", "image"),
+		newSiteContent("about", "about_story_image", "/storage/wedding/photo_2026-01-10%2001.29.11.jpeg", "image"),
 		newSiteContent("about", "about_values_title", "Nos Valeurs", "text"),
 		newSiteContent("about", "about_values_excellence_title", "Excellence", "text"),
 		newSiteContent("about", "about_values_excellence_desc", "Le souci du détail est au cœur de notre métier.", "text"),
@@ -396,7 +449,7 @@ func defaultSiteContentEntries() []models.SiteContent {
 		newSiteContent("services", "services_wedding_feature_6", "Présence, supervision et accompagnement le jour J", "text"),
 		newSiteContent("services", "services_wedding_feature_7", "Gestion des imprévus avec professionnalisme", "text"),
 		newSiteContent("services", "services_wedding_feature_8", "Expérience mémorable pour vous et vos invités", "text"),
-		newSiteContent("services", "services_wedding_image", "https://images.unsplash.com/photo-1519741497674-611481863552?w=800", "image"),
+		newSiteContent("services", "services_wedding_image", "/storage/wedding/photo_2026-01-10%2001.29.11.jpeg", "image"),
 		newSiteContent("services", "services_proposal_title", "Demande en Mariage / Proposal Planner", "text"),
 		newSiteContent("services", "services_proposal_desc", "Un moment suspendu, orchestré avec discrétion et élégance, pour transformer votre demande en un souvenir impérissable.", "text"),
 		newSiteContent("services", "services_proposal_feature_1", "Recherche de lieux exclusifs et romantiques", "text"),
@@ -407,7 +460,7 @@ func defaultSiteContentEntries() []models.SiteContent {
 		newSiteContent("services", "services_proposal_feature_6", "Ambiance personnalisée selon votre histoire", "text"),
 		newSiteContent("services", "services_proposal_feature_7", "Accompagnement logistique complet", "text"),
 		newSiteContent("services", "services_proposal_feature_8", "Un instant magique clé en main", "text"),
-		newSiteContent("services", "services_proposal_image", "https://images.unsplash.com/photo-1520854221256-17451cc331bf?w=800", "image"),
+		newSiteContent("services", "services_proposal_image", "/storage/marryme/photo_2026-01-10%2001.22.12.jpeg", "image"),
 		newSiteContent("services", "services_baptism_title", "Baptêmes / Baptism & Célébrations", "text"),
 		newSiteContent("services", "services_baptism_desc", "Une célébration empreinte de douceur et de finesse pour marquer les premiers grands moments de vie de votre enfant.", "text"),
 		newSiteContent("services", "services_baptism_feature_1", "Thématique douce et palette harmonieuse", "text"),
@@ -418,7 +471,7 @@ func defaultSiteContentEntries() []models.SiteContent {
 		newSiteContent("services", "services_baptism_feature_6", "Mise en place soignée sur le lieu", "text"),
 		newSiteContent("services", "services_baptism_feature_7", "Coordination avec le traiteur et pâtissier", "text"),
 		newSiteContent("services", "services_baptism_feature_8", "Atmosphère chaleureuse et raffinée", "text"),
-		newSiteContent("services", "services_baptism_image", "https://images.unsplash.com/photo-1513151233558-d860c5398176?w=800", "image"),
+		newSiteContent("services", "services_baptism_image", "/storage/bapteme/photo_2026-01-10%2001.31.48.jpeg", "image"),
 		newSiteContent("services", "services_birthday_title", "Anniversaire / Chic Celebration", "text"),
 		newSiteContent("services", "services_birthday_desc", "Que ce soit pour un anniversaire marquant ou une fête privée, nous créons des décors audacieux et festifs qui captivent vos invités.", "text"),
 		newSiteContent("services", "services_birthday_feature_1", "Conception de thématiques originales", "text"),
@@ -429,7 +482,7 @@ func defaultSiteContentEntries() []models.SiteContent {
 		newSiteContent("services", "services_birthday_feature_6", "Gestion de l'ambiance et des détails", "text"),
 		newSiteContent("services", "services_birthday_feature_7", "Accompagnement créatif continu", "text"),
 		newSiteContent("services", "services_birthday_feature_8", "Un événement festif haute couture", "text"),
-		newSiteContent("services", "services_birthday_image", "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800", "image"),
+		newSiteContent("services", "services_birthday_image", "/storage/birthday/photo_2026-01-10%2001.19.03.jpeg", "image"),
 		newSiteContent("services", "services_baby_shower_title", "Baby Shower / Gender Reveal", "text"),
 		newSiteContent("services", "services_baby_shower_desc", "Célébrez l'arrivée de bébé dans un univers enchanteur, alliant tendresse et créativité décorative.", "text"),
 		newSiteContent("services", "services_baby_shower_feature_1", "Concept visuel dédié à l'enfance", "text"),
@@ -440,7 +493,7 @@ func defaultSiteContentEntries() []models.SiteContent {
 		newSiteContent("services", "services_baby_shower_feature_6", "Finitions esthétiques soignées", "text"),
 		newSiteContent("services", "services_baby_shower_feature_7", "Installation et désinstallation complètes", "text"),
 		newSiteContent("services", "services_baby_shower_feature_8", "Un moment de partage inoubliable", "text"),
-		newSiteContent("services", "services_baby_shower_image", "https://images.unsplash.com/photo-1542042161784-26ab9e041e89?w=800", "image"),
+		newSiteContent("services", "services_baby_shower_image", "/storage/baby_shower/photo_2026-01-10%2001.34.36.jpeg", "image"),
 		newSiteContent("services", "services_cta_title", "Un projet en tête?", "text"),
 		newSiteContent("services", "services_cta_subtitle", "Définissons ensemble le décor de votre futur événement.", "text"),
 		newSiteContent("services", "services_cta_quote", "OBTENIR UN DEVIS", "text"),
@@ -456,4 +509,148 @@ func newSiteContent(section, key, value, contentType string) models.SiteContent 
 		Section:  section,
 		Type:     contentType,
 	}
+}
+
+func normalizeLegacyAssetData() error {
+	if err := normalizeRentalItemImageURLs(); err != nil {
+		return err
+	}
+
+	if err := normalizeGalleryImageURLs(); err != nil {
+		return err
+	}
+
+	if err := normalizeSiteContentImageValues(); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func normalizeRentalItemImageURLs() error {
+	var items []models.RentalItem
+	if err := DB.Find(&items).Error; err != nil {
+		return fmt.Errorf("failed to load rental items for normalization: %w", err)
+	}
+
+	for _, item := range items {
+		normalized := normalizeLocalAssetURL(item.ImageURL)
+		if normalized == item.ImageURL {
+			continue
+		}
+		if err := DB.Model(&item).Update("image_url", normalized).Error; err != nil {
+			return fmt.Errorf("failed to normalize rental image url: %w", err)
+		}
+	}
+
+	return nil
+}
+
+func normalizeGalleryImageURLs() error {
+	var images []models.GalleryImage
+	if err := DB.Find(&images).Error; err != nil {
+		return fmt.Errorf("failed to load gallery images for normalization: %w", err)
+	}
+
+	for _, image := range images {
+		updates := map[string]interface{}{}
+		if normalized := normalizeLocalAssetURL(image.ImageURL); normalized != image.ImageURL {
+			updates["image_url"] = normalized
+		}
+		if normalizedThumb := normalizeLocalAssetURL(image.ThumbnailURL); normalizedThumb != image.ThumbnailURL {
+			updates["thumbnail_url"] = normalizedThumb
+		}
+		if len(updates) == 0 {
+			continue
+		}
+		if err := DB.Model(&image).Updates(updates).Error; err != nil {
+			return fmt.Errorf("failed to normalize gallery image urls: %w", err)
+		}
+	}
+
+	return nil
+}
+
+func normalizeSiteContentImageValues() error {
+	legacyByKey := map[string]string{
+		"site_contact_email":         "admin@angelevent.ca",
+		"home_hero_image":            "/storage/wedding/photo_2026-01-10%2001.28.47.jpeg",
+		"home_gallery_image_1":       "/storage/wedding/photo_2026-01-10%2001.29.11.jpeg",
+		"home_gallery_image_2":       "/storage/marryme/photo_2026-01-10%2001.21.31.jpeg",
+		"home_gallery_image_3":       "/storage/birthday/photo_2026-01-10%2001.17.18.jpeg",
+		"home_gallery_image_4":       "/storage/baby_shower/photo_2026-01-10%2001.34.18.jpeg",
+		"about_story_image":          "/storage/wedding/photo_2026-01-10%2001.29.11.jpeg",
+		"services_wedding_image":     "/storage/wedding/photo_2026-01-10%2001.29.11.jpeg",
+		"services_proposal_image":    "/storage/marryme/photo_2026-01-10%2001.22.12.jpeg",
+		"services_baptism_image":     "/storage/bapteme/photo_2026-01-10%2001.31.48.jpeg",
+		"services_birthday_image":    "/storage/birthday/photo_2026-01-10%2001.19.03.jpeg",
+		"services_baby_shower_image": "/storage/baby_shower/photo_2026-01-10%2001.34.36.jpeg",
+	}
+
+	var entries []models.SiteContent
+	if err := DB.Find(&entries).Error; err != nil {
+		return fmt.Errorf("failed to load site content for normalization: %w", err)
+	}
+
+	for _, entry := range entries {
+		targetValue, hasManagedDefault := legacyByKey[entry.Key]
+		updates := map[string]interface{}{}
+
+		if entry.Type == "image" {
+			normalized := normalizeLocalAssetURL(entry.Value)
+			if hasManagedDefault && isLegacyRemoteAsset(entry.Value) {
+				normalized = targetValue
+			}
+			if normalized != entry.Value {
+				updates["value"] = normalized
+			}
+		} else if entry.Key == "site_contact_email" && strings.HasSuffix(entry.Value, "@angelevent.com") {
+			updates["value"] = targetValue
+		}
+
+		if len(updates) == 0 {
+			continue
+		}
+
+		if err := DB.Model(&entry).Updates(updates).Error; err != nil {
+			return fmt.Errorf("failed to normalize site content %s: %w", entry.Key, err)
+		}
+	}
+
+	return nil
+}
+
+func isLegacyRemoteAsset(value string) bool {
+	return strings.Contains(value, "images.unsplash.com")
+}
+
+func normalizeLocalAssetURL(raw string) string {
+	if raw == "" {
+		return raw
+	}
+
+	if strings.HasPrefix(raw, "http://") || strings.HasPrefix(raw, "https://") || strings.HasPrefix(raw, "data:") {
+		return raw
+	}
+
+	parts := strings.SplitN(raw, "?", 2)
+	path := parts[0]
+	query := ""
+	if len(parts) == 2 {
+		query = "?" + parts[1]
+	}
+
+	segments := strings.Split(path, "/")
+	for i, segment := range segments {
+		if segment == "" {
+			continue
+		}
+		decoded, err := url.PathUnescape(segment)
+		if err != nil {
+			decoded = segment
+		}
+		segments[i] = url.PathEscape(decoded)
+	}
+
+	return strings.Join(segments, "/") + query
 }

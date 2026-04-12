@@ -15,7 +15,7 @@
               v-model="credentials.email"
               type="email"
               required
-              placeholder="admin@angelevent.com"
+              placeholder="admin@angelevent.ca"
               autocomplete="username"
             />
           </div>

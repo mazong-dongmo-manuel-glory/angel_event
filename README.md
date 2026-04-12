@@ -115,7 +115,7 @@ SMTP_PORT=587
 SMTP_USER=your-email@gmail.com
 SMTP_PASSWORD=your-app-password
 FRONTEND_URL=http://localhost:5173
-ADMIN_EMAIL=admin@angelevent.com
+ADMIN_EMAIL=admin@angelevent.ca
 ADMIN_PASSWORD=ChangeThisPassword123!
 \`\`\`
 
@@ -129,7 +129,7 @@ VITE_STRIPE_PUBLISHABLE_KEY=pk_test_...
 ## 👤 Connexion Admin
 
 Par défaut:
-- **Email**: admin@angelevent.com
+- **Email**: admin@angelevent.ca
 - **Mot de passe**: ChangeThisPassword123!
 
 ⚠️ **IMPORTANT**: Changez ces identifiants après la première connexion!

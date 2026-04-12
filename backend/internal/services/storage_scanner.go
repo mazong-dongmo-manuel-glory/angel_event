@@ -3,6 +3,7 @@ package services
 import (
 	"fmt"
 	"log"
+	"net/url"
 	"os"
 	"path/filepath"
 	"strings"
@@ -56,7 +57,7 @@ func scanRentals() {
 		// Check if exists
 		var count int64
 		// ImageURL format: /storage/location/filename
-		imageURL := fmt.Sprintf("/storage/location/%s", file.Name())
+		imageURL := storageAssetURL("location", file.Name())
 		database.DB.Model(&models.RentalItem{}).Where("image_url = ?", imageURL).Count(&count)
 		if count > 0 {
 			continue
@@ -65,19 +66,23 @@ func scanRentals() {
 		// Determine category based on filename keywords
 		lowerName := strings.ToLower(file.Name())
 		catID := catMap["other"] // default
+		categoryEnum := models.RentalCategoryOther
 
 		if strings.Contains(lowerName, "fleur") || strings.Contains(lowerName, "bouquet") {
 			if id, ok := catMap["flower"]; ok {
 				catID = id
 			}
+			categoryEnum = models.RentalCategoryFlower
 		} else if strings.Contains(lowerName, "table") {
 			if id, ok := catMap["centerpiece"]; ok {
 				catID = id
 			}
+			categoryEnum = models.RentalCategoryCenterpiece
 		} else if strings.Contains(lowerName, "arche") || strings.Contains(lowerName, "mur") || strings.Contains(lowerName, "backdrop") {
 			if id, ok := catMap["backdrop"]; ok {
 				catID = id
 			}
+			categoryEnum = models.RentalCategoryBackdrop
 		} else if strings.Contains(lowerName, "animation") {
 			if id, ok := catMap["animation"]; ok {
 				catID = id
@@ -95,10 +100,10 @@ func scanRentals() {
 
 		item := models.RentalItem{
 			Title:        title,
-			Description:  "Importé automatiquement depuis le stockage",
+			Description:  "",
 			Price:        0.00, // Default price
 			CategoryID:   catID,
-			CategoryEnum: models.RentalCategoryOther, // Satisfy legacy constraint
+			CategoryEnum: categoryEnum,
 			ImageURL:     imageURL,
 			Featured:     false,
 			Available:    true,
@@ -160,7 +165,7 @@ func scanGalleryDir(path string, category string) {
 		// But we need to serve it. The static route is /storage -> ../storage
 		// So URL is /storage/dirName/fileName
 		dirName := filepath.Base(path)
-		imageURL := fmt.Sprintf("/storage/%s/%s", dirName, file.Name())
+		imageURL := storageAssetURL(dirName, file.Name())
 
 		var count int64
 		database.DB.Model(&models.GalleryImage{}).Where("image_url = ?", imageURL).Count(&count)
@@ -175,7 +180,7 @@ func scanGalleryDir(path string, category string) {
 
 		img := models.GalleryImage{
 			Title:         title,
-			Description:   "Importé depuis le stockage",
+			Description:   "",
 			ImageURL:      imageURL,
 			Category:      models.GalleryCategory(category), // Cast to enum
 			FileName:      file.Name(),
@@ -190,4 +195,22 @@ func scanGalleryDir(path string, category string) {
 			log.Printf("Imported gallery image: %s (%s)", title, category)
 		}
 	}
+}
+
+func storageAssetURL(parts ...string) string {
+	encoded := make([]string, 0, len(parts))
+	for _, part := range parts {
+		part = strings.TrimSpace(part)
+		if part == "" {
+			continue
+		}
+
+		decoded, err := url.PathUnescape(part)
+		if err != nil {
+			decoded = part
+		}
+		encoded = append(encoded, url.PathEscape(decoded))
+	}
+
+	return "/storage/" + strings.Join(encoded, "/")
 }

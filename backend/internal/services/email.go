@@ -120,7 +120,7 @@ func (s *EmailService) getBookingConfirmationTemplateFr(name, eventType, eventDa
 		</div>
 		<div class="footer">
 			<p>Angel Event - L'art de sublimer vos moments précieux</p>
-			<p>Pour toute question, contactez-nous à contact@angelevent.com</p>
+			<p>Pour toute question, contactez-nous à admin@angelevent.ca</p>
 		</div>
 	</div>
 </body>
@@ -160,7 +160,7 @@ func (s *EmailService) getBookingConfirmationTemplateEn(name, eventType, eventDa
 		</div>
 		<div class="footer">
 			<p>Angel Event - The art of sublimating your precious moments</p>
-			<p>For any questions, contact us at contact@angelevent.com</p>
+			<p>For any questions, contact us at admin@angelevent.ca</p>
 		</div>
 	</div>
 </body>

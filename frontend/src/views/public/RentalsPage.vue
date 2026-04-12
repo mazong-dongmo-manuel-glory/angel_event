@@ -14,7 +14,7 @@
           @click="activeCategorySlug = cat.slug"
           :class="{ active: activeCategorySlug === cat.slug }"
         >
-          {{ cat.slug === 'all' ? t('rentals_public.categories.all') : cat.name }}
+          {{ categoryLabel(cat) }}
         </button>
       </div>
 
@@ -125,7 +125,7 @@ import { getImageWithFallback } from '../../config/defaultImages'
 import { useRentalCartStore } from '../../stores/rentalCart'
 
 const router = useRouter()
-const { t, locale } = useI18n()
+const { t, locale, te } = useI18n()
 const rentalCartStore = useRentalCartStore()
 const { cartItems, cartCount, cartTotal } = storeToRefs(rentalCartStore)
 
@@ -138,10 +138,19 @@ async function fetchCategories() {
   try {
     const res = await api.get('/public/categories')
     const cats = (res.data || []).filter((category) => category.type === 'rental')
-    categories.value = [{ name: t('rentals_public.categories.all'), slug: 'all' }, ...cats]
+    categories.value = [{ id: 'all', name: '', slug: 'all' }, ...cats]
   } catch (err) {
     console.error('Erreur categories', err)
   }
+}
+
+function categoryLabel(category) {
+  if (category.slug === 'all') {
+    return t('rentals_public.categories.all')
+  }
+
+  const translationKey = `rentals_public.categories.${category.slug}`
+  return te(translationKey) ? t(translationKey) : category.name
 }
 
 const filteredItems = computed(() => {

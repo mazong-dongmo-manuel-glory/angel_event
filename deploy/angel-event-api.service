@@ -1,0 +1,17 @@
+[Unit]
+Description=Angel Event API
+After=network.target postfix.service dovecot.service
+Wants=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/home/ubuntu/angel_event/backend
+EnvironmentFile=/etc/angel-event/angel-event.env
+ExecStart=/usr/local/bin/angel-event-api
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

@@ -81,7 +81,7 @@ import { useSiteContent } from '../../composables/useSiteContent'
 const { t } = useI18n()
 const { getContent, getImage } = useSiteContent('about')
 
-const storyImage = computed(() => getImage('about_story_image', 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=800'))
+const storyImage = computed(() => getImage('about_story_image', '/storage/wedding/photo_2026-01-10%2001.29.11.jpeg'))
 
 const values = computed(() => [
   {

@@ -39,11 +39,16 @@ func GetRentalItems(c *fiber.Ctx) error {
 		})
 	}
 
-	// Fill in default images if empty
+	// Replace legacy placeholders with the storage-backed defaults expected by the site.
 	for i := range items {
-		if items[i].ImageURL == "" {
-			items[i].ImageURL = getDefaultRentalImage(string(items[i].CategoryEnum))
+		if items[i].ImageURL == "" || strings.HasSuffix(items[i].ImageURL, "/default-rental.png") {
+			categoryKey := string(items[i].CategoryEnum)
+			if categoryKey == "" && items[i].Category.Slug != "" {
+				categoryKey = items[i].Category.Slug
+			}
+			items[i].ImageURL = getDefaultRentalImage(categoryKey)
 		}
+		items[i].ImageURL = normalizeAssetURL(items[i].ImageURL)
 	}
 
 	return c.JSON(items)

@@ -12,7 +12,7 @@
           <div class="info-card">
             <div class="info-icon">📧</div>
             <h3>{{ t('contact.info.email') }}</h3>
-            <p><a href="mailto:contact@angelevent.com">contact@angelevent.com</a></p>
+            <p><a :href="`mailto:${contactEmail}`">{{ contactEmail }}</a></p>
           </div>
           <div class="info-card">
             <div class="info-icon">📱</div>
@@ -124,7 +124,7 @@ import api from '../../services/api'
 import { useSiteContent } from '../../composables/useSiteContent'
 import { computed } from 'vue'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 
 const formData = ref({
   name: '',
@@ -144,6 +144,7 @@ const newsletterSubmitted = ref(false)
 const route = useRoute()
 const { getContent } = useSiteContent('global')
 
+const contactEmail = computed(() => getContent('site_contact_email', 'admin@angelevent.ca'))
 const contactPhone = computed(() => getContent('site_contact_phone', '+1 (819) 244-4702'))
 const contactPhoneRaw = computed(() => contactPhone.value.replace(/\D/g, ''))
 
@@ -162,7 +163,7 @@ async function handleSubmit() {
     await api.post('/public/contact', formData.value)
     submitted.value = true
   } catch (err) {
-    error.value = err.response?.data?.error || 'Une erreur est survenue. Veuillez réessayer.'
+    error.value = err.response?.data?.error || t('common.generic_error')
   } finally {
     loading.value = false
   }
@@ -185,7 +186,7 @@ async function handleNewsletterSubmit() {
   try {
     await api.post('/public/newsletter/subscribe', {
       email: newsletterEmail.value,
-      language: t.locale.value
+      language: locale.value
     })
     newsletterSubmitted.value = true
     newsletterEmail.value = ''

@@ -69,6 +69,8 @@ func GetPublicSiteContent(c *fiber.Ctx) error {
 		})
 	}
 
+	normalizeSiteContentAssets(content)
+
 	return c.JSON(content)
 }
 
@@ -130,6 +132,7 @@ func GetRandomGalleryImages(c *fiber.Ctx) error {
 		if images[i].ImageURL == "" {
 			images[i].ImageURL = getDefaultGalleryImage(string(images[i].Category))
 		}
+		images[i].ImageURL = normalizeAssetURL(images[i].ImageURL)
 	}
 
 	return c.JSON(images)
