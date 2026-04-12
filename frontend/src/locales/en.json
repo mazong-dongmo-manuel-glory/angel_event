@@ -35,148 +35,158 @@
         },
         "welcome": {
             "title": "Welcome to Angel Event",
-            "text": "We specialize in creating memorable private and corporate events, custom-designed to reflect your style and personality.",
+            "text": "As a passionate event decorator and planner, I create tailor-made universes where every detail is designed to sublimate your precious moments. Angel Event transforms your visions into reality with elegance and professionalism.",
             "signature": "The Angel Event Team"
         },
         "services": {
             "wedding": {
-                "title": "Weddings",
-                "description": "Complete planning for your big day."
+                "title": "Wedding",
+                "description": "Full planning and refined decoration for your big day."
             },
             "corporate": {
-                "title": "Corporate",
-                "description": "Professional events that leave a mark."
+                "title": "Professional",
+                "description": "Corporate events and prestigious decors that leave a lasting impression."
             },
             "celebrations": {
                 "title": "Celebrations",
-                "description": "Birthdays, engagements, and more."
+                "description": "Tailor-made birthdays, baptisms, and private parties."
             },
             "more": "LEARN MORE"
         },
         "quote": {
-            "text": "Every detail matters to create perfection.",
-            "author": "Founder"
+            "text": "Decoration is the art of giving a soul to a space.",
+            "author": "Decorator & Planner"
         }
     },
     "about": {
         "hero": {
             "title": "Our Story",
-            "subtitle": "Passionate about the art of celebration"
+            "subtitle": "Passionate about the art of creating exceptional moments"
         },
         "story": {
             "title": "Who are we?",
-            "p1": "Angel Event was born from a passion for the art of hosting and celebrating life's important moments.",
-            "p2": "We specialize in planning private and corporate events, crafting refined experiences and lasting memories for our clients.",
-            "p3": "Your satisfaction is our absolute priority, and we strive to exceed your expectations."
+            "p1": "Angel Event was born from a deep passion for event decoration and organization. As a decorator and planner, my goal is to sublimate every important occasion in your life.",
+            "p2": "We specialize in creating tailor-made experiences, combining refined aesthetics and flawless logistics so you can fully enjoy your celebration.",
+            "p3": "From visual design to final coordination, we put our expertise at the service of your dreams with rigor, creativity, and elegance."
         },
         "values": {
             "title": "Our Values",
             "excellence": {
                 "title": "Excellence",
-                "desc": "We aim for perfection in every detail."
+                "desc": "Attention to detail is at the heart of our craft."
             },
             "passion": {
-                "title": "Passion",
-                "desc": "We love what we do and it shows."
+                "title": "Creativity",
+                "desc": "Every decor is an inspiring new blank canvas."
             },
             "custom": {
-                "title": "Bespoke",
-                "desc": "Every event is unique, just like you."
+                "title": "Authenticity",
+                "desc": "An event that truly reflects who you are."
             },
             "trust": {
-                "title": "Trust",
-                "desc": "We are your trusted partner."
+                "title": "Serenity",
+                "desc": "We take care of everything, you live the moment."
             }
         },
         "why": {
             "title": "Why choose us?",
             "exp": {
-                "title": "Experience",
-                "desc": "Years of expertise at your service."
+                "title": "Double Expertise",
+                "desc": "The vision of a decorator and the rigor of a planner."
             },
             "turnkey": {
-                "title": "Turnkey",
-                "desc": "We take care of everything for your peace of mind."
+                "title": "Accompaniment",
+                "desc": "A single point of contact for total peace of mind."
             },
             "detail": {
-                "title": "Attention to Detail",
-                "desc": "Nothing is left to chance."
+                "title": "Prestige",
+                "desc": "High-end decors and meticulous finishes."
             },
             "network": {
-                "title": "Network",
-                "desc": "Access to the industry's best vendors."
+                "title": "Passion",
+                "desc": "We love what we create, and it shows."
             }
         },
         "cta": {
             "title": "Ready to start?",
-            "subtitle": "Contact us today to plan your event.",
-            "book": "BOOK NOW",
+            "subtitle": "Let's define the decor for your future event together.",
+            "book": "REQUEST A QUOTE",
             "contact": "CONTACT US"
         }
     },
     "services_page": {
         "hero": {
             "title": "Our Services",
-            "subtitle": "Wedding, proposal, baptism, birthday, and baby shower experiences designed with elegance"
+            "subtitle": "Exceptional event decoration and planning in Trois-Rivières and surroundings"
         },
         "list": {
             "cta": "BOOK THIS SERVICE",
             "wedding": {
-                "title": "Wedding",
-                "desc": "An exclusive wedding service with a dedicated Event Planner approach to orchestrate a memorable, seamless, and refined day.",
-                "f1": "Custom concept and ambiance",
-                "f2": "Ceremony and reception styling",
-                "f3": "Full Event Planner guidance",
-                "f4": "Vendor coordination",
-                "f5": "Elegant event setup",
-                "f6": "On-site support on the big day"
+                "title": "Wedding / Wedding Planner",
+                "desc": "A comprehensive wedding planning and design service, crafted to create an elegant, harmonious, and unforgettable celebration.",
+                "f1": "Tailor-made theme and ambiance design",
+                "f2": "Ceremony and reception decoration",
+                "f3": "Complete planning and personalized organization",
+                "f4": "Vendor coordination and schedule management",
+                "f5": "Refined and meticulously styled spaces",
+                "f6": "On-day presence, supervision, and support",
+                "f7": "Professional management of the unexpected",
+                "f8": "Memorable experience for you and your guests"
             },
             "proposal": {
-                "title": "Marriage Proposal",
-                "desc": "A romantic and personalized setup that turns your proposal into an unforgettable moment.",
-                "f1": "Romantic venue scouting",
-                "f2": "Signature decor and florals",
-                "f3": "Lighting for the perfect moment",
-                "f4": "Photographer or videographer",
-                "f5": "Discreet setup and coordination",
-                "f6": "Celebration ambiance after the big yes"
+                "title": "Marriage Proposal / Proposal Planner",
+                "desc": "A suspended moment, orchestrated with discretion and elegance, to turn your proposal into an everlasting memory.",
+                "f1": "Search for exclusive and romantic venues",
+                "f2": "Tailor-made staging and scenography",
+                "f3": "Floral decoration and lighting ambiance",
+                "f4": "Discreet coordination of vendors",
+                "f5": "Logistics and secret timing management",
+                "f6": "Personalized ambiance based on your story",
+                "f7": "Complete logistical support",
+                "f8": "A magical turnkey moment"
             },
             "baptism": {
-                "title": "Baptism",
-                "desc": "A soft and harmonious celebration to mark this precious moment surrounded by family and loved ones.",
-                "f1": "Delicate and elegant palette",
-                "f2": "Table decor and dessert corner",
-                "f3": "Balloons, florals, and signage",
-                "f4": "Photo-friendly keepsake setup",
-                "f5": "Warm family atmosphere",
-                "f6": "Decor and flow coordination"
+                "title": "Baptisms / Baptism & Celebrations",
+                "desc": "A celebration imbued with sweetness and finesse to mark your child's first major milestones.",
+                "f1": "Soft theme and harmonious color palette",
+                "f2": "Head table design and sweet buffet",
+                "f3": "Balloon arch and hanging decorations",
+                "f4": "Creation of personalized guest favors",
+                "f5": "Coordinated signage and stationery",
+                "f6": "Meticulous setup on the venue",
+                "f7": "Coordination with caterer and pastry chef",
+                "f8": "Warm and refined atmosphere"
             },
             "birthday": {
-                "title": "Birthday",
-                "desc": "Custom birthday celebrations, chic, festive, or intimate, designed to reflect your personality and create a standout experience.",
-                "f1": "Personalized theme direction",
-                "f2": "Venue or at-home decor",
-                "f3": "Dessert table styling",
-                "f4": "Photo corner and visual moments",
-                "f5": "Adult or kids ambiance",
-                "f6": "Turnkey installation"
+                "title": "Birthday / Chic Celebration",
+                "desc": "Whether for a landmark birthday or a private party, we create bold and festive decors that captivate your guests.",
+                "f1": "Original thématique conception",
+                "f2": "Complete space scenography",
+                "f3": "Creative table decoration and centerpieces",
+                "f4": "Visual animation and photobooth design",
+                "f5": "Logistical coordination and setup",
+                "f6": "Ambiance and detail management",
+                "f7": "Continuous creative support",
+                "f8": "A high-fashion festive event"
             },
             "baby_shower": {
-                "title": "Baby Shower",
-                "desc": "A soft and stylish baby shower to celebrate this beautiful season in a warm and refined atmosphere.",
-                "f1": "Gentle and personalized concept",
-                "f2": "Balloon arch and florals",
-                "f3": "Coordinated dessert table",
-                "f4": "Gift and memory corner",
-                "f5": "Styling tailored to your space",
-                "f6": "Careful installation and finishing touches"
+                "title": "Baby Shower / Gender Reveal",
+                "desc": "Celebrate baby's arrival in an enchanting universe, combining tenderness and decorative creativity.",
+                "f1": "Visual concept dedicated to childhood",
+                "f2": "Sweet buffet and themed Candy Bar",
+                "f3": "Personalized stationery and games",
+                "f4": "Wall decoration and photogenic backdrops",
+                "f5": "Staging for the reveal moment",
+                "f6": "Meticulous aesthetic finishes",
+                "f7": "Complete setup and removal",
+                "f8": "An unforgettable moment of sharing"
             }
         },
         "cta": {
-            "title": "Have a project in mind?",
-            "subtitle": "Let's talk and make it real!",
-            "quote": "GET A QUOTE",
-            "contact": "CONTACT"
+            "title": "A project in mind?",
+            "subtitle": "Let's define the decor for your future event together.",
+            "quote": "REQUEST A QUOTE",
+            "contact": "CONTACT US"
         }
     },
     "gallery": {
@@ -233,7 +243,7 @@
             "email": "Email *",
             "email_ph": "your@email.com",
             "phone": "Phone",
-            "phone_ph": "+1 (555) 123-4567",
+            "phone_ph": "+1 (819) 244-4702",
             "message": "Message *",
             "message_ph": "How can we help you?",
             "sending": "Sending...",

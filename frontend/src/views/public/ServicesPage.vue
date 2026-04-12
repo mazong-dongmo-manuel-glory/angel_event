@@ -92,7 +92,7 @@ const services = computed(() => serviceDefinitions.map((service) => ({
   title: getContent(`services_${service.id}_title`, t(`services_page.list.${service.id}.title`)),
   description: getContent(`services_${service.id}_desc`, t(`services_page.list.${service.id}.desc`)),
   image: getImage(`services_${service.id}_image`, service.imageFallback),
-  features: Array.from({ length: 6 }, (_, index) => (
+  features: Array.from({ length: 8 }, (_, index) => (
     getContent(`services_${service.id}_feature_${index + 1}`, t(`services_page.list.${service.id}.f${index + 1}`))
   ))
 })))

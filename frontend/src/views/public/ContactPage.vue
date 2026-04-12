@@ -17,12 +17,12 @@
           <div class="info-card">
             <div class="info-icon">📱</div>
             <h3>{{ t('contact.info.phone') }}</h3>
-            <p><a href="tel:+15551234567">+1 (555) 123-4567</a></p>
+            <p><a :href="`tel:${contactPhoneRaw}`">{{ contactPhone }}</a></p>
           </div>
           <div class="info-card">
             <div class="info-icon">💬</div>
             <h3>{{ t('contact.info.whatsapp') }}</h3>
-            <p><a href="https://wa.me/15551234567" target="_blank">{{ t('contact.info.chat') }}</a></p>
+            <p><a :href="`https://wa.me/${contactPhoneRaw}`" target="_blank">{{ t('contact.info.chat') }}</a></p>
           </div>
         </div>
 
@@ -121,6 +121,8 @@ import Header from '../../components/Header.vue'
 import Footer from '../../components/Footer.vue'
 import Button from '../../components/ui/Button.vue'
 import api from '../../services/api'
+import { useSiteContent } from '../../composables/useSiteContent'
+import { computed } from 'vue'
 
 const { t } = useI18n()
 
@@ -140,6 +142,10 @@ const newsletterLoading = ref(false)
 const newsletterSubmitted = ref(false)
 
 const route = useRoute()
+const { getContent } = useSiteContent('global')
+
+const contactPhone = computed(() => getContent('site_contact_phone', '+1 (819) 244-4702'))
+const contactPhoneRaw = computed(() => contactPhone.value.replace(/\D/g, ''))
 
 // Watch for query params changes (immediate: true handles initial load)
 watch(() => route.query, (newQuery) => {

@@ -196,7 +196,7 @@
                   id="phone"
                   v-model="formData.phone"
                   type="tel"
-                  placeholder="+1 (555) 123-4567"
+                  placeholder="+1 (819) 244-4702"
                 />
               </div>
 

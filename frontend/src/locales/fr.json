@@ -35,148 +35,158 @@
         },
         "welcome": {
             "title": "Bienvenue chez Angel Event",
-            "text": "Nous sommes spécialisés dans la création d'événements privés et corporatifs uniques et mémorables, conçus sur mesure pour refléter votre style et votre personnalité.",
+            "text": "Décoratrice et planificatrice d'événements passionnée, je crée des univers sur mesure où chaque détail est pensé pour sublimer vos moments précieux. Angel Event transforme vos visions en réalité avec élégance et professionnalisme.",
             "signature": "L'équipe Angel Event"
         },
         "services": {
             "wedding": {
-                "title": "Mariages",
-                "description": "Planification complète pour votre grand jour."
+                "title": "Mariage",
+                "description": "Planification complète et décoration raffinée pour votre grand jour."
             },
             "corporate": {
-                "title": "Corporatif",
-                "description": "Événements professionnels qui marquent les esprits."
+                "title": "Professionnel",
+                "description": "Événements corporatifs et décors de prestige qui marquent les esprits."
             },
             "celebrations": {
                 "title": "Célébrations",
-                "description": "Anniversaires, fiançailles et plus encore."
+                "description": "Anniversaires, baptêmes et fêtes privées sur mesure."
             },
             "more": "EN SAVOIR PLUS"
         },
         "quote": {
-            "text": "Chaque détail compte pour créer la perfection.",
-            "author": "Fondatrice"
+            "text": "La décoration est l'art de donner une âme à un espace.",
+            "author": "Décoratrice & Planificatrice"
         }
     },
     "about": {
         "hero": {
             "title": "Notre Histoire",
-            "subtitle": "Passionnés par l'art de la célébration"
+            "subtitle": "Passionnée par l'art de créer des moments d'exception"
         },
         "story": {
             "title": "Qui sommes-nous?",
-            "p1": "Angel Event est né d'une passion pour l'art de recevoir et de célébrer les moments importants de la vie.",
-            "p2": "Nous sommes spécialisés dans la planification d'événements privés et corporatifs, en créant des expériences raffinées et des souvenirs durables pour nos clients.",
-            "p3": "Votre satisfaction est notre priorité absolue, et nous mettons tout en œuvre pour dépasser vos attentes."
+            "p1": "Angel Event est né d'une passion profonde pour la décoration et l'organisation d'événements. En tant que décoratrice et planificatrice, mon objectif est de sublimer chaque occasion importante de votre vie.",
+            "p2": "Nous nous spécialisons dans la création d'expériences sur mesure, alliant esthétique raffinée et logistique impeccable pour que vous puissiez profiter pleinement de votre célébration.",
+            "p3": "De la conception visuelle à la coordination finale, nous mettons notre expertise au service de vos rêves avec rigueur, créativité et élégance."
         },
         "values": {
             "title": "Nos Valeurs",
             "excellence": {
                 "title": "Excellence",
-                "desc": "Nous visons la perfection dans chaque détail."
+                "desc": "Le souci du détail est au cœur de notre métier."
             },
             "passion": {
-                "title": "Passion",
-                "desc": "Nous aimons ce que nous faisons et cela se voit."
+                "title": "Créativité",
+                "desc": "Chaque décor est une nouvelle toile blanche inspirante."
             },
             "custom": {
-                "title": "Sur Mesure",
-                "desc": "Chaque événement est unique, tout comme vous."
+                "title": "Authenticité",
+                "desc": "Un événement qui reflète vraiment qui vous êtes."
             },
             "trust": {
-                "title": "Confiance",
-                "desc": "Nous sommes votre partenaire de confiance."
+                "title": "Sérénité",
+                "desc": "On s'occupe de tout, vous vivez l'instant."
             }
         },
         "why": {
             "title": "Pourquoi nous choisir?",
             "exp": {
-                "title": "Expérience",
-                "desc": "Des années de savoir-faire à votre service."
+                "title": "Double Expertise",
+                "desc": "La vision d'une décoratrice et la rigueur d'une planificatrice."
             },
             "turnkey": {
-                "title": "Clé en main",
-                "desc": "On s'occupe de tout, pour votre tranquillité d'esprit."
+                "title": "Accompagnement",
+                "desc": "Un interlocuteur unique pour une tranquillité totale."
             },
             "detail": {
-                "title": "Souci du détail",
-                "desc": "Rien n'est laissé au hasard."
+                "title": "Prestige",
+                "desc": "Des décors haut de gamme et des finitions soignées."
             },
             "network": {
-                "title": "Réseau",
-                "desc": "Accès aux meilleurs prestataires de l'industrie."
+                "title": "Passion",
+                "desc": "Nous aimons ce que nous créons, et cela se voit."
             }
         },
         "cta": {
             "title": "Prêt à commencer?",
-            "subtitle": "Contactez-nous dès aujourd'hui pour planifier votre événement.",
-            "book": "RÉSERVER",
-            "contact": "CONTACTEZ-NOUS"
+            "subtitle": "Définissons ensemble le décor de votre futur événement.",
+            "book": "DEMANDER UN DEVIS",
+            "contact": "NOUS CONTACTER"
         }
     },
     "services_page": {
         "hero": {
             "title": "Nos Services",
-            "subtitle": "Mariage, demande en mariage, baptême, anniversaire et baby shower pensés avec élégance"
+            "subtitle": "Décoration et planification d'événements d'exception à Trois-Rivières et environs"
         },
         "list": {
             "cta": "RÉSERVER CE SERVICE",
             "wedding": {
-                "title": "Mariage",
-                "desc": "Un accompagnement mariage exclusif avec une approche Event Planner dédiée pour orchestrer une journée mémorable, fluide et raffinée.",
-                "f1": "Concept et ambiance sur mesure",
-                "f2": "Décoration de cérémonie et réception",
-                "f3": "Accompagnement Event Planner complet",
-                "f4": "Coordination des prestataires",
-                "f5": "Mise en place élégante",
-                "f6": "Présence et soutien le jour J"
+                "title": "Mariage / Wedding Planner",
+                "desc": "Un service complet de planification et de décoration de mariage, pensé pour créer une célébration élégante, harmonieuse et inoubliable.",
+                "f1": "Conception d’un thème et d’une ambiance sur mesure",
+                "f2": "Décoration de la cérémonie et de la réception",
+                "f3": "Planification complète et organisation personnalisée",
+                "f4": "Coordination des prestataires et gestion du calendrier",
+                "f5": "Mise en place raffinée et soignée des espaces",
+                "f6": "Présence, supervision et accompagnement le jour J",
+                "f7": "Gestion des imprévus avec professionnalisme",
+                "f8": "Expérience mémorable pour vous et vos invités"
             },
             "proposal": {
-                "title": "Demande en Mariage",
-                "desc": "Une mise en scène romantique et personnalisée pour transformer votre demande en un moment inoubliable.",
-                "f1": "Repérage d'un lieu romantique",
-                "f2": "Décor signature et fleurs",
-                "f3": "Mise en lumière de l'instant",
-                "f4": "Photographe ou vidéaste",
-                "f5": "Installation discrète et coordination",
-                "f6": "Ambiance célébration après le grand oui"
+                "title": "Demande en Mariage / Proposal Planner",
+                "desc": "Un moment suspendu, orchestré avec discrétion et élégance, pour transformer votre demande en un souvenir impérissable.",
+                "f1": "Recherche de lieux exclusifs et romantiques",
+                "f2": "Mise en scène et scénographie sur mesure",
+                "f3": "Décoration florale et ambiance lumineuse",
+                "f4": "Coordination discrète des prestataires",
+                "f5": "Gestion de la logistique et du timing secret",
+                "f6": "Ambiance personnalisée selon votre histoire",
+                "f7": "Accompagnement logistique complet",
+                "f8": "Un instant magique clé en main"
             },
             "baptism": {
-                "title": "Baptême",
-                "desc": "Une célébration douce et harmonieuse pour marquer ce moment précieux entouré de votre famille et de vos proches.",
-                "f1": "Palette délicate et élégante",
-                "f2": "Décoration de table et coin douceur",
-                "f3": "Ballons, fleurs et signalétique",
-                "f4": "Mise en scène pour photos souvenirs",
-                "f5": "Ambiance familiale chaleureuse",
-                "f6": "Coordination du décor et du déroulement"
+                "title": "Baptêmes / Baptism & Célébrations",
+                "desc": "Une célébration empreinte de douceur et de finesse pour marquer les premiers grands moments de vie de votre enfant.",
+                "f1": "Thématique douce et palette harmonieuse",
+                "f2": "Design de la table d'honneur et buffet sucré",
+                "f3": "Arche de ballons et décorations suspendues",
+                "f4": "Création de cadeaux invités personnalisés",
+                "f5": "Signalétique et papeterie coordonnée",
+                "f6": "Mise en place soignée sur le lieu",
+                "f7": "Coordination avec le traiteur et pâtissier",
+                "f8": "Atmosphère chaleureuse et raffinée"
             },
             "birthday": {
-                "title": "Anniversaire",
-                "desc": "Des anniversaires sur mesure, chic, festifs ou intimistes, conçus pour faire vivre une expérience à votre image.",
-                "f1": "Thématique personnalisée",
-                "f2": "Décor de salle ou de domicile",
-                "f3": "Table dessert et mise en scène",
-                "f4": "Coins photo et animations visuelles",
-                "f5": "Ambiance adulte ou enfant",
-                "f6": "Installation clé en main"
+                "title": "Anniversaire / Chic Celebration",
+                "desc": "Que ce soit pour un anniversaire marquant ou une fête privée, nous créons des décors audacieux et festifs qui captivent vos invités.",
+                "f1": "Conception de thématiques originales",
+                "f2": "Scénographie complète de l'espace",
+                "f3": "Décoration de table et centres créatifs",
+                "f4": "Animation visuelle et photobooth design",
+                "f5": "Coordination logistique et installation",
+                "f6": "Gestion de l'ambiance et des détails",
+                "f7": "Accompagnement créatif continu",
+                "f8": "Un événement festif haute couture"
             },
             "baby_shower": {
-                "title": "Baby Shower",
-                "desc": "Une baby shower tendre et esthétique pour célébrer cette belle attente dans une atmosphère conviviale et raffinée.",
-                "f1": "Univers doux et personnalisé",
-                "f2": "Arche de ballons et fleurs",
-                "f3": "Table dessert harmonisée",
-                "f4": "Coin cadeaux et souvenirs",
-                "f5": "Scénographie adaptée à votre espace",
-                "f6": "Installation et finition soignées"
+                "title": "Baby Shower / Gender Reveal",
+                "desc": "Célébrez l'arrivée de bébé dans un univers enchanteur, alliant tendresse et créativité décorative.",
+                "f1": "Concept visuel dédié à l'enfance",
+                "f2": "Buffet de douceurs et Candy Bar thématique",
+                "f3": "Papeterie et jeux personnalisés",
+                "f4": "Décoration murale et fonds photogéniques",
+                "f5": "Mise en scène pour la révélation",
+                "f6": "Finitions esthétiques soignées",
+                "f7": "Installation et désinstallation complètes",
+                "f8": "Un moment de partage inoubliable"
             }
         },
         "cta": {
             "title": "Un projet en tête?",
-            "subtitle": "Parlons-en et rendons-le réel!",
+            "subtitle": "Définissons ensemble le décor de votre futur événement.",
             "quote": "OBTENIR UN DEVIS",
-            "contact": "CONTACT"
+            "contact": "NOUS CONTACTER"
         }
     },
     "gallery": {
@@ -233,7 +243,7 @@
             "email": "Email *",
             "email_ph": "votre@email.com",
             "phone": "Téléphone",
-            "phone_ph": "+1 (555) 123-4567",
+            "phone_ph": "+1 (819) 244-4702",
             "message": "Message *",
             "message_ph": "Comment pouvons-nous vous aider?",
             "sending": "Envoi en cours...",
