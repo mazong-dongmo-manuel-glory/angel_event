@@ -200,9 +200,19 @@
                 <p class="message-box">{{ selectedBooking.message }}</p>
               </div>
 
-               <div class="detail-section full-width" v-if="selectedBooking.special_requests">
+              <div class="detail-section full-width" v-if="selectedBooking.special_requests">
                 <h3>Demandes spéciales</h3>
                 <p class="message-box">{{ selectedBooking.special_requests }}</p>
+              </div>
+
+              <div class="detail-section full-width" v-if="selectedBooking.rental_items?.length">
+                <h3>Articles réservés</h3>
+                <div class="rental-items-list">
+                  <div v-for="item in selectedBooking.rental_items" :key="item.id" class="rental-item-row">
+                    <span>{{ item.title }}</span>
+                    <strong>{{ formatPrice(item.price) }}</strong>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -610,7 +620,24 @@ onMounted(() => {
   padding: var(--spacing-md);
   border-radius: var(--radius-md);
   font-style: italic;
-}.loading-state, .empty-state {
+}
+
+.rental-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.rental-item-row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+  border-radius: var(--radius-md);
+  background: var(--color-gray-lighter);
+}
+
+.loading-state, .empty-state {
   text-align: center;
   padding: var(--spacing-3xl);
   color: var(--color-gray);

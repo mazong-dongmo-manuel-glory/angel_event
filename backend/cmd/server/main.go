@@ -12,7 +12,6 @@ import (
 	"github.com/mazong/angel_event/internal/database"
 	"github.com/mazong/angel_event/internal/handlers"
 	"github.com/mazong/angel_event/internal/middleware"
-	"github.com/mazong/angel_event/internal/models"
 	"github.com/mazong/angel_event/internal/services"
 )
 
@@ -37,24 +36,12 @@ func main() {
 		log.Fatal("Failed to seed default data:", err)
 	}
 
+	if err := database.SyncAdminUserCredentials(); err != nil {
+		log.Printf("Failed to sync admin credentials: %v", err)
+	}
+
 	// Scan storage for new images
 	services.ScanStorage()
-
-	// Hash default admin password if needed
-	// detailed synchronization of admin password
-	var user models.User
-	adminEmail := os.Getenv("ADMIN_EMAIL")
-	adminPass := os.Getenv("ADMIN_PASSWORD")
-
-	if adminEmail != "" && adminPass != "" {
-		if err := database.DB.Where("email = ?", adminEmail).First(&user).Error; err == nil {
-			// Update password to ensure it matches .env
-			hashedPassword, _ := handlers.HashPassword(adminPass)
-			user.Password = hashedPassword
-			database.DB.Save(&user)
-			log.Println("Admin password synced with environment variable")
-		}
-	}
 
 	// Create Fiber app
 	app := fiber.New(fiber.Config{
@@ -110,6 +97,7 @@ func main() {
 	public.Get("/gallery/random", handlers.GetRandomGalleryImages)
 	public.Get("/rentals", handlers.GetRentalItems)
 	public.Get("/categories", handlers.GetCategories)
+	public.Get("/content", handlers.GetPublicSiteContent)
 
 	// Auth routes
 	auth := api.Group("/auth")
@@ -157,6 +145,9 @@ func main() {
 
 	// Site Content
 	admin.Get("/content", handlers.GetSiteContent)
+	admin.Post("/content", handlers.UpdateSiteContent)
+	admin.Post("/content/upload", handlers.UploadSiteContentAsset)
+	admin.Delete("/content/:id", handlers.DeleteSiteContent)
 
 	// Rentals
 	admin.Get("/rentals", handlers.GetRentalItems)
@@ -172,7 +163,7 @@ func main() {
 
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = "8081"
+		port = "8080"
 	}
 
 	log.Printf("🚀 Server starting on port %s", port)

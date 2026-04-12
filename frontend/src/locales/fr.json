@@ -35,7 +35,7 @@
         },
         "welcome": {
             "title": "Bienvenue chez Angel Event",
-            "text": "Nous sommes spécialisés dans la création d'événements uniques et mémorables, conçus sur mesure pour refléter votre style et votre personnalité.",
+            "text": "Nous sommes spécialisés dans la création d'événements privés et corporatifs uniques et mémorables, conçus sur mesure pour refléter votre style et votre personnalité.",
             "signature": "L'équipe Angel Event"
         },
         "services": {
@@ -66,7 +66,7 @@
         "story": {
             "title": "Qui sommes-nous?",
             "p1": "Angel Event est né d'une passion pour l'art de recevoir et de célébrer les moments importants de la vie.",
-            "p2": "Nous croyons en la magie des détails et en l'importance de créer des souvenirs durables pour nos clients.",
+            "p2": "Nous sommes spécialisés dans la planification d'événements privés et corporatifs, en créant des expériences raffinées et des souvenirs durables pour nos clients.",
             "p3": "Votre satisfaction est notre priorité absolue, et nous mettons tout en œuvre pour dépasser vos attentes."
         },
         "values": {
@@ -117,59 +117,59 @@
     "services_page": {
         "hero": {
             "title": "Nos Services",
-            "subtitle": "Une offre complète pour tous vos besoins événementiels"
+            "subtitle": "Mariage, demande en mariage, baptême, anniversaire et baby shower pensés avec élégance"
         },
         "list": {
             "cta": "RÉSERVER CE SERVICE",
+            "wedding": {
+                "title": "Mariage",
+                "desc": "Un accompagnement mariage exclusif avec une approche Event Planner dédiée pour orchestrer une journée mémorable, fluide et raffinée.",
+                "f1": "Concept et ambiance sur mesure",
+                "f2": "Décoration de cérémonie et réception",
+                "f3": "Accompagnement Event Planner complet",
+                "f4": "Coordination des prestataires",
+                "f5": "Mise en place élégante",
+                "f6": "Présence et soutien le jour J"
+            },
             "proposal": {
                 "title": "Demande en Mariage",
-                "desc": "Le début de votre histoire d'amour mérite un décor féérique.",
-                "f1": "Recherche de lieu romantique",
-                "f2": "Décoration florale de luxe",
-                "f3": "Photographe professionnel",
-                "f4": "Ambiance musicale",
-                "f5": "Coordination sur place",
-                "f6": "Champagne et célébration"
+                "desc": "Une mise en scène romantique et personnalisée pour transformer votre demande en un moment inoubliable.",
+                "f1": "Repérage d'un lieu romantique",
+                "f2": "Décor signature et fleurs",
+                "f3": "Mise en lumière de l'instant",
+                "f4": "Photographe ou vidéaste",
+                "f5": "Installation discrète et coordination",
+                "f6": "Ambiance célébration après le grand oui"
             },
-            "decor": {
-                "title": "Décoration & Design",
-                "desc": "Sublimez votre lieu avec notre expertise en design événementiel.",
-                "f1": "Arches florales",
-                "f2": "Centres de table",
-                "f3": "Éclairage d'ambiance",
-                "f4": "Draperie et textiles",
-                "f5": "Mobilier événementiel",
-                "f6": "Accessoires de table"
+            "baptism": {
+                "title": "Baptême",
+                "desc": "Une célébration douce et harmonieuse pour marquer ce moment précieux entouré de votre famille et de vos proches.",
+                "f1": "Palette délicate et élégante",
+                "f2": "Décoration de table et coin douceur",
+                "f3": "Ballons, fleurs et signalétique",
+                "f4": "Mise en scène pour photos souvenirs",
+                "f5": "Ambiance familiale chaleureuse",
+                "f6": "Coordination du décor et du déroulement"
             },
-            "planning": {
-                "title": "Planification Complète",
-                "desc": "Profitez de votre événement en toute sérénité, nous gérons tout.",
-                "f1": "Gestion de budget",
-                "f2": "Échéancier détaillé",
-                "f3": "Sélection de prestataires",
-                "f4": "Coordination jour J",
-                "f5": "Suivi rigoureux",
-                "f6": "Conseils d'experts"
-            }
-        },
-        "process": {
-            "title": "Notre Processus",
-            "subtitle": "Une approche simple et transparente",
-            "s1": {
-                "title": "Consultation",
-                "desc": "On discute de vos besoins et de votre vision."
+            "birthday": {
+                "title": "Anniversaire",
+                "desc": "Des anniversaires sur mesure, chic, festifs ou intimistes, conçus pour faire vivre une expérience à votre image.",
+                "f1": "Thématique personnalisée",
+                "f2": "Décor de salle ou de domicile",
+                "f3": "Table dessert et mise en scène",
+                "f4": "Coins photo et animations visuelles",
+                "f5": "Ambiance adulte ou enfant",
+                "f6": "Installation clé en main"
             },
-            "s2": {
-                "title": "Proposition",
-                "desc": "On crée un plan sur mesure pour votre événement."
-            },
-            "s3": {
-                "title": "Planification",
-                "desc": "On orchestre chaque détail avec soin."
-            },
-            "s4": {
-                "title": "Réalisation",
-                "desc": "Le jour J, nous sommes là pour tout gérer. Vous profitez!"
+            "baby_shower": {
+                "title": "Baby Shower",
+                "desc": "Une baby shower tendre et esthétique pour célébrer cette belle attente dans une atmosphère conviviale et raffinée.",
+                "f1": "Univers doux et personnalisé",
+                "f2": "Arche de ballons et fleurs",
+                "f3": "Table dessert harmonisée",
+                "f4": "Coin cadeaux et souvenirs",
+                "f5": "Scénographie adaptée à votre espace",
+                "f6": "Installation et finition soignées"
             }
         },
         "cta": {
@@ -204,7 +204,19 @@
         "loading": "Chargement des articles...",
         "featured": "Populaire",
         "book_btn": "Réserver cet article",
-        "empty": "Aucun article de location trouvé."
+        "add_btn": "Ajouter au panier",
+        "remove_btn": "Retirer du panier",
+        "in_cart": "Dans le panier",
+        "empty": "Aucun article de location trouvé.",
+        "cart": {
+            "kicker": "Votre sélection",
+            "title": "Panier de location",
+            "count": "{count} article(s) sélectionné(s)",
+            "total": "Total estimé",
+            "remove": "Retirer",
+            "clear": "Vider le panier",
+            "checkout": "Valider la réservation"
+        }
     },
     "contact": {
         "title": "Contactez-nous",
@@ -260,6 +272,7 @@
         "types": {
             "proposal": "Demande en mariage",
             "wedding": "Mariage",
+            "baptism": "Baptême",
             "birthday": "Anniversaire",
             "baby_shower": "Baby Shower",
             "corporate": "Événement corporatif",
@@ -311,6 +324,18 @@
             "processing": "Traitement...",
             "confirm": "Confirmer la réservation"
         },
+        "cart": {
+            "kicker": "Articles sélectionnés",
+            "title": "Votre panier de location",
+            "count": "{count} article(s) prêt(s) à être réservé(s)",
+            "add_more": "Ajouter d'autres articles",
+            "remove": "Retirer",
+            "total": "Total estimé du panier",
+            "items_total": "Montant des articles",
+            "summary_title": "Articles inclus dans cette réservation",
+            "budget_hint": "Le budget a été prérempli à partir de votre panier: {amount}.",
+            "generic_item": "Article de location"
+        },
         "success": {
             "title": "Réservation confirmée!",
             "msg1": "Merci pour votre confiance. Nous avons bien reçu votre réservation et votre paiement.",
@@ -341,6 +366,7 @@
                 "category": "Catégorie",
                 "choose_category": "Choisir une catégorie",
                 "description": "Description",
+                "stock": "Stock disponible",
                 "make_featured": "Mettre en vedette",
                 "available": "Disponible"
             },

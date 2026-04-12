@@ -50,6 +50,7 @@
           <div class="meta">
             <span v-if="item.featured" class="badge featured">⭐ {{ t('admin.rental.featured') }}</span>
             <span v-if="!item.available" class="badge unavailable">❌ {{ t('admin.rental.unavailable') }}</span>
+            <span class="badge stock">📦 Stock: {{ item.stock }}</span>
           </div>
         </div>
       </div>
@@ -86,6 +87,10 @@
                   <div class="form-group">
                     <label>{{ t('admin.rental.form.price') }} *</label>
                     <input v-model="form.price" type="number" step="0.01" class="form-input" required />
+                  </div>
+                  <div class="form-group">
+                    <label>{{ t('admin.rental.form.stock') }} *</label>
+                    <input v-model="form.stock" type="number" step="1" min="1" class="form-input" required />
                   </div>
                 </div>
 
@@ -153,7 +158,8 @@ const form = ref({
   category_id: '',
   description: '',
   featured: false,
-  available: true
+  available: true,
+  stock: 2
 })
 
 const categories = ref([])
@@ -227,7 +233,8 @@ function resetForm() {
     category_id: '',
     description: '',
     featured: false,
-    available: true
+    available: true,
+    stock: 2
   }
   selectedFile.value = null
   changeImage.value = false
@@ -251,6 +258,7 @@ async function saveItem() {
   formData.append('description', form.value.description)
   formData.append('featured', form.value.featured)
   formData.append('available', form.value.available)
+  formData.append('stock', form.value.stock)
   
   if (selectedFile.value) {
     formData.append('image', selectedFile.value)

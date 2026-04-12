@@ -4,8 +4,8 @@
     <!-- Hero Section -->
     <section class="services-hero">
       <div class="container text-center">
-        <h1 class="font-script text-gold fade-in-up">{{ t('services_page.hero.title') }}</h1>
-        <p class="hero-subtitle fade-in-up">{{ t('services_page.hero.subtitle') }}</p>
+        <h1 class="font-script text-gold fade-in-up">{{ getContent('services_hero_title', t('services_page.hero.title')) }}</h1>
+        <p class="hero-subtitle fade-in-up">{{ getContent('services_hero_description', t('services_page.hero.subtitle')) }}</p>
       </div>
     </section>
 
@@ -25,23 +25,7 @@
                 <span class="check-icon">✓</span> {{ feature }}
               </li>
             </ul>
-            <Button @click="$router.push('/reserver')">{{ t('services_page.list.cta') }}</Button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Process Section -->
-    <section class="process-section">
-      <div class="container">
-        <h2 class="section-title text-center fade-in-up">{{ t('services_page.process.title') }}</h2>
-        <p class="section-subtitle text-center fade-in-up">{{ t('services_page.process.subtitle') }}</p>
-        
-        <div class="process-steps">
-          <div v-for="(step, index) in processSteps" :key="step.id" class="process-step fade-in-up">
-            <div class="step-number">{{ index + 1 }}</div>
-            <h3>{{ step.title }}</h3>
-            <p>{{ step.description }}</p>
+            <Button @click="$router.push('/reserver')">{{ getContent('services_list_cta', t('services_page.list.cta')) }}</Button>
           </div>
         </div>
       </div>
@@ -50,11 +34,11 @@
     <!-- CTA Section -->
     <section class="cta-section">
       <div class="container text-center">
-        <h2 class="font-script fade-in-up">{{ t('services_page.cta.title') }}</h2>
-        <p class="fade-in-up">{{ t('services_page.cta.subtitle') }}</p>
+        <h2 class="font-script fade-in-up">{{ getContent('services_cta_title', t('services_page.cta.title')) }}</h2>
+        <p class="fade-in-up">{{ getContent('services_cta_subtitle', t('services_page.cta.subtitle')) }}</p>
         <div class="cta-buttons fade-in-up">
-          <Button size="lg" @click="$router.push('/reserver')">{{ t('services_page.cta.quote') }}</Button>
-          <Button size="lg" variant="white" @click="$router.push('/contact')">{{ t('services_page.cta.contact') }}</Button>
+          <Button size="lg" @click="$router.push('/reserver')">{{ getContent('services_cta_quote', t('services_page.cta.quote')) }}</Button>
+          <Button size="lg" variant="white" @click="$router.push('/contact')">{{ getContent('services_cta_contact', t('services_page.cta.contact')) }}</Button>
         </div>
       </div>
     </section>
@@ -64,84 +48,54 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { onMounted, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import Header from '../../components/Header.vue'
 import Footer from '../../components/Footer.vue'
 import Button from '../../components/ui/Button.vue'
+import { useSiteContent } from '../../composables/useSiteContent'
 
 const { t } = useI18n()
+const { getContent, getImage } = useSiteContent('services')
 
-const services = computed(() => [
+const serviceDefinitions = [
   {
-    id: 1,
+    id: 'wedding',
     icon: '💍',
-    title: t('services_page.list.proposal.title'),
-    description: t('services_page.list.proposal.desc'),
-    image: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=800',
-    features: [
-      t('services_page.list.proposal.f1'),
-      t('services_page.list.proposal.f2'),
-      t('services_page.list.proposal.f3'),
-      t('services_page.list.proposal.f4'),
-      t('services_page.list.proposal.f5'),
-      t('services_page.list.proposal.f6')
-    ]
+    imageFallback: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=800'
   },
   {
-    id: 2,
-    icon: '🎨',
-    title: t('services_page.list.decor.title'),
-    description: t('services_page.list.decor.desc'),
-    image: 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=800',
-    features: [
-      t('services_page.list.decor.f1'),
-      t('services_page.list.decor.f2'),
-      t('services_page.list.decor.f3'),
-      t('services_page.list.decor.f4'),
-      t('services_page.list.decor.f5'),
-      t('services_page.list.decor.f6')
-    ]
+    id: 'proposal',
+    icon: '💌',
+    imageFallback: 'https://images.unsplash.com/photo-1520854221256-17451cc331bf?w=800'
   },
   {
-    id: 3,
-    icon: '📋',
-    title: t('services_page.list.planning.title'),
-    description: t('services_page.list.planning.desc'),
-    image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800',
-    features: [
-      t('services_page.list.planning.f1'),
-      t('services_page.list.planning.f2'),
-      t('services_page.list.planning.f3'),
-      t('services_page.list.planning.f4'),
-      t('services_page.list.planning.f5'),
-      t('services_page.list.planning.f6')
-    ]
+    id: 'baptism',
+    icon: '🕊️',
+    imageFallback: 'https://images.unsplash.com/photo-1513151233558-d860c5398176?w=800'
+  },
+  {
+    id: 'birthday',
+    icon: '🎂',
+    imageFallback: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800'
+  },
+  {
+    id: 'baby_shower',
+    icon: '🧸',
+    imageFallback: 'https://images.unsplash.com/photo-1542042161784-26ab9e041e89?w=800'
   }
-])
+]
 
-const processSteps = computed(() => [
-  {
-    id: 1,
-    title: t('services_page.process.s1.title'),
-    description: t('services_page.process.s1.desc')
-  },
-  {
-    id: 2,
-    title: t('services_page.process.s2.title'),
-    description: t('services_page.process.s2.desc')
-  },
-  {
-    id: 3,
-    title: t('services_page.process.s3.title'),
-    description: t('services_page.process.s3.desc')
-  },
-  {
-    id: 4,
-    title: t('services_page.process.s4.title'),
-    description: t('services_page.process.s4.desc')
-  }
-])
+const services = computed(() => serviceDefinitions.map((service) => ({
+  id: service.id,
+  icon: service.icon,
+  title: getContent(`services_${service.id}_title`, t(`services_page.list.${service.id}.title`)),
+  description: getContent(`services_${service.id}_desc`, t(`services_page.list.${service.id}.desc`)),
+  image: getImage(`services_${service.id}_image`, service.imageFallback),
+  features: Array.from({ length: 6 }, (_, index) => (
+    getContent(`services_${service.id}_feature_${index + 1}`, t(`services_page.list.${service.id}.f${index + 1}`))
+  ))
+})))
 
 onMounted(() => {
   const observer = new IntersectionObserver((entries) => {
@@ -262,67 +216,6 @@ onMounted(() => {
   font-size: var(--font-size-lg);
 }
 
-/* Process Section */
-.process-section {
-  padding: var(--spacing-5xl) 0;
-  background: var(--color-gray-lighter);
-}
-
-.section-title {
-  font-size: var(--font-size-4xl);
-  margin-bottom: var(--spacing-md);
-}
-
-.section-subtitle {
-  font-size: var(--font-size-lg);
-  color: var(--color-gray);
-  margin-bottom: var(--spacing-4xl);
-}
-
-.process-steps {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: var(--spacing-2xl);
-  margin-top: var(--spacing-3xl);
-}
-
-.process-step {
-  background: var(--color-white);
-  padding: var(--spacing-2xl);
-  border-radius: var(--radius-lg);
-  text-align: center;
-  box-shadow: var(--shadow-md);
-  transition: transform var(--transition-base);
-}
-
-.process-step:hover {
-  transform: translateY(-5px);
-}
-
-.step-number {
-  width: 60px;
-  height: 60px;
-  background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
-  color: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: var(--font-size-2xl);
-  font-weight: bold;
-  margin: 0 auto var(--spacing-lg);
-}
-
-.process-step h3 {
-  color: var(--color-gold);
-  margin-bottom: var(--spacing-md);
-}
-
-.process-step p {
-  color: var(--color-gray);
-  line-height: var(--line-height-relaxed);
-}
-
 /* CTA Section */
 .cta-section {
   padding: var(--spacing-5xl) 0;
@@ -357,11 +250,7 @@ onMounted(() => {
   .service-detail.reverse {
     direction: ltr;
   }
-  
-  .process-steps {
-    grid-template-columns: 1fr;
-  }
-  
+
   .cta-buttons {
     flex-direction: column;
     align-items: stretch;

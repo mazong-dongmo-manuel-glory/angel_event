@@ -4,8 +4,8 @@
     <!-- Hero Section -->
     <section class="about-hero">
       <div class="container text-center">
-        <h1 class="font-script text-gold fade-in-up">{{ t('about.hero.title') }}</h1>
-        <p class="hero-subtitle fade-in-up">{{ t('about.hero.subtitle') }}</p>
+        <h1 class="font-script text-gold fade-in-up">{{ getContent('about_hero_title', t('about.hero.title')) }}</h1>
+        <p class="hero-subtitle fade-in-up">{{ getContent('about_hero_subtitle', t('about.hero.subtitle')) }}</p>
       </div>
     </section>
 
@@ -14,13 +14,13 @@
       <div class="container">
         <div class="story-content">
           <div class="story-text fade-in-up">
-            <h2>{{ t('about.story.title') }}</h2>
-            <p>{{ t('about.story.p1') }}</p>
-            <p>{{ t('about.story.p2') }}</p>
-            <p>{{ t('about.story.p3') }}</p>
+            <h2>{{ getContent('about_story_title', t('about.story.title')) }}</h2>
+            <p>{{ getContent('about_story_p1', t('about.story.p1')) }}</p>
+            <p>{{ getContent('about_story_p2', t('about.story.p2')) }}</p>
+            <p>{{ getContent('about_story_p3', t('about.story.p3')) }}</p>
           </div>
           <div class="story-image fade-in-up">
-            <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=800" alt="Angel Event" />
+            <img :src="storyImage" alt="Angel Event" />
           </div>
         </div>
       </div>
@@ -29,7 +29,7 @@
     <!-- Values Section -->
     <section class="values-section">
       <div class="container">
-        <h2 class="section-title text-center fade-in-up">{{ t('about.values.title') }}</h2>
+        <h2 class="section-title text-center fade-in-up">{{ getContent('about_values_title', t('about.values.title')) }}</h2>
         <div class="values-grid">
           <div v-for="value in values" :key="value.id" class="value-card fade-in-up">
             <div class="value-icon">{{ value.icon }}</div>
@@ -43,7 +43,7 @@
     <!-- Why Choose Us -->
     <section class="why-section">
       <div class="container">
-        <h2 class="section-title text-center fade-in-up">{{ t('about.why.title') }}</h2>
+        <h2 class="section-title text-center fade-in-up">{{ getContent('about_why_title', t('about.why.title')) }}</h2>
         <div class="why-grid">
           <div v-for="reason in reasons" :key="reason.id" class="why-item fade-in-up">
             <div class="why-number">{{ reason.id }}</div>
@@ -57,11 +57,11 @@
     <!-- CTA Section -->
     <section class="cta-section">
       <div class="container text-center">
-        <h2 class="font-script fade-in-up">{{ t('about.cta.title') }}</h2>
-        <p class="fade-in-up">{{ t('about.cta.subtitle') }}</p>
+        <h2 class="font-script fade-in-up">{{ getContent('about_cta_title', t('about.cta.title')) }}</h2>
+        <p class="fade-in-up">{{ getContent('about_cta_subtitle', t('about.cta.subtitle')) }}</p>
         <div class="cta-buttons fade-in-up">
-          <Button size="lg" @click="$router.push('/reserver')">{{ t('about.cta.book') }}</Button>
-          <Button size="lg" variant="white" @click="$router.push('/contact')">{{ t('about.cta.contact') }}</Button>
+          <Button size="lg" @click="$router.push('/reserver')">{{ getContent('about_cta_book', t('about.cta.book')) }}</Button>
+          <Button size="lg" variant="white" @click="$router.push('/contact')">{{ getContent('about_cta_contact', t('about.cta.contact')) }}</Button>
         </div>
       </div>
     </section>
@@ -71,61 +71,65 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import Header from '../../components/Header.vue'
 import Footer from '../../components/Footer.vue'
 import Button from '../../components/ui/Button.vue'
+import { useSiteContent } from '../../composables/useSiteContent'
 
 const { t } = useI18n()
+const { getContent, getImage } = useSiteContent('about')
+
+const storyImage = computed(() => getImage('about_story_image', 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=800'))
 
 const values = computed(() => [
   {
     id: 1,
     icon: '✨',
-    title: t('about.values.excellence.title'),
-    description: t('about.values.excellence.desc')
+    title: getContent('about_values_excellence_title', t('about.values.excellence.title')),
+    description: getContent('about_values_excellence_desc', t('about.values.excellence.desc'))
   },
   {
     id: 2,
     icon: '💝',
-    title: t('about.values.passion.title'),
-    description: t('about.values.passion.desc')
+    title: getContent('about_values_passion_title', t('about.values.passion.title')),
+    description: getContent('about_values_passion_desc', t('about.values.passion.desc'))
   },
   {
     id: 3,
     icon: '🎯',
-    title: t('about.values.custom.title'),
-    description: t('about.values.custom.desc')
+    title: getContent('about_values_custom_title', t('about.values.custom.title')),
+    description: getContent('about_values_custom_desc', t('about.values.custom.desc'))
   },
   {
     id: 4,
     icon: '🤝',
-    title: t('about.values.trust.title'),
-    description: t('about.values.trust.desc')
+    title: getContent('about_values_trust_title', t('about.values.trust.title')),
+    description: getContent('about_values_trust_desc', t('about.values.trust.desc'))
   }
 ])
 
 const reasons = computed(() => [
   {
     id: 1,
-    title: t('about.why.exp.title'),
-    description: t('about.why.exp.desc')
+    title: getContent('about_why_1_title', t('about.why.exp.title')),
+    description: getContent('about_why_1_desc', t('about.why.exp.desc'))
   },
   {
     id: 2,
-    title: t('about.why.turnkey.title'),
-    description: t('about.why.turnkey.desc')
+    title: getContent('about_why_2_title', t('about.why.turnkey.title')),
+    description: getContent('about_why_2_desc', t('about.why.turnkey.desc'))
   },
   {
     id: 3,
-    title: t('about.why.detail.title'),
-    description: t('about.why.detail.desc')
+    title: getContent('about_why_3_title', t('about.why.detail.title')),
+    description: getContent('about_why_3_desc', t('about.why.detail.desc'))
   },
   {
     id: 4,
-    title: t('about.why.network.title'),
-    description: t('about.why.network.desc')
+    title: getContent('about_why_4_title', t('about.why.network.title')),
+    description: getContent('about_why_4_desc', t('about.why.network.desc'))
   }
 ])
 </script>

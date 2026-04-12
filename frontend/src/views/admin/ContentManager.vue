@@ -1,30 +1,28 @@
 <template>
   <div class="content-manager">
-    <!-- Header -->
     <div class="manager-header">
       <div>
         <h1>Gestion du Contenu</h1>
-        <p class="subtitle">Gérez le contenu du site web (textes, titres, descriptions)</p>
+        <p class="subtitle">Modifiez les textes, logos, photos et visuels des pages vitrines depuis ce module.</p>
       </div>
-      <button @click="showAddModal = true" class="btn-add">
-        ✏️ Ajouter un contenu
+      <button @click="openCreateModal" class="btn-add">
+        + Ajouter un contenu
       </button>
     </div>
 
-    <!-- Stats Cards -->
     <div class="stats-grid">
       <div class="stat-card">
         <div class="stat-icon">📝</div>
         <div class="stat-content">
           <h3>{{ stats.total }}</h3>
-          <p>Total Contenus</p>
+          <p>Total contenus</p>
         </div>
       </div>
       <div class="stat-card">
-        <div class="stat-icon">🏠</div>
+        <div class="stat-icon">🖼️</div>
         <div class="stat-content">
-          <h3>{{ stats.sections }}</h3>
-          <p>Sections</p>
+          <h3>{{ stats.images }}</h3>
+          <p>Visuels</p>
         </div>
       </div>
       <div class="stat-card">
@@ -36,161 +34,185 @@
       </div>
     </div>
 
-    <!-- Filters -->
     <div class="controls">
       <div class="filter-group">
-        <label>Section:</label>
+        <label>Section</label>
         <select v-model="filterSection" class="filter-select">
-          <option value="">Toutes les sections</option>
+          <option value="">Toutes</option>
           <option v-for="section in availableSections" :key="section" :value="section">
             {{ getSectionLabel(section) }}
           </option>
         </select>
       </div>
+
       <div class="filter-group">
-        <label>Langue:</label>
+        <label>Langue</label>
         <select v-model="filterLanguage" class="filter-select">
-          <option value="">Toutes les langues</option>
-          <option value="fr">🇫🇷 Français</option>
-          <option value="en">🇬🇧 English</option>
+          <option value="">Toutes</option>
+          <option value="fr">FR</option>
+          <option value="en">EN</option>
         </select>
       </div>
-      <div class="search-group">
-        <input 
-          v-model="searchQuery" 
-          type="text" 
-          placeholder="Rechercher par clé ou valeur..."
-          class="search-input"
-        />
+
+      <div class="filter-group">
+        <label>Type</label>
+        <select v-model="filterType" class="filter-select">
+          <option value="">Tous</option>
+          <option value="text">Texte</option>
+          <option value="image">Image</option>
+        </select>
       </div>
+
+      <input
+        v-model="searchQuery"
+        type="text"
+        class="search-input"
+        placeholder="Rechercher par clé, valeur ou section..."
+      />
     </div>
 
-    <!-- Content Grid -->
     <div v-if="loading" class="loading-state">
       <div class="spinner"></div>
       <p>Chargement du contenu...</p>
     </div>
 
-    <div v-else-if="filteredContent.length === 0" class="empty-state">
-      <p>Aucun contenu trouvé</p>
+    <div v-else-if="groupedContent.length === 0" class="empty-state">
+      <p>Aucun contenu trouvé.</p>
     </div>
 
     <div v-else class="content-sections">
-      <div v-for="section in groupedContent" :key="section.name" class="section-group">
-        <h2 class="section-title">{{ getSectionLabel(section.name) }}</h2>
-        <div class="content-grid">
-          <div
-            v-for="item in section.items"
-            :key="item.id"
-            class="content-card"
-          >
-            <div class="card-header">
-              <div class="content-key">
-                <code>{{ item.key }}</code>
-                <span class="language-badge">{{ item.language.toUpperCase() }}</span>
-              </div>
-            </div>
-            <div class="card-body">
-              <p class="content-value">{{ item.value }}</p>
-              <div class="meta">
-                <span class="date">{{ formatDate(item.updated_at) }}</span>
-              </div>
-            </div>
-            <div class="card-actions">
-              <button @click="editContent(item)" class="btn-action btn-secondary">
-                ✏️ Modifier
-              </button>
-              <button @click="confirmDelete(item)" class="btn-action btn-danger">
-                🗑️ Supprimer
-              </button>
-            </div>
-          </div>
+      <section v-for="group in groupedContent" :key="group.name" class="section-group">
+        <div class="section-header">
+          <h2>{{ getSectionLabel(group.name) }}</h2>
+          <span>{{ group.items.length }} entrée(s)</span>
         </div>
-      </div>
+
+        <div class="content-grid">
+          <article v-for="item in group.items" :key="item.id" class="content-card">
+            <div class="card-header">
+              <code>{{ item.key }}</code>
+              <div class="badges">
+                <span class="badge language">{{ item.language.toUpperCase() }}</span>
+                <span class="badge" :class="item.type === 'image' ? 'image' : 'text'">
+                  {{ item.type || 'text' }}
+                </span>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <img v-if="item.type === 'image'" :src="item.value" :alt="item.key" class="content-preview-image" />
+              <p v-else class="content-value">{{ item.value }}</p>
+              <div class="meta">
+                <span>{{ formatDate(item.updated_at) }}</span>
+              </div>
+            </div>
+
+            <div class="card-actions">
+              <button class="btn-secondary" @click="editContent(item)">Modifier</button>
+              <button class="btn-danger" @click="confirmDelete(item)">Supprimer</button>
+            </div>
+          </article>
+        </div>
+      </section>
     </div>
 
-    <!-- Edit/Add Modal -->
     <Teleport to="body">
-      <div v-if="showEditModal || showAddModal" class="modal-overlay" @click="closeModal">
+      <div v-if="showModal" class="modal-overlay" @click="closeModal">
         <div class="modal-content" @click.stop>
           <div class="modal-header">
-            <h2>{{ showAddModal ? 'Ajouter un contenu' : 'Modifier le contenu' }}</h2>
+            <h2>{{ editingContent ? 'Modifier le contenu' : 'Ajouter un contenu' }}</h2>
             <button @click="closeModal" class="close-btn">×</button>
           </div>
-          <div class="modal-body">
-            <form @submit.prevent="saveContent" class="edit-form">
+
+          <form class="edit-form" @submit.prevent="saveContent">
+            <div class="form-row">
               <div class="form-group">
-                <label>Clé * <span class="hint">(ex: hero_title, about_description)</span></label>
-                <input 
-                  v-model="editForm.key" 
-                  type="text" 
-                  required 
-                  :disabled="!showAddModal"
-                  placeholder="hero_title"
-                />
+                <label>Clé</label>
+                <input v-model="editForm.key" type="text" required :disabled="!!editingContent" placeholder="about_story_image" />
               </div>
+
               <div class="form-group">
-                <label>Valeur *</label>
-                <textarea 
-                  v-model="editForm.value" 
-                  rows="6" 
-                  required
-                  placeholder="Entrez le contenu ici..."
-                ></textarea>
+                <label>Type</label>
+                <select v-model="editForm.type" required>
+                  <option value="text">Texte</option>
+                  <option value="image">Image</option>
+                </select>
               </div>
-              <div class="form-row">
-                <div class="form-group">
-                  <label>Section *</label>
-                  <select v-model="editForm.section" required>
-                    <option value="home">🏠 Accueil</option>
-                    <option value="services">💼 Services</option>
-                    <option value="about">ℹ️ À propos</option>
-                    <option value="contact">📧 Contact</option>
-                    <option value="gallery">🖼️ Galerie</option>
-                    <option value="testimonials">💬 Témoignages</option>
-                    <option value="footer">📄 Footer</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label>Langue *</label>
-                  <select v-model="editForm.language" required>
-                    <option value="fr">🇫🇷 Français</option>
-                    <option value="en">🇬🇧 English</option>
-                  </select>
-                </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Section</label>
+                <select v-model="editForm.section" required>
+                  <option value="global">Global</option>
+                  <option value="home">Accueil</option>
+                  <option value="services">Services</option>
+                  <option value="about">À propos</option>
+                  <option value="contact">Contact</option>
+                  <option value="gallery">Galerie</option>
+                  <option value="testimonials">Témoignages</option>
+                  <option value="footer">Footer</option>
+                </select>
               </div>
-              <div class="form-actions">
-                <button type="button" @click="closeModal" class="btn-secondary">
-                  Annuler
-                </button>
-                <button type="submit" class="btn-primary">
-                  {{ showAddModal ? 'Ajouter' : 'Enregistrer' }}
-                </button>
+
+              <div class="form-group">
+                <label>Langue</label>
+                <select v-model="editForm.language" required>
+                  <option value="fr">Français</option>
+                  <option value="en">English</option>
+                </select>
               </div>
-            </form>
-          </div>
+            </div>
+
+            <div v-if="editForm.type === 'image'" class="form-group">
+              <label>URL de l'image</label>
+              <input
+                v-model="editForm.value"
+                type="text"
+                placeholder="/uploads/content/mon-image.jpg ou https://..."
+              />
+            </div>
+
+            <div v-if="editForm.type === 'image'" class="form-group">
+              <label>Uploader une image</label>
+              <input type="file" accept=".jpg,.jpeg,.png,.gif,.webp,.svg" @change="handleFileChange" />
+              <small>Si un fichier est sélectionné, il remplacera l'URL ci-dessus.</small>
+            </div>
+
+            <div v-if="imagePreview" class="image-preview-box">
+              <img :src="imagePreview" alt="Preview" />
+            </div>
+
+            <div v-if="editForm.type !== 'image'" class="form-group">
+              <label>Valeur</label>
+              <textarea v-model="editForm.value" rows="6" required placeholder="Entrez votre contenu ici..."></textarea>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn-secondary" @click="closeModal">Annuler</button>
+              <button type="submit" class="btn-primary" :disabled="saving">
+                {{ saving ? 'Enregistrement...' : 'Enregistrer' }}
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </Teleport>
 
-    <!-- Delete Confirmation Modal -->
     <Teleport to="body">
       <div v-if="deletingContent" class="modal-overlay" @click="deletingContent = null">
         <div class="modal-content modal-small" @click.stop>
           <div class="modal-header">
-            <h2>Confirmer la suppression</h2>
+            <h2>Supprimer ce contenu ?</h2>
             <button @click="deletingContent = null" class="close-btn">×</button>
           </div>
+
           <div class="modal-body">
-            <p>Êtes-vous sûr de vouloir supprimer le contenu <strong>{{ deletingContent.key }}</strong> ?</p>
-            <p class="warning-text">Cette action est irréversible.</p>
+            <p>La clé <strong>{{ deletingContent.key }}</strong> sera supprimée définitivement.</p>
+
             <div class="form-actions">
-              <button @click="deletingContent = null" class="btn-secondary">
-                Annuler
-              </button>
-              <button @click="deleteContent" class="btn-danger">
-                Supprimer
-              </button>
+              <button class="btn-secondary" @click="deletingContent = null">Annuler</button>
+              <button class="btn-danger" @click="deleteContent">Supprimer</button>
             </div>
           </div>
         </div>
@@ -200,101 +222,123 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import api from '../../services/api'
 
 const content = ref([])
 const loading = ref(false)
+const saving = ref(false)
 const filterSection = ref('')
 const filterLanguage = ref('')
+const filterType = ref('')
 const searchQuery = ref('')
-const showEditModal = ref(false)
-const showAddModal = ref(false)
+const showModal = ref(false)
 const editingContent = ref(null)
 const deletingContent = ref(null)
+const imageFile = ref(null)
+const imagePreview = ref('')
 
 const editForm = ref({
   key: '',
   value: '',
   section: 'home',
-  language: 'fr'
+  language: 'fr',
+  type: 'text',
 })
 
 const sectionLabels = {
-  home: '🏠 Accueil',
-  services: '💼 Services',
-  about: 'ℹ️ À propos',
-  contact: '📧 Contact',
-  gallery: '🖼️ Galerie',
-  testimonials: '💬 Témoignages',
-  footer: '📄 Footer'
+  global: 'Global',
+  home: 'Accueil',
+  services: 'Services',
+  about: 'À propos',
+  contact: 'Contact',
+  gallery: 'Galerie',
+  testimonials: 'Témoignages',
+  footer: 'Footer',
 }
 
-const stats = computed(() => {
-  const total = content.value.length
-  const sections = new Set(content.value.map(c => c.section)).size
-  const languages = new Set(content.value.map(c => c.language)).size
-  
-  return { total, sections, languages }
-})
+const stats = computed(() => ({
+  total: content.value.length,
+  images: content.value.filter((item) => item.type === 'image').length,
+  languages: new Set(content.value.map((item) => item.language)).size,
+}))
 
 const availableSections = computed(() => {
-  return [...new Set(content.value.map(c => c.section))].sort()
+  return [...new Set(content.value.map((item) => item.section))].filter(Boolean).sort()
 })
 
 const filteredContent = computed(() => {
-  let filtered = content.value
+  return content.value.filter((item) => {
+    const matchesSection = !filterSection.value || item.section === filterSection.value
+    const matchesLanguage = !filterLanguage.value || item.language === filterLanguage.value
+    const matchesType = !filterType.value || (item.type || 'text') === filterType.value
+    const query = searchQuery.value.trim().toLowerCase()
+    const matchesSearch =
+      !query ||
+      item.key.toLowerCase().includes(query) ||
+      item.value.toLowerCase().includes(query) ||
+      item.section.toLowerCase().includes(query)
 
-  if (filterSection.value) {
-    filtered = filtered.filter(c => c.section === filterSection.value)
-  }
-
-  if (filterLanguage.value) {
-    filtered = filtered.filter(c => c.language === filterLanguage.value)
-  }
-
-  if (searchQuery.value) {
-    const query = searchQuery.value.toLowerCase()
-    filtered = filtered.filter(c => 
-      c.key.toLowerCase().includes(query) || 
-      c.value.toLowerCase().includes(query)
-    )
-  }
-
-  return filtered
+    return matchesSection && matchesLanguage && matchesType && matchesSearch
+  })
 })
 
 const groupedContent = computed(() => {
   const groups = {}
-  
-  filteredContent.value.forEach(item => {
+
+  for (const item of filteredContent.value) {
     if (!groups[item.section]) {
       groups[item.section] = {
         name: item.section,
-        items: []
+        items: [],
       }
     }
-    groups[item.section].items.push(item)
-  })
 
-  return Object.values(groups).sort((a, b) => a.name.localeCompare(b.name))
+    groups[item.section].items.push(item)
+  }
+
+  return Object.values(groups)
+    .map((group) => ({
+      ...group,
+      items: [...group.items].sort((a, b) => a.key.localeCompare(b.key)),
+    }))
+    .sort((a, b) => a.name.localeCompare(b.name))
 })
+
+function getSectionLabel(section) {
+  return sectionLabels[section] || section
+}
+
+function resetForm() {
+  editForm.value = {
+    key: '',
+    value: '',
+    section: 'home',
+    language: 'fr',
+    type: 'text',
+  }
+  imageFile.value = null
+  imagePreview.value = ''
+}
 
 async function fetchContent() {
   loading.value = true
+
   try {
     const response = await api.get('/admin/content')
     content.value = response.data || []
   } catch (error) {
     console.error('Failed to fetch content:', error)
-    alert('Erreur lors du chargement du contenu')
+    alert('Erreur lors du chargement du contenu.')
   } finally {
     loading.value = false
   }
 }
 
-function getSectionLabel(section) {
-  return sectionLabels[section] || section
+function openCreateModal() {
+  editingContent.value = null
+  resetForm()
+  showModal.value = true
 }
 
 function editContent(item) {
@@ -303,34 +347,50 @@ function editContent(item) {
     key: item.key,
     value: item.value,
     section: item.section,
-    language: item.language
+    language: item.language,
+    type: item.type || 'text',
   }
-  showEditModal.value = true
+  imageFile.value = null
+  imagePreview.value = item.type === 'image' ? item.value : ''
+  showModal.value = true
 }
 
 function closeModal() {
-  showEditModal.value = false
-  showAddModal.value = false
+  showModal.value = false
   editingContent.value = null
-  editForm.value = {
-    key: '',
-    value: '',
-    section: 'home',
-    language: 'fr'
-  }
+  resetForm()
+}
+
+function handleFileChange(event) {
+  const file = event.target.files?.[0]
+  imageFile.value = file || null
+  imagePreview.value = file ? URL.createObjectURL(file) : editForm.value.value
 }
 
 async function saveContent() {
+  saving.value = true
+
   try {
-    await api.post('/admin/content', editForm.value)
-    
-    // Refresh content list
+    if (editForm.value.type === 'image' && imageFile.value) {
+      const formData = new FormData()
+      formData.append('key', editForm.value.key)
+      formData.append('section', editForm.value.section)
+      formData.append('language', editForm.value.language)
+      formData.append('type', 'image')
+      formData.append('image', imageFile.value)
+
+      await api.post('/admin/content/upload', formData)
+    } else {
+      await api.post('/admin/content', editForm.value)
+    }
+
     await fetchContent()
-    
     closeModal()
   } catch (error) {
     console.error('Failed to save content:', error)
-    alert('Erreur lors de la sauvegarde')
+    alert(error.response?.data?.error || 'Erreur lors de la sauvegarde.')
+  } finally {
+    saving.value = false
   }
 }
 
@@ -340,28 +400,28 @@ function confirmDelete(item) {
 
 async function deleteContent() {
   try {
-    // Note: Backend doesn't have delete endpoint, so we'll update to empty or handle differently
-    // For now, we'll just show an alert
-    alert('La suppression de contenu n\'est pas encore implémentée dans le backend')
+    await api.delete(`/admin/content/${deletingContent.value.id}`)
     deletingContent.value = null
+    await fetchContent()
   } catch (error) {
     console.error('Failed to delete content:', error)
-    alert('Erreur lors de la suppression')
+    alert(error.response?.data?.error || 'Erreur lors de la suppression.')
   }
 }
 
 function formatDate(dateStr) {
-  if (!dateStr) return '-'
+  if (!dateStr) {
+    return '-'
+  }
+
   return new Date(dateStr).toLocaleDateString('fr-FR', {
     year: 'numeric',
     month: 'long',
-    day: 'numeric'
+    day: 'numeric',
   })
 }
 
-onMounted(() => {
-  fetchContent()
-})
+onMounted(fetchContent)
 </script>
 
 <style scoped>
@@ -374,6 +434,7 @@ onMounted(() => {
 .manager-header {
   display: flex;
   justify-content: space-between;
+  gap: var(--spacing-xl);
   align-items: flex-start;
   margin-bottom: var(--spacing-3xl);
 }
@@ -387,49 +448,58 @@ onMounted(() => {
 .subtitle {
   color: var(--color-gray);
   font-size: var(--font-size-lg);
+  max-width: 760px;
 }
 
-.btn-add {
-  padding: var(--spacing-md) var(--spacing-xl);
-  background: var(--color-gold);
-  color: white;
+.btn-add,
+.btn-primary,
+.btn-secondary,
+.btn-danger {
   border: none;
   border-radius: var(--radius-md);
+  padding: var(--spacing-md) var(--spacing-xl);
   cursor: pointer;
   font-weight: var(--font-weight-semibold);
   transition: all var(--transition-base);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-size: var(--font-size-sm);
 }
 
-.btn-add:hover {
-  background: #C5A028;
+.btn-add,
+.btn-primary {
+  background: var(--color-gold);
+  color: white;
+}
+
+.btn-add:hover,
+.btn-primary:hover {
   transform: translateY(-2px);
+  background: #c59f2c;
 }
 
-/* Stats Grid */
+.btn-secondary {
+  background: var(--color-gray-lighter);
+  color: var(--color-text);
+}
+
+.btn-danger {
+  background: rgba(193, 41, 46, 0.12);
+  color: var(--color-error);
+}
+
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: var(--spacing-xl);
   margin-bottom: var(--spacing-3xl);
 }
 
 .stat-card {
   background: white;
-  padding: var(--spacing-xl);
   border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
   box-shadow: var(--shadow-md);
   display: flex;
   align-items: center;
   gap: var(--spacing-lg);
-  transition: transform var(--transition-base);
-}
-
-.stat-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
 }
 
 .stat-icon {
@@ -437,91 +507,63 @@ onMounted(() => {
 }
 
 .stat-content h3 {
-  font-size: var(--font-size-3xl);
+  font-size: var(--font-size-2xl);
   color: var(--color-gold);
-  margin-bottom: var(--spacing-xs);
 }
 
 .stat-content p {
   color: var(--color-gray);
-  font-size: var(--font-size-sm);
 }
 
-/* Controls */
 .controls {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: var(--spacing-lg);
-  margin-bottom: var(--spacing-2xl);
-  flex-wrap: wrap;
+  margin-bottom: var(--spacing-3xl);
 }
 
 .filter-group {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: var(--spacing-sm);
 }
 
-.filter-group label {
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text);
-}
-
-.filter-select {
-  padding: var(--spacing-sm) var(--spacing-md);
-  border: 2px solid var(--color-border);
-  border-radius: var(--radius-md);
-  background: white;
-  cursor: pointer;
-  transition: border-color var(--transition-base);
-}
-
-.filter-select:focus {
-  outline: none;
-  border-color: var(--color-gold);
-}
-
-.search-group {
-  flex: 1;
-  min-width: 250px;
-}
-
-.search-input {
+.filter-select,
+.search-input,
+.edit-form input,
+.edit-form select,
+.edit-form textarea {
   width: 100%;
-  padding: var(--spacing-sm) var(--spacing-md);
-  border: 2px solid var(--color-border);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  transition: border-color var(--transition-base);
+  padding: var(--spacing-md);
+  font-family: var(--font-sans);
 }
 
-.search-input:focus {
-  outline: none;
-  border-color: var(--color-gold);
-}
-
-/* Content Sections */
 .content-sections {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-3xl);
 }
 
-.section-group {
-  background: var(--color-gray-lighter);
-  padding: var(--spacing-2xl);
-  border-radius: var(--radius-xl);
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
 }
 
-.section-title {
+.section-header h2 {
   color: var(--color-gold);
-  font-size: var(--font-size-2xl);
-  margin-bottom: var(--spacing-xl);
-  padding-bottom: var(--spacing-md);
-  border-bottom: 2px solid var(--color-border);
+}
+
+.section-header span {
+  color: var(--color-gray);
 }
 
 .content-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: var(--spacing-xl);
 }
 
@@ -530,197 +572,157 @@ onMounted(() => {
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
   overflow: hidden;
-  transition: transform var(--transition-base);
-}
-
-.content-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
 }
 
 .card-header {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  align-items: center;
   padding: var(--spacing-lg);
   border-bottom: 1px solid var(--color-border);
 }
 
-.content-key {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--spacing-md);
-}
-
-.content-key code {
-  background: var(--color-gray-lighter);
-  padding: var(--spacing-xs) var(--spacing-sm);
-  border-radius: var(--radius-sm);
-  font-family: 'Courier New', monospace;
-  font-size: var(--font-size-sm);
+.card-header code {
   color: var(--color-gold);
-}
-
-.language-badge {
-  padding: var(--spacing-xs) var(--spacing-sm);
-  background: var(--color-gold);
-  color: white;
-  border-radius: var(--radius-sm);
-  font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semibold);
 }
 
-.card-body {
-  padding: var(--spacing-lg);
-}
-
-.content-value {
-  color: var(--color-text);
-  line-height: var(--line-height-relaxed);
-  margin-bottom: var(--spacing-md);
-  min-height: 60px;
-}
-
-.meta {
-  display: flex;
-  justify-content: flex-end;
-  font-size: var(--font-size-sm);
-  color: var(--color-gray);
-}
-
-.card-actions {
-  padding: var(--spacing-md);
-  background: var(--color-gray-lighter);
+.badges {
   display: flex;
   gap: var(--spacing-sm);
 }
 
-.btn-action {
-  flex: 1;
-  padding: var(--spacing-xs) var(--spacing-md);
-  border: none;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
+.badge {
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
   font-size: var(--font-size-xs);
+  text-transform: uppercase;
   font-weight: var(--font-weight-semibold);
-  transition: all var(--transition-base);
 }
 
-.btn-secondary {
-  background: var(--color-gray-light);
+.badge.language {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.badge.text {
+  background: rgba(212, 175, 55, 0.14);
+  color: var(--color-gold);
+}
+
+.badge.image {
+  background: rgba(79, 70, 229, 0.12);
+  color: #4338ca;
+}
+
+.card-body {
+  padding: var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  flex: 1;
+}
+
+.content-preview-image {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  background: var(--color-gray-lighter);
+}
+
+.content-value {
   color: var(--color-text);
+  line-height: 1.7;
+  white-space: pre-wrap;
 }
 
-.btn-secondary:hover {
-  background: var(--color-gray);
+.meta {
+  color: var(--color-gray);
+  font-size: var(--font-size-sm);
 }
 
-.btn-danger {
-  background: #C1292E;
-  color: white;
+.card-actions,
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-md);
 }
 
-.btn-danger:hover {
-  background: #A01F23;
+.card-actions {
+  padding: 0 var(--spacing-lg) var(--spacing-lg);
 }
 
-/* Loading & Empty States */
 .loading-state,
 .empty-state {
   text-align: center;
-  padding: var(--spacing-5xl);
+  padding: var(--spacing-4xl);
   color: var(--color-gray);
 }
 
 .spinner {
   width: 40px;
   height: 40px;
-  border: 4px solid var(--color-border);
+  border: 4px solid var(--color-gray-lighter);
   border-top-color: var(--color-gold);
   border-radius: 50%;
-  animation: spin 0.8s linear infinite;
+  animation: spin 1s linear infinite;
   margin: 0 auto var(--spacing-md);
 }
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-/* Modals */
 .modal-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: var(--z-modal);
+  z-index: 1000;
   padding: var(--spacing-xl);
 }
 
 .modal-content {
+  width: min(760px, 100%);
   background: white;
   border-radius: var(--radius-xl);
-  max-width: 600px;
-  width: 100%;
-  max-height: 90vh;
-  overflow-y: auto;
-  box-shadow: var(--shadow-xl);
+  box-shadow: var(--shadow-2xl);
+  overflow: hidden;
 }
 
 .modal-small {
-  max-width: 400px;
+  width: min(420px, 100%);
 }
 
 .modal-header {
-  padding: var(--spacing-xl);
-  border-bottom: 1px solid var(--color-border);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: var(--spacing-xl);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .modal-header h2 {
   color: var(--color-gold);
-  font-size: var(--font-size-2xl);
 }
 
 .close-btn {
-  background: none;
   border: none;
-  font-size: var(--font-size-3xl);
-  cursor: pointer;
-  color: var(--color-gray);
+  background: transparent;
+  font-size: 2rem;
   line-height: 1;
-  padding: 0;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: var(--radius-sm);
-  transition: background var(--transition-base);
+  cursor: pointer;
 }
 
-.close-btn:hover {
-  background: var(--color-gray-lighter);
-}
-
+.edit-form,
 .modal-body {
   padding: var(--spacing-xl);
 }
 
-/* Forms */
-.edit-form {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-lg);
-}
-
 .form-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--spacing-lg);
 }
 
@@ -728,71 +730,30 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-lg);
 }
 
-.form-group label {
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text);
+.image-preview-box {
+  margin-bottom: var(--spacing-lg);
 }
 
-.hint {
-  font-size: var(--font-size-xs);
-  color: var(--color-gray);
-  font-weight: normal;
+.image-preview-box img {
+  width: 100%;
+  max-height: 280px;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
 }
 
-.form-group input,
-.form-group select,
-.form-group textarea {
-  padding: var(--spacing-md);
-  border: 2px solid var(--color-border);
-  border-radius: var(--radius-md);
-  font-family: var(--font-sans);
-  font-size: var(--font-size-base);
-  transition: border-color var(--transition-base);
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-  outline: none;
-  border-color: var(--color-gold);
-}
-
-.form-group input:disabled {
-  background: var(--color-gray-lighter);
-  cursor: not-allowed;
-}
-
-.form-actions {
-  display: flex;
-  gap: var(--spacing-md);
-  justify-content: flex-end;
-  margin-top: var(--spacing-lg);
-}
-
-.btn-primary {
-  padding: var(--spacing-md) var(--spacing-xl);
-  border: none;
-  border-radius: var(--radius-md);
-  font-weight: var(--font-weight-semibold);
-  cursor: pointer;
-  transition: all var(--transition-base);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-size: var(--font-size-sm);
-  background: var(--color-gold);
-  color: white;
-}
-
-.btn-primary:hover {
-  background: #C5A028;
-}
-
-.warning-text {
-  color: #C1292E;
-  font-size: var(--font-size-sm);
-  margin-top: var(--spacing-sm);
+@media (max-width: 900px) {
+  .controls {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 768px) {
@@ -800,29 +761,17 @@ onMounted(() => {
     padding: var(--spacing-xl);
   }
 
-  .manager-header {
+  .manager-header,
+  .section-header,
+  .card-actions,
+  .form-actions {
     flex-direction: column;
-    gap: var(--spacing-lg);
+    align-items: stretch;
   }
 
-  .btn-add {
-    width: 100%;
-  }
-
-  .content-grid {
-    grid-template-columns: 1fr;
-  }
-
+  .controls,
   .form-row {
     grid-template-columns: 1fr;
-  }
-
-  .controls {
-    flex-direction: column;
-  }
-
-  .search-group {
-    width: 100%;
   }
 }
 </style>

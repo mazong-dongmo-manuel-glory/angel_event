@@ -117,6 +117,12 @@ func CreateRentalItem(c *fiber.Ctx) error {
 	// Parse category_id
 	categoryID, _ := strconv.Atoi(c.FormValue("category_id"))
 
+	// Parse stock
+	stock, _ := strconv.Atoi(c.FormValue("stock"))
+	if stock <= 0 {
+		stock = 2 // Default to 2 as requested if not provided or invalid
+	}
+
 	// Create database record
 	item := models.RentalItem{
 		Title:        c.FormValue("title"),
@@ -127,6 +133,7 @@ func CreateRentalItem(c *fiber.Ctx) error {
 		ImageURL:     "/uploads/rentals/" + filename,
 		Featured:     c.FormValue("featured") == "true",
 		Available:    true,
+		Stock:        stock,
 	}
 
 	if err := database.DB.Create(&item).Error; err != nil {
@@ -176,6 +183,10 @@ func UpdateRentalItem(c *fiber.Ctx) error {
 	}
 	if available := c.FormValue("available"); available != "" {
 		updateData["available"] = available == "true"
+	}
+	if stockStr := c.FormValue("stock"); stockStr != "" {
+		stock, _ := strconv.Atoi(stockStr)
+		updateData["stock"] = stock
 	}
 
 	// Handle new image upload if present

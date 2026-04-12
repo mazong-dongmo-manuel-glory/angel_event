@@ -720,14 +720,23 @@ func GetSiteContent(c *fiber.Ctx) error {
 
 	// Filter by section
 	if section := c.Query("section"); section != "" {
-		query = query.Where("section = ?", section)
+		sections := strings.Split(section, ",")
+		for i := range sections {
+			sections[i] = strings.TrimSpace(sections[i])
+		}
+		if len(sections) == 1 {
+			query = query.Where("section = ?", sections[0])
+		} else {
+			query = query.Where("section IN ?", sections)
+		}
 	}
 
 	// Filter by language
-	language := c.Query("language", "fr")
-	query = query.Where("language = ?", language)
+	if language := c.Query("language"); language != "" {
+		query = query.Where("language = ?", language)
+	}
 
-	if err := query.Find(&content).Error; err != nil {
+	if err := query.Order("section ASC, key ASC, language ASC").Find(&content).Error; err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"error": "Failed to fetch content",
 		})
@@ -743,6 +752,7 @@ func UpdateSiteContent(c *fiber.Ctx) error {
 		Value    string `json:"value"`
 		Language string `json:"language"`
 		Section  string `json:"section"`
+		Type     string `json:"type"`
 	}
 
 	var req ContentUpdate
@@ -752,34 +762,145 @@ func UpdateSiteContent(c *fiber.Ctx) error {
 		})
 	}
 
-	var content models.SiteContent
-	result := database.DB.Where("key = ? AND language = ?", req.Key, req.Language).First(&content)
+	if req.Key == "" || req.Section == "" {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": "Key and section are required",
+		})
+	}
 
-	if result.Error != nil {
-		// Create new
-		content = models.SiteContent{
-			Key:      req.Key,
-			Value:    req.Value,
-			Language: req.Language,
-			Section:  req.Section,
-		}
-		if err := database.DB.Create(&content).Error; err != nil {
-			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-				"error": "Failed to create content",
-			})
-		}
-	} else {
-		// Update existing
-		content.Value = req.Value
-		content.Section = req.Section
-		if err := database.DB.Save(&content).Error; err != nil {
-			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-				"error": "Failed to update content",
-			})
-		}
+	if req.Language == "" {
+		req.Language = "fr"
+	}
+
+	if req.Type == "" {
+		req.Type = "text"
+	}
+
+	content, err := upsertSiteContent(req.Key, req.Value, req.Language, req.Section, req.Type)
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"error": "Failed to save content",
+		})
 	}
 
 	return c.JSON(content)
+}
+
+// DeleteSiteContent deletes a content entry
+func DeleteSiteContent(c *fiber.Ctx) error {
+	id, err := strconv.Atoi(c.Params("id"))
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": "Invalid content ID",
+		})
+	}
+
+	if err := database.DB.Delete(&models.SiteContent{}, id).Error; err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"error": "Failed to delete content",
+		})
+	}
+
+	return c.JSON(fiber.Map{
+		"message": "Content deleted successfully",
+	})
+}
+
+// UploadSiteContentAsset uploads an image and stores it as site content
+func UploadSiteContentAsset(c *fiber.Ctx) error {
+	form, err := c.MultipartForm()
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": "Failed to parse form",
+		})
+	}
+
+	files := form.File["image"]
+	if len(files) == 0 {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": "Image file is required",
+		})
+	}
+
+	file := files[0]
+	key := c.FormValue("key")
+	section := c.FormValue("section")
+	language := c.FormValue("language")
+	contentType := c.FormValue("type")
+
+	if key == "" || section == "" {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": "Key and section are required",
+		})
+	}
+
+	if language == "" {
+		language = "fr"
+	}
+
+	if contentType == "" {
+		contentType = "image"
+	}
+
+	ext := strings.ToLower(filepath.Ext(file.Filename))
+	if ext != ".jpg" && ext != ".jpeg" && ext != ".png" && ext != ".gif" && ext != ".webp" && ext != ".svg" {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": "Invalid file type. Allowed: jpg, jpeg, png, gif, webp, svg",
+		})
+	}
+
+	uploadDir := "./uploads/content"
+	if err := os.MkdirAll(uploadDir, 0755); err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"error": "Failed to create upload directory",
+		})
+	}
+
+	filename := fmt.Sprintf("%d%s", time.Now().UnixNano(), ext)
+	filePath := filepath.Join(uploadDir, filename)
+
+	if err := c.SaveFile(file, filePath); err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"error": "Failed to save image",
+		})
+	}
+
+	content, err := upsertSiteContent(key, "/uploads/content/"+filename, language, section, contentType)
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"error": "Failed to save content image",
+		})
+	}
+
+	return c.JSON(content)
+}
+
+func upsertSiteContent(key, value, language, section, contentType string) (*models.SiteContent, error) {
+	var content models.SiteContent
+	result := database.DB.Where("key = ? AND language = ?", key, language).First(&content)
+
+	if result.Error != nil {
+		content = models.SiteContent{
+			Key:      key,
+			Value:    value,
+			Language: language,
+			Section:  section,
+			Type:     contentType,
+		}
+		if err := database.DB.Create(&content).Error; err != nil {
+			return nil, err
+		}
+		return &content, nil
+	}
+
+	content.Value = value
+	content.Section = section
+	content.Type = contentType
+	if err := database.DB.Save(&content).Error; err != nil {
+		return nil, err
+	}
+
+	return &content, nil
 }
 
 // GetDashboardStats returns dashboard statistics

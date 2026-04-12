@@ -5,20 +5,19 @@
     <!-- Luxury Hero Section -->
     <section class="hero-luxury">
       <div class="hero-image-container">
-        <!-- Using a high-fashion, clean event image -->
-        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=1920" alt="Luxury Event" class="hero-img" />
+        <img :src="heroImage" alt="Luxury Event" class="hero-img" />
         <div class="hero-overlay"></div>
       </div>
       
       <div class="hero-content text-center" v-motion-fade-visible>
-        <span class="hero-pretitle">{{ t('home.hero.pretitle') }}</span>
-        <h1 class="hero-title">{{ t('home.hero.title') }}</h1>
+        <span class="hero-pretitle">{{ getContent('home_hero_pretitle', t('home.hero.pretitle')) }}</span>
+        <h1 class="hero-title">{{ getContent('home_hero_title', t('home.hero.title')) }}</h1>
         <div class="hero-divider"></div>
         <p class="hero-subtitle">
-          {{ t('home.hero.subtitle') }}
+          {{ getContent('home_hero_subtitle', t('home.hero.subtitle')) }}
         </p>
         <Button variant="white" size="lg" @click="$router.push('/services')">
-          {{ t('home.hero.cta') }}
+          {{ getContent('home_hero_cta_label', t('home.hero.cta')) }}
         </Button>
       </div>
     </section>
@@ -26,11 +25,11 @@
     <!-- Welcome Section (Clean White) -->
     <section class="section-clean">
       <div class="container container-narrow text-center">
-        <h2 class="section-title">{{ t('home.welcome.title') }}</h2>
+        <h2 class="section-title">{{ getContent('home_welcome_title', t('home.welcome.title')) }}</h2>
         <p class="section-text">
-          {{ t('home.welcome.text') }}
+          {{ getContent('home_welcome_text', t('home.welcome.text')) }}
         </p>
-        <div class="signature">{{ t('home.welcome.signature') }}</div>
+        <div class="signature">{{ getContent('home_welcome_signature', t('home.welcome.signature')) }}</div>
       </div>
     </section>
 
@@ -40,12 +39,11 @@
         <div class="services-grid">
           <div class="service-widget" v-for="service in services" :key="service.id">
             <div class="widget-icon">
-              <!-- Dynamic Icon Component -->
               <component :is="service.icon" stroke-width="1" />
             </div>
             <h3>{{ service.title }}</h3>
             <p>{{ service.description }}</p>
-            <a @click="$router.push('/services')" class="link-luxury">{{ t('home.services.more') }}</a>
+            <a @click="$router.push('/services')" class="link-luxury">{{ getContent('home_services_more', t('home.services.more')) }}</a>
           </div>
         </div>
       </div>
@@ -56,9 +54,9 @@
       <div class="quote-content">
         <Quote class="quote-icon" />
         <blockquote>
-          {{ t('home.quote.text') }}
+          {{ getContent('home_quote_text', t('home.quote.text')) }}
         </blockquote>
-        <cite>{{ t('home.quote.author') }}</cite>
+        <cite>{{ getContent('home_quote_author', t('home.quote.author')) }}</cite>
       </div>
     </section>
 
@@ -77,41 +75,45 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { Crown, Heart, PartyPopper, Quote, Instagram } from 'lucide-vue-next'
 import Header from '../../components/Header.vue'
 import Footer from '../../components/Footer.vue'
 import Button from '../../components/ui/Button.vue'
+import { useSiteContent } from '../../composables/useSiteContent'
 
 const { t } = useI18n()
+const { getContent, getImage } = useSiteContent('home')
+
+const heroImage = computed(() => getImage('home_hero_image', 'https://images.unsplash.com/photo-1519741497674-611481863552?w=1920'))
 
 const services = computed(() => [
   {
     id: 1,
     icon: Heart,
-    title: t('home.services.wedding.title'),
-    description: t('home.services.wedding.description')
+    title: getContent('home_service_1_title', t('home.services.wedding.title')),
+    description: getContent('home_service_1_description', t('home.services.wedding.description'))
   },
   {
     id: 2,
     icon: Crown,
-    title: t('home.services.corporate.title'),
-    description: t('home.services.corporate.description')
+    title: getContent('home_service_2_title', t('home.services.corporate.title')),
+    description: getContent('home_service_2_description', t('home.services.corporate.description'))
   },
   {
     id: 3,
     icon: PartyPopper,
-    title: t('home.services.celebrations.title'),
-    description: t('home.services.celebrations.description')
+    title: getContent('home_service_3_title', t('home.services.celebrations.title')),
+    description: getContent('home_service_3_description', t('home.services.celebrations.description'))
   }
 ])
 
-const galleryImages = ref([
-  'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=600',
-  'https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=600',
-  'https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600',
-  'https://images.unsplash.com/photo-1519741497674-611481863552?w=600'
+const galleryImages = computed(() => [
+  getImage('home_gallery_image_1', 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=600'),
+  getImage('home_gallery_image_2', 'https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=600'),
+  getImage('home_gallery_image_3', 'https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600'),
+  getImage('home_gallery_image_4', 'https://images.unsplash.com/photo-1519741497674-611481863552?w=600')
 ])
 </script>
 

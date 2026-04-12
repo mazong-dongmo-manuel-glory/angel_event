@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"fmt"
+	"strings"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
@@ -36,6 +37,39 @@ func SubmitContactForm(c *fiber.Ctx) error {
 	return c.JSON(fiber.Map{
 		"message": "Message sent successfully",
 	})
+}
+
+// GetPublicSiteContent returns editable public site content for the selected language
+func GetPublicSiteContent(c *fiber.Ctx) error {
+	var content []models.SiteContent
+
+	query := database.DB
+
+	if section := c.Query("section"); section != "" {
+		sections := strings.Split(section, ",")
+		for i := range sections {
+			sections[i] = strings.TrimSpace(sections[i])
+		}
+
+		if len(sections) == 1 {
+			query = query.Where("section = ?", sections[0])
+		} else {
+			query = query.Where("section IN ?", sections)
+		}
+	}
+
+	language := c.Query("language", "fr")
+	if language != "" {
+		query = query.Where("language = ?", language)
+	}
+
+	if err := query.Order("section ASC, key ASC").Find(&content).Error; err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"error": "Failed to fetch public content",
+		})
+	}
+
+	return c.JSON(content)
 }
 
 // GetPublicAvailabilities returns availability calendar for public
@@ -104,10 +138,10 @@ func GetRandomGalleryImages(c *fiber.Ctx) error {
 // getDefaultGalleryImage returns the default image for a gallery category
 func getDefaultGalleryImage(category string) string {
 	defaults := map[string]string{
-		"wedding":     "/storage/weeding/photo_2026-01-10%2001.28.47.jpeg",
+		"wedding":     "/storage/wedding/photo_2026-01-10%2001.28.47.jpeg",
 		"marryme":     "/storage/marryme/photo_2026-01-10%2001.21.31.jpeg",
 		"birthday":    "/storage/birthday/photo_2026-01-10%2001.17.18.jpeg",
-		"baby_shower": "/storage/baby%20shower/photo_2026-01-10%2001.34.18.jpeg",
+		"baby_shower": "/storage/baby_shower/photo_2026-01-10%2001.34.18.jpeg",
 		"bapteme":     "/storage/bapteme/photo_2026-01-10%2001.31.37.jpeg",
 		"loveroom":    "/storage/loveroom/photo_2026-01-10%2001.33.08.jpeg",
 		"congrats":    "/storage/congrats/photo_2026-01-10%2001.25.09.jpeg",

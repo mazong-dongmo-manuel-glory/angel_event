@@ -100,6 +100,24 @@ func CreateBooking(c *fiber.Ctx) error {
 				"error": "Failed to fetch rental items",
 			})
 		}
+
+		// Check stock availability for each item
+		for _, item := range rentalItems {
+			var count int64
+			database.DB.Table("booking_rental_items").
+				Joins("join bookings on bookings.id = booking_rental_items.booking_id").
+				Where("booking_rental_items.rental_item_id = ?", item.ID).
+				Where("bookings.event_date = ?", eventDate.Format("2006-01-02")).
+				Where("bookings.status != ?", models.BookingStatusCancelled).
+				Count(&count)
+
+			if count >= int64(item.Stock) {
+				return c.Status(fiber.StatusConflict).JSON(fiber.Map{
+					"error": fmt.Sprintf("L'article '%s' n'est plus disponible pour cette date (stock épuisé).", item.Title),
+				})
+			}
+		}
+
 		booking.RentalItems = rentalItems
 	}
 

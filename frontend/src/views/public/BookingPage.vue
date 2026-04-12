@@ -1,7 +1,7 @@
 <template>
   <div class="booking-page">
     <Header />
-    
+
     <div class="booking-container">
       <div class="container container-narrow">
         <div class="booking-header fade-in-up">
@@ -9,8 +9,48 @@
           <p class="subtitle">{{ t('booking.subtitle') }}</p>
         </div>
 
+        <div v-if="hasRentalSelection" class="selected-rentals-panel fade-in-up">
+          <div class="selected-rentals-header">
+            <div>
+              <p class="cart-kicker">{{ t('booking.cart.kicker') }}</p>
+              <h2>{{ t('booking.cart.title') }}</h2>
+              <p>{{ t('booking.cart.count', { count: cartCount }) }}</p>
+            </div>
+
+            <Button variant="outline" size="sm" @click="goToRentals">
+              {{ t('booking.cart.add_more') }}
+            </Button>
+          </div>
+
+          <div class="selected-rentals-list">
+            <div v-for="item in cartItems" :key="item.id" class="selected-rental-item">
+              <img
+                :src="getImageWithFallback(item.image_url, 'rental', item.category?.slug || item.category_enum)"
+                :alt="item.title"
+                class="rental-img"
+                loading="lazy"
+              />
+
+              <div class="rental-details">
+                <h4>{{ item.title }}</h4>
+                <p>{{ item.category?.name || t('booking.cart.generic_item') }}</p>
+              </div>
+
+              <strong class="rental-price">{{ formatPrice(item.price) }}</strong>
+
+              <button class="remove-rental-btn" type="button" @click="removeRentalItem(item.id)">
+                {{ t('booking.cart.remove') }}
+              </button>
+            </div>
+          </div>
+
+          <div class="selected-rentals-footer">
+            <span>{{ t('booking.cart.total') }}</span>
+            <strong>{{ formatPrice(cartTotal) }}</strong>
+          </div>
+        </div>
+
         <div v-if="!bookingComplete" class="booking-wizard">
-          <!-- Step Indicator -->
           <div class="steps-indicator">
             <div
               v-for="(step, index) in steps"
@@ -26,7 +66,6 @@
             </div>
           </div>
 
-          <!-- Step 1: Date Selection -->
           <div v-show="currentStep === 0" class="step-content fade-in">
             <CalendarPicker
               v-model="formData.event_date"
@@ -34,23 +73,18 @@
               :subtitle="t('booking.step1.subtitle')"
               @date-selected="handleDateSelected"
             />
-            
+
             <div class="step-actions">
-              <Button
-                size="lg"
-                :disabled="!formData.event_date"
-                @click="nextStep"
-              >
+              <Button size="lg" :disabled="!formData.event_date" @click="nextStep">
                 {{ t('booking.step1.continue') }}
               </Button>
             </div>
           </div>
 
-          <!-- Step 2: Event Details -->
           <div v-show="currentStep === 1" class="step-content fade-in">
             <div class="form-card">
               <h3>{{ t('booking.step2.title') }}</h3>
-              
+
               <div class="form-row">
                 <div class="form-group">
                   <label for="event-type">{{ t('booking.step2.type') }}</label>
@@ -58,12 +92,14 @@
                     <option value="">{{ t('booking.step2.select') }}</option>
                     <option value="proposal">💍 {{ t('testimonials.types.proposal') }}</option>
                     <option value="wedding">💐 {{ t('testimonials.types.wedding') }}</option>
+                    <option value="baptism">🕊️ {{ t('testimonials.types.baptism') }}</option>
                     <option value="birthday">🎂 {{ t('testimonials.types.birthday') }}</option>
                     <option value="baby_shower">👶 {{ t('testimonials.types.baby_shower') }}</option>
                     <option value="corporate">🏢 {{ t('testimonials.types.corporate') }}</option>
                     <option value="other">✨ {{ t('testimonials.types.other') }}</option>
                   </select>
                 </div>
+
                 <div class="form-group">
                   <label for="guests">{{ t('booking.step2.guests') }}</label>
                   <input
@@ -92,11 +128,14 @@
                   id="budget"
                   v-model.number="formData.budget"
                   type="number"
-                  min="500"
+                  :min="hasRentalSelection ? Math.ceil(cartTotal) : 500"
                   step="100"
                   required
                   placeholder="Ex: 5000"
                 />
+                <small v-if="hasRentalSelection" class="budget-info">
+                  {{ t('booking.cart.budget_hint', { amount: formatPrice(cartTotal) }) }}
+                </small>
                 <small v-if="depositAmount > 0" class="budget-info">
                   {{ t('booking.step2.deposit', { amount: depositAmount }) }}
                 </small>
@@ -117,21 +156,16 @@
               <Button variant="ghost" @click="prevStep">
                 {{ t('gallery.prev') || 'Retour' }}
               </Button>
-              <Button
-                size="lg"
-                :disabled="!formData.event_type || !formData.budget"
-                @click="nextStep"
-              >
+              <Button size="lg" :disabled="!formData.event_type || !formData.budget" @click="nextStep">
                 {{ t('booking.step1.continue') }}
               </Button>
             </div>
           </div>
 
-          <!-- Step 3: Personal Information -->
           <div v-show="currentStep === 2" class="step-content fade-in">
             <div class="form-card">
               <h3>{{ t('booking.step3.title') }}</h3>
-              
+
               <div class="form-row">
                 <div class="form-group">
                   <label for="name">{{ t('booking.step3.name') }}</label>
@@ -143,6 +177,7 @@
                     placeholder="Jean Dupont"
                   />
                 </div>
+
                 <div class="form-group">
                   <label for="email">{{ t('booking.step3.email') }}</label>
                   <input
@@ -180,21 +215,16 @@
               <Button variant="ghost" @click="prevStep">
                 {{ t('gallery.prev') || 'Retour' }}
               </Button>
-              <Button
-                size="lg"
-                :disabled="!formData.name || !formData.email"
-                @click="nextStep"
-              >
+              <Button size="lg" :disabled="!formData.name || !formData.email" @click="nextStep">
                 {{ t('booking.step1.continue') }}
               </Button>
             </div>
           </div>
 
-          <!-- Step 4: Confirmation & Payment -->
           <div v-show="currentStep === 3" class="step-content fade-in">
             <div class="booking-summary">
               <h3>{{ t('booking.step4.title') }}</h3>
-              
+
               <div class="summary-section">
                 <h4>{{ t('booking.step4.section_date') }}</h4>
                 <p><strong>{{ t('booking.steps.date') }}:</strong> {{ formatDate(formData.event_date) }}</p>
@@ -210,18 +240,42 @@
                 <p v-if="formData.phone"><strong>{{ t('booking.step3.phone') }}:</strong> {{ formData.phone }}</p>
               </div>
 
+              <div v-if="hasRentalSelection" class="summary-section rental-card-summary">
+                <h4>{{ t('booking.cart.summary_title') }}</h4>
+
+                <div v-for="item in cartItems" :key="item.id" class="selected-rental-item compact">
+                  <img
+                    :src="getImageWithFallback(item.image_url, 'rental', item.category?.slug || item.category_enum)"
+                    :alt="item.title"
+                    class="rental-img"
+                    loading="lazy"
+                  />
+
+                  <div class="rental-details">
+                    <h4>{{ item.title }}</h4>
+                    <p>{{ item.category?.name || t('booking.cart.generic_item') }}</p>
+                  </div>
+
+                  <strong class="rental-price">{{ formatPrice(item.price) }}</strong>
+                </div>
+              </div>
+
               <div class="summary-section payment-section">
                 <h4>{{ t('booking.step4.section_payment') }}</h4>
                 <div class="payment-details">
                   <div class="payment-row">
                     <span>{{ t('booking.step4.total') }}</span>
-                    <strong>{{ formData.budget }} CAD</strong>
+                    <strong>{{ formatPrice(formData.budget) }}</strong>
                   </div>
 
-                  
-                  <div v-if="selectedRentalItem" class="payment-row">
-                    <span>{{ t('booking.step4.item_prefix') }} ({{ selectedRentalItem.title }}):</span>
-                    <strong>{{ formatPrice(selectedRentalItem.price) }}</strong>
+                  <div v-if="hasRentalSelection" class="payment-row">
+                    <span>{{ t('booking.cart.items_total') }}</span>
+                    <strong>{{ formatPrice(cartTotal) }}</strong>
+                  </div>
+
+                  <div v-if="hasRentalSelection" class="payment-row">
+                    <span>{{ t('booking.cart.count', { count: cartCount }) }}</span>
+                    <strong>{{ cartCount }}</strong>
                   </div>
                 </div>
                 <p class="payment-note">
@@ -238,25 +292,20 @@
               <Button variant="ghost" @click="prevStep">
                 {{ t('gallery.prev') || 'Retour' }}
               </Button>
-              <Button
-                size="lg"
-                :loading="loading"
-                @click="handleSubmit"
-              >
+              <Button size="lg" :loading="loading" @click="handleSubmit">
                 {{ loading ? t('booking.step4.processing') : t('booking.step4.confirm') }}
               </Button>
             </div>
           </div>
         </div>
 
-        <!-- Success Message -->
         <div v-else class="booking-success fade-in">
           <div class="success-icon">✓</div>
           <h2>{{ t('booking.success.title') }}</h2>
           <p>{{ t('booking.success.msg1') }}</p>
           <p>{{ t('booking.success.msg2', { email: formData.email }) }}</p>
           <p>{{ t('booking.success.msg3') }}</p>
-          <Button size="lg" @click="$router.push('/')">{{ t('booking.success.home') }}</Button>
+          <Button size="lg" @click="router.push('/')">{{ t('booking.success.home') }}</Button>
         </div>
       </div>
     </div>
@@ -266,27 +315,34 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
+import { computed, onMounted, ref, watch } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import Header from '../../components/Header.vue'
 import Footer from '../../components/Footer.vue'
 import Button from '../../components/ui/Button.vue'
 import CalendarPicker from '../../components/CalendarPicker.vue'
 import api from '../../services/api'
+import { getImageWithFallback } from '../../config/defaultImages'
+import { useRentalCartStore } from '../../stores/rentalCart'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
+const router = useRouter()
+const route = useRoute()
+const rentalCartStore = useRentalCartStore()
+const { cartItems, cartCount, cartItemIds, cartTotal } = storeToRefs(rentalCartStore)
+
 const currentStep = ref(0)
 const loading = ref(false)
 const error = ref(null)
 const bookingComplete = ref(false)
-const selectedRentalItem = ref(null)
 
 const steps = computed(() => [
   { id: 1, label: t('booking.steps.date') },
   { id: 2, label: t('booking.steps.event') },
   { id: 3, label: t('booking.steps.details') },
-  { id: 4, label: t('booking.steps.confirm') }
+  { id: 4, label: t('booking.steps.confirm') },
 ])
 
 const formData = ref({
@@ -299,37 +355,55 @@ const formData = ref({
   guest_count: null,
   budget: null,
   message: '',
-  special_requests: ''
+  special_requests: '',
 })
+
+const hasRentalSelection = computed(() => cartCount.value > 0)
 
 const depositAmount = computed(() => {
   return formData.value.budget ? (formData.value.budget * 0.3).toFixed(2) : 0
 })
 
-const route = useRoute()
-
 onMounted(async () => {
-  if (route.query.rental_item_id) {
-    try {
-      // In a real app we'd fetch the item. For now, we'll need an endpoint or store.
-      // Since we don't have a public "get single item" endpoint, we'll fetch all and find it.
-      // Optimization: Add GET /public/rentals/:id later
-      const res = await api.get('/public/rentals')
-      selectedRentalItem.value = res.data.find(i => i.id === parseInt(route.query.rental_item_id))
-    } catch (err) {
-      console.error('Failed to load rental item', err)
+  try {
+    const response = await api.get('/public/rentals')
+    const rentals = response.data || []
+    rentalCartStore.syncCatalog(rentals)
+
+    if (route.query.rental_item_id) {
+      const requestedId = Number.parseInt(route.query.rental_item_id, 10)
+      const selectedItem = rentals.find((item) => item.id === requestedId)
+
+      if (selectedItem) {
+        rentalCartStore.addItem(selectedItem)
+      }
     }
+  } catch (err) {
+    console.error('Failed to load rental items', err)
+  }
+
+  if (hasRentalSelection.value && !formData.value.event_type) {
+    formData.value.event_type = 'other'
   }
 })
 
+watch(
+  cartTotal,
+  (total) => {
+    if (total > 0 && (!formData.value.budget || formData.value.budget < total)) {
+      formData.value.budget = Number(total.toFixed(2))
+    }
+  },
+  { immediate: true }
+)
+
 function formatPrice(price) {
-  return new Intl.NumberFormat(t.locale || 'fr-CA', { style: 'currency', currency: 'CAD' }).format(price)
+  const activeLocale = locale.value === 'en' ? 'en-CA' : 'fr-CA'
+  return new Intl.NumberFormat(activeLocale, { style: 'currency', currency: 'CAD' }).format(price || 0)
 }
 
 function handleDateSelected(data) {
-  console.log('Date selected:', data)
   formData.value.event_date = data.date
-  console.log('formData.event_date:', formData.value.event_date)
 }
 
 function nextStep() {
@@ -347,11 +421,15 @@ function prevStep() {
 }
 
 function formatDate(date) {
-  if (!date) return ''
-  return new Date(date).toLocaleDateString(t.locale || 'fr-CA', {
+  if (!date) {
+    return ''
+  }
+
+  const activeLocale = locale.value === 'en' ? 'en-CA' : 'fr-CA'
+  return new Date(date).toLocaleDateString(activeLocale, {
     year: 'numeric',
     month: 'long',
-    day: 'numeric'
+    day: 'numeric',
   })
 }
 
@@ -361,10 +439,20 @@ function getEventTypeLabel(type) {
     wedding: t('testimonials.types.wedding'),
     birthday: t('testimonials.types.birthday'),
     baby_shower: t('testimonials.types.baby_shower'),
+    baptism: t('testimonials.types.baptism'),
     corporate: t('testimonials.types.corporate'),
-    other: t('testimonials.types.other')
+    other: t('testimonials.types.other'),
   }
+
   return types[type] || type
+}
+
+function removeRentalItem(itemId) {
+  rentalCartStore.removeItem(itemId)
+}
+
+function goToRentals() {
+  router.push({ name: 'rentals' })
 }
 
 async function handleSubmit() {
@@ -372,12 +460,17 @@ async function handleSubmit() {
   error.value = null
 
   try {
-    // Create booking
-    const payload = { ...formData.value, language: t.locale.value }
-    if (selectedRentalItem.value) {
-      payload.rental_item_ids = [selectedRentalItem.value.id]
+    const payload = {
+      ...formData.value,
+      language: locale.value,
     }
+
+    if (cartItemIds.value.length > 0) {
+      payload.rental_item_ids = cartItemIds.value
+    }
+
     await api.post('/public/bookings', payload)
+    rentalCartStore.clearCart()
     bookingComplete.value = true
   } catch (err) {
     error.value = err.response?.data?.error || 'Une erreur est survenue. Veuillez réessayer.'
@@ -412,7 +505,63 @@ async function handleSubmit() {
   color: var(--color-gray);
 }
 
-/* Steps Indicator */
+.selected-rentals-panel {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.96) 0%, rgba(247, 231, 206, 0.92) 100%);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  padding: var(--spacing-2xl);
+  margin-bottom: var(--spacing-3xl);
+}
+
+.selected-rentals-header {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--spacing-xl);
+  align-items: flex-start;
+  margin-bottom: var(--spacing-xl);
+}
+
+.cart-kicker {
+  margin-bottom: var(--spacing-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: var(--font-size-xs);
+  color: var(--color-gold);
+}
+
+.selected-rentals-header h2 {
+  margin-bottom: var(--spacing-xs);
+  font-size: var(--font-size-2xl);
+}
+
+.selected-rentals-header p {
+  color: var(--color-gray);
+  margin: 0;
+}
+
+.selected-rentals-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.selected-rentals-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid rgba(212, 175, 55, 0.2);
+  color: var(--color-gray);
+}
+
+.selected-rentals-footer strong {
+  color: var(--color-gold);
+  font-size: var(--font-size-xl);
+}
+
 .steps-indicator {
   display: flex;
   justify-content: space-between;
@@ -478,7 +627,6 @@ async function handleSubmit() {
   color: var(--color-gold);
 }
 
-/* Step Content */
 .step-content {
   animation: fadeIn 0.3s ease-in;
 }
@@ -546,7 +694,6 @@ async function handleSubmit() {
   color: var(--color-gold);
 }
 
-/* Booking Summary */
 .booking-summary {
   background: white;
   padding: var(--spacing-3xl);
@@ -598,13 +745,7 @@ async function handleSubmit() {
   justify-content: space-between;
   align-items: center;
   padding: var(--spacing-sm) 0;
-}
-
-.payment-row.highlight {
-  padding: var(--spacing-md);
-  background: white;
-  border-radius: var(--radius-md);
-  font-size: var(--font-size-lg);
+  gap: var(--spacing-md);
 }
 
 .payment-note {
@@ -623,6 +764,13 @@ async function handleSubmit() {
   display: flex;
   gap: var(--spacing-lg);
   align-items: center;
+  background: rgba(255, 255, 255, 0.86);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md);
+}
+
+.selected-rental-item.compact {
+  padding: var(--spacing-sm);
 }
 
 .rental-img {
@@ -632,14 +780,26 @@ async function handleSubmit() {
   border-radius: var(--radius-md);
 }
 
+.selected-rental-item.compact .rental-img {
+  width: 72px;
+  height: 72px;
+}
+
 .rental-details h4 {
   font-weight: bold;
   color: var(--color-charcoal);
+  margin-bottom: 4px;
+}
+
+.rental-details p {
+  margin: 0;
+  color: var(--color-gray);
 }
 
 .rental-price {
   color: var(--color-gold);
   font-weight: bold;
+  margin-left: auto;
 }
 
 .remove-rental-btn {
@@ -652,7 +812,6 @@ async function handleSubmit() {
   margin-left: auto;
 }
 
-/* Step Actions */
 .step-actions {
   display: flex;
   gap: var(--spacing-lg);
@@ -660,7 +819,6 @@ async function handleSubmit() {
   margin-top: var(--spacing-2xl);
 }
 
-/* Success State */
 .booking-success {
   text-align: center;
   background: white;
@@ -706,24 +864,44 @@ async function handleSubmit() {
 }
 
 @media (max-width: 768px) {
+  .selected-rentals-header {
+    flex-direction: column;
+  }
+
   .steps-indicator {
     flex-wrap: wrap;
   }
-  
+
   .step-label {
     font-size: var(--font-size-xs);
   }
-  
+
   .form-card {
     padding: var(--spacing-xl);
   }
-  
+
   .form-row {
     grid-template-columns: 1fr;
   }
-  
+
   .step-actions {
     flex-direction: column;
+  }
+
+  .selected-rental-item {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .rental-price,
+  .remove-rental-btn {
+    margin-left: 0;
+  }
+
+  .payment-row,
+  .selected-rentals-footer {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 </style>

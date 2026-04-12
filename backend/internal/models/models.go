@@ -40,6 +40,7 @@ const (
 	EventTypeBirthday   EventType = "birthday"
 	EventTypeBabyShower EventType = "baby_shower"
 	EventTypeCorporate  EventType = "corporate"
+	EventTypeBaptism    EventType = "baptism"
 	EventTypeOther      EventType = "other"
 )
 
@@ -154,10 +155,11 @@ type SiteContent struct {
 	CreatedAt time.Time      `json:"created_at"`
 	UpdatedAt time.Time      `json:"updated_at"`
 	DeletedAt gorm.DeletedAt `gorm:"index" json:"-"`
-	Key       string         `gorm:"uniqueIndex;not null" json:"key"`
+	Key       string         `gorm:"uniqueIndex:idx_site_content_key_language;not null" json:"key"`
 	Value     string         `gorm:"type:text;not null" json:"value"`
-	Language  string         `gorm:"default:'fr'" json:"language"`
+	Language  string         `gorm:"uniqueIndex:idx_site_content_key_language;default:'fr'" json:"language"`
 	Section   string         `json:"section"` // home, services, about, etc.
+	Type      string         `gorm:"default:'text'" json:"type"`
 }
 
 // EmailLog represents sent emails for tracking
@@ -212,4 +214,5 @@ type RentalItem struct {
 	ImageURL     string         `gorm:"not null" json:"image_url"`
 	Featured     bool           `gorm:"default:false" json:"featured"`
 	Available    bool           `gorm:"default:true" json:"available"`
+	Stock        int            `gorm:"default:1" json:"stock"`
 }

@@ -35,7 +35,7 @@
         },
         "welcome": {
             "title": "Welcome to Angel Event",
-            "text": "We specialize in creating unique and memorable events, custom-designed to reflect your style and personality.",
+            "text": "We specialize in creating memorable private and corporate events, custom-designed to reflect your style and personality.",
             "signature": "The Angel Event Team"
         },
         "services": {
@@ -66,7 +66,7 @@
         "story": {
             "title": "Who are we?",
             "p1": "Angel Event was born from a passion for the art of hosting and celebrating life's important moments.",
-            "p2": "We believe in the magic of details and the importance of creating lasting memories for our clients.",
+            "p2": "We specialize in planning private and corporate events, crafting refined experiences and lasting memories for our clients.",
             "p3": "Your satisfaction is our absolute priority, and we strive to exceed your expectations."
         },
         "values": {
@@ -117,59 +117,59 @@
     "services_page": {
         "hero": {
             "title": "Our Services",
-            "subtitle": "A complete offer for all your event needs"
+            "subtitle": "Wedding, proposal, baptism, birthday, and baby shower experiences designed with elegance"
         },
         "list": {
             "cta": "BOOK THIS SERVICE",
+            "wedding": {
+                "title": "Wedding",
+                "desc": "An exclusive wedding service with a dedicated Event Planner approach to orchestrate a memorable, seamless, and refined day.",
+                "f1": "Custom concept and ambiance",
+                "f2": "Ceremony and reception styling",
+                "f3": "Full Event Planner guidance",
+                "f4": "Vendor coordination",
+                "f5": "Elegant event setup",
+                "f6": "On-site support on the big day"
+            },
             "proposal": {
                 "title": "Marriage Proposal",
-                "desc": "The beginning of your love story deserves a magical setting.",
-                "f1": "Romantic location scouting",
-                "f2": "Luxury floral decoration",
-                "f3": "Professional photographer",
-                "f4": "Musical ambiance",
-                "f5": "On-site coordination",
-                "f6": "Champagne and celebration"
+                "desc": "A romantic and personalized setup that turns your proposal into an unforgettable moment.",
+                "f1": "Romantic venue scouting",
+                "f2": "Signature decor and florals",
+                "f3": "Lighting for the perfect moment",
+                "f4": "Photographer or videographer",
+                "f5": "Discreet setup and coordination",
+                "f6": "Celebration ambiance after the big yes"
             },
-            "decor": {
-                "title": "Decoration & Design",
-                "desc": "Enhance your venue with our event design expertise.",
-                "f1": "Floral arches",
-                "f2": "Centerpieces",
-                "f3": "Ambient lighting",
-                "f4": "Drapery and textiles",
-                "f5": "Event furniture",
-                "f6": "Table accessories"
+            "baptism": {
+                "title": "Baptism",
+                "desc": "A soft and harmonious celebration to mark this precious moment surrounded by family and loved ones.",
+                "f1": "Delicate and elegant palette",
+                "f2": "Table decor and dessert corner",
+                "f3": "Balloons, florals, and signage",
+                "f4": "Photo-friendly keepsake setup",
+                "f5": "Warm family atmosphere",
+                "f6": "Decor and flow coordination"
             },
-            "planning": {
-                "title": "Full Planning",
-                "desc": "Enjoy your event with total peace of mind, we handle everything.",
-                "f1": "Budget management",
-                "f2": "Detailed timeline",
-                "f3": "Vendor selection",
-                "f4": "Day-of coordination",
-                "f5": "Rigorous follow-up",
-                "f6": "Expert advice"
-            }
-        },
-        "process": {
-            "title": "Our Process",
-            "subtitle": "A simple and transparent approach",
-            "s1": {
-                "title": "Consultation",
-                "desc": "We discuss your needs and vision."
+            "birthday": {
+                "title": "Birthday",
+                "desc": "Custom birthday celebrations, chic, festive, or intimate, designed to reflect your personality and create a standout experience.",
+                "f1": "Personalized theme direction",
+                "f2": "Venue or at-home decor",
+                "f3": "Dessert table styling",
+                "f4": "Photo corner and visual moments",
+                "f5": "Adult or kids ambiance",
+                "f6": "Turnkey installation"
             },
-            "s2": {
-                "title": "Proposal",
-                "desc": "We create a custom plan for your event."
-            },
-            "s3": {
-                "title": "Planning",
-                "desc": "We orchestrate every detail with care."
-            },
-            "s4": {
-                "title": "Realization",
-                "desc": "On the day, we are there to manage everything. You enjoy!"
+            "baby_shower": {
+                "title": "Baby Shower",
+                "desc": "A soft and stylish baby shower to celebrate this beautiful season in a warm and refined atmosphere.",
+                "f1": "Gentle and personalized concept",
+                "f2": "Balloon arch and florals",
+                "f3": "Coordinated dessert table",
+                "f4": "Gift and memory corner",
+                "f5": "Styling tailored to your space",
+                "f6": "Careful installation and finishing touches"
             }
         },
         "cta": {
@@ -204,7 +204,19 @@
         "loading": "Loading items...",
         "featured": "Popular",
         "book_btn": "Book this item",
-        "empty": "No rental items found."
+        "add_btn": "Add to cart",
+        "remove_btn": "Remove from cart",
+        "in_cart": "In cart",
+        "empty": "No rental items found.",
+        "cart": {
+            "kicker": "Your selection",
+            "title": "Rental cart",
+            "count": "{count} item(s) selected",
+            "total": "Estimated total",
+            "remove": "Remove",
+            "clear": "Clear cart",
+            "checkout": "Confirm reservation"
+        }
     },
     "contact": {
         "title": "Contact Us",
@@ -260,6 +272,7 @@
         "types": {
             "proposal": "Marriage Proposal",
             "wedding": "Wedding",
+            "baptism": "Baptism",
             "birthday": "Birthday",
             "baby_shower": "Baby Shower",
             "corporate": "Corporate Event",
@@ -311,6 +324,18 @@
             "processing": "Processing...",
             "confirm": "Confirm Booking"
         },
+        "cart": {
+            "kicker": "Selected items",
+            "title": "Your rental cart",
+            "count": "{count} item(s) ready to book",
+            "add_more": "Add more items",
+            "remove": "Remove",
+            "total": "Estimated cart total",
+            "items_total": "Items amount",
+            "summary_title": "Items included in this booking",
+            "budget_hint": "The budget was prefilled from your cart: {amount}.",
+            "generic_item": "Rental item"
+        },
         "success": {
             "title": "Booking Confirmed!",
             "msg1": "Thank you for your trust. We have received your booking and payment.",
@@ -341,6 +366,7 @@
                 "category": "Category",
                 "choose_category": "Choose Category",
                 "description": "Description",
+                "stock": "Available Stock",
                 "make_featured": "Make Featured",
                 "available": "Available"
             },

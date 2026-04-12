@@ -5,18 +5,18 @@
         <!-- Brand Section -->
         <div class="footer-section brand-section">
           <div class="footer-brand">
-            <img src="/logo.jpeg" alt="Angel Event Logo" class="footer-logo-img" />
-            <h3 class="footer-logo">ANGEL EVENT</h3>
+            <img :src="logoUrl" :alt="`${brandName} Logo`" class="footer-logo-img" />
+            <h3 class="footer-logo">{{ brandName }}</h3>
           </div>
 
           <p class="footer-desc">
-            {{ $t('footer.desc') }}
+            {{ footerDescription }}
           </p>
           <div class="social-links">
-            <a href="https://www.instagram.com/angel_eventt/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <a :href="instagramUrl" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
               <Instagram class="icon" />
             </a>
-            <a href="https://www.tiktok.com/@angel_eventt" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+            <a :href="tiktokUrl" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
               <TikTok class="icon" />
             </a>
           </div>
@@ -37,15 +37,15 @@
           <h4>{{ $t('footer.contact') }}</h4>
           <div class="contact-item">
             <Mail class="icon-xs" />
-            <span>contact@angelevent.com</span>
+            <span>{{ contactEmail }}</span>
           </div>
           <div class="contact-item">
             <Phone class="icon-xs" />
-            <span>+1 (819) 244-4702</span>
+            <span>{{ contactPhone }}</span>
           </div>
           <div class="contact-item">
             <MapPin class="icon-xs" />
-            <span>Trois-Rivieres, QC</span>
+            <span>{{ contactLocation }}</span>
           </div>
         </div>
 
@@ -79,16 +79,26 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { Instagram, Mail, Phone, MapPin, ArrowRight } from 'lucide-vue-next'
 import TikTok from './icons/TikTok.vue'
 import api from '../services/api'
 import i18n from '../i18n'
+import { useSiteContent } from '../composables/useSiteContent'
 
 const { t } = useI18n()
+const { getContent, getImage } = useSiteContent('global')
 const email = ref('')
+const logoUrl = computed(() => getImage('site_logo_url', '/logo.jpeg'))
+const brandName = computed(() => getContent('site_brand_name', 'ANGEL EVENT'))
+const footerDescription = computed(() => getContent('footer_description', t('footer.desc')))
+const contactEmail = computed(() => getContent('site_contact_email', 'contact@angelevent.com'))
+const contactPhone = computed(() => getContent('site_contact_phone', '+1 (819) 244-4702'))
+const contactLocation = computed(() => getContent('site_contact_location', 'Trois-Rivieres, QC'))
+const instagramUrl = computed(() => getContent('site_instagram_url', 'https://www.instagram.com/angel_eventt/'))
+const tiktokUrl = computed(() => getContent('site_tiktok_url', 'https://www.tiktok.com/@angel_eventt'))
 
 async function handleNewsletter() {
   try {

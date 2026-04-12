@@ -2,10 +2,10 @@
 export const DEFAULT_IMAGES = {
     // Gallery categories
     gallery: {
-        wedding: '/storage/weeding/photo_2026-01-10%2001.28.47.jpeg',
+        wedding: '/storage/wedding/photo_2026-01-10%2001.28.47.jpeg',
         marryme: '/storage/marryme/photo_2026-01-10%2001.21.31.jpeg',
         birthday: '/storage/birthday/photo_2026-01-10%2001.17.18.jpeg',
-        baby_shower: '/storage/baby%20shower/photo_2026-01-10%2001.34.18.jpeg',
+        baby_shower: '/storage/baby_shower/photo_2026-01-10%2001.34.18.jpeg',
         bapteme: '/storage/bapteme/photo_2026-01-10%2001.31.37.jpeg',
         loveroom: '/storage/loveroom/photo_2026-01-10%2001.33.08.jpeg',
         congrats: '/storage/congrats/photo_2026-01-10%2001.25.09.jpeg'

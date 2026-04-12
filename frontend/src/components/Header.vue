@@ -18,10 +18,10 @@
             <span>{{ locale === 'fr' ? 'EN' : 'FR' }}</span>
           </button>
           <div class="divider"></div>
-          <a href="https://www.instagram.com/angel_eventt/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <a :href="instagramUrl" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
             <Instagram class="icon-sm" />
           </a>
-          <a href="https://www.tiktok.com/@angel_eventt" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+          <a :href="tiktokUrl" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
             <TikTok class="icon-sm" />
           </a>
         </div>
@@ -33,11 +33,11 @@
       <div class="container brand-content">
         <RouterLink to="/" class="brand-logo">
           <div class="logo-icon-wrapper">
-             <img src="/logo.jpeg" alt="Angel Event Logo" class="logo-image" />
+             <img :src="logoUrl" :alt="`${brandName} Logo`" class="logo-image" />
           </div>
           <div class="brand-text">
-            <span class="brand-name">ANGEL EVENT</span>
-            <span class="brand-tagline">{{ t('nav.tagline') }}</span>
+            <span class="brand-name">{{ brandName }}</span>
+            <span class="brand-tagline">{{ brandTagline }}</span>
           </div>
         </RouterLink>
         
@@ -74,17 +74,25 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { computed, ref, onMounted, onUnmounted } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import { Search, Instagram, Menu, X, Globe } from 'lucide-vue-next'
+import { Instagram, Menu, X, Globe } from 'lucide-vue-next'
 import TikTok from './icons/TikTok.vue'
 import Button from './ui/Button.vue'
+import { useSiteContent } from '../composables/useSiteContent'
 
 const router = useRouter()
 const { t, locale } = useI18n()
+const { getContent, getImage } = useSiteContent('global')
 const isScrolled = ref(false)
 const mobileMenuOpen = ref(false)
+
+const logoUrl = computed(() => getImage('site_logo_url', '/logo.jpeg'))
+const brandName = computed(() => getContent('site_brand_name', 'ANGEL EVENT'))
+const brandTagline = computed(() => getContent('site_brand_tagline', t('nav.tagline')))
+const instagramUrl = computed(() => getContent('site_instagram_url', 'https://www.instagram.com/angel_eventt/'))
+const tiktokUrl = computed(() => getContent('site_tiktok_url', 'https://www.tiktok.com/@angel_eventt'))
 
 function toggleLanguage() {
   locale.value = locale.value === 'fr' ? 'en' : 'fr'
